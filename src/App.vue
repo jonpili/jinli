@@ -44,11 +44,116 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Rubik', 'Noto Sans JP', "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
+  }
+
+  $space-array: (
+    50: $basespace-50,
+    100: $basespace-100,
+    200: $basespace-200,
+    300: $basespace-300,
+    400: $basespace-400,
+    500: $basespace-500,
+    600: $basespace-600
+  );
+
+  @each $i, $space-name in $space-array {
+    .mt-#{$i} {
+      margin-top: $space-name;
+    }
+
+    .mr-#{$i} {
+      margin-right: $space-name;
+    }
+
+    .mb-#{$i} {
+      margin-bottom: $space-name;
+    }
+
+    .ml-#{$i} {
+      margin-left: $space-name;
+    }
+
+    .my-#{$i} {
+      margin-top: $space-name;
+      margin-bottom: $space-name;
+    }
+
+    .mx-#{$i} {
+      margin-right: $space-name;
+      margin-left: $space-name;
+    }
+
+    .pt-#{$i} {
+      padding-top: $space-name;
+    }
+
+    .pr-#{$i} {
+      padding-right: $space-name;
+    }
+
+    .pb-#{$i} {
+      padding-bottom: $space-name;
+    }
+
+    .pl-#{$i} {
+      padding-left: $space-name;
+    }
+
+    .py-#{$i} {
+      padding-top: $space-name;
+      padding-bottom: $space-name;
+    }
+
+    .px-#{$i} {
+      padding-right: $space-name;
+      padding-left: $space-name;
+    }
+  }
+
+  .mr-a {
+    margin-right: auto;
+  }
+
+  .ml-a {
+    margin-left: auto;
+  }
+
+  // FontSize
+  .fs-700 {
+    font-size: $fontsize-700;
+  }
+
+  .fs-600 {
+    font-size: $fontsize-600;
+  }
+
+  .fs-500 {
+    font-size: $fontsize-500;
+  }
+
+  .fs-400 {
+    font-size: $fontsize-400;
+  }
+
+  .fs-300 {
+    font-size: $fontsize-300;
+  }
+
+  .fs-200 {
+    font-size: $fontsize-200;
+  }
+
+  .fs-100 {
+    font-size: $fontsize-100;
+  }
+
+  .fw-bold {
+    font-weight: 700!important;
   }
 </style>
