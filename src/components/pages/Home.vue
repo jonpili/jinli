@@ -1,6 +1,7 @@
 <template lang="pug">
-  .home
-    h1 {{ msg }}
+  el-container
+    el-header header
+    el-main main
 </template>
 
 <script>
@@ -12,7 +13,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  h1 {
-    margin: 40px 0 0;
-  }
 </style>
