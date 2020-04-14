@@ -1,0 +1,34 @@
+@import "_colors";
+
+// --- Base
+$basecolor-base: $charcoal;
+$basecolor-primary: $cheek;
+$basecolor-secondary: $ocean;
+$basecolor-error: $cheek;
+$basecolor-warning: $lemon;
+$basecolor-info: $charcoal;
+$basecolor-success: $emerald;
+$basecolor-disabled: $concrete;
+
+$basecolor-hot: $basecolor-primary;
+$basecolor-cold: $basecolor-secondary;
+$basegradation-primary: $rainbow;
+
+// --- Text
+$textcolor-light: $concrete-dark;
+$textcolor-base: $basecolor-base;
+$textcolor-white: $paper;
+
+// --- Background
+$bgcolor-base: $concrete-light;
+$bgcolor-dark: rgba($concrete, 0.4);
+$bgcolor-white: $paper;
+
+// --- Border
+$bdcolor-light: rgba($concrete, 0.6);
+$bdcolor-base: $concrete;
+$bdcolor-dark: $concrete-dark;
+
+// --- Shadow
+$shadowcolor-base: rgba($charcoal, 0.08);
+$shadowcolor-dark: rgba($charcoal, 0.2);
