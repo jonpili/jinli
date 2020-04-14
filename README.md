@@ -1,9 +1,24 @@
-# jinli
-研修として開発するAsanaのクローンアプリ「jinli」
+# 
 
-## 名前の由来
-- 元となる「Asana」は、ヨガの「アーサナ」が由来となっている。
-  - 「アーサナ」とは、「心身のコンディションを整える方法」を意味する。
+## Project setup
+```
+yarn install
+```
 
-- それを尊重し、私が習得している太極拳の「勁力（jinli）」を由来とした。
-  - 「勁力（jinli）」とは、「全身を協調させて発生する力」を意味する。
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+```
+yarn build
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
