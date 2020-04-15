@@ -11,9 +11,15 @@
           hr
         el-main
           el-table(:data="tableData", :row-style="{cursor: 'pointer'}", @cell-click="enableToEdit", border)
-            el-table-column(prop="name", label="タスク名")
-            el-table-column(prop="person", label="担当者")
-            el-table-column(prop="deadline", label="期日")
+            el-table-column(label="タスク名")
+              template(slot-scope="scope")
+                el-input(v-model="scope.row.name")
+            el-table-column(label="担当者")
+              template(slot-scope="scope")
+                el-input(v-model="scope.row.person")
+            el-table-column(label="期日")
+              template(slot-scope="scope")
+                el-input(v-model="scope.row.deadline")
 </template>
 
 <script>
@@ -50,8 +56,11 @@ export default {
         deadline: ''
       })
     },
-    enableToEdit () {
-      console.log('わーい');
+    enableToEdit (row, column, cell, event) {
+      console.log(row)
+      console.log(column)
+      console.log(cell)
+      console.log(event)
     }
   }
 }
