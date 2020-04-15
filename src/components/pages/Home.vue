@@ -10,16 +10,16 @@
           el-button(@click="addTask", size="mini", icon="el-icon-plus") タスクを追加
           hr
         el-main
-          el-table(:data="tableData", :row-style="{cursor: 'pointer'}", @cell-click="enableToEdit", border)
-            el-table-column(label="タスク名")
+          el-table(:data="tableData", :cell-style="{padding: '0'}", border)
+            el-table-column(label="タスク名", width="480")
               template(slot-scope="scope")
-                el-input(v-model="scope.row.name")
-            el-table-column(label="担当者")
+                input(v-model="scope.row.name")
+            el-table-column(label="担当者", width="120")
               template(slot-scope="scope")
-                el-input(v-model="scope.row.person")
+                input.test(v-model="scope.row.person")
             el-table-column(label="期日")
-              template(slot-scope="scope")
-                el-input(v-model="scope.row.deadline")
+              template(slot-scope="scope", width="120")
+                input(v-model="scope.row.deadline")
 </template>
 
 <script>
@@ -67,5 +67,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  input {
+    height: $basespace-600;
+    width: 100px;
+    padding: 0;
+    border: none;
+  }
 </style>
