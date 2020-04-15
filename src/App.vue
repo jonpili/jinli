@@ -51,6 +51,11 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
   }
+  hr {
+    border: none;
+    height: 1px;
+    background-color: $bdcolor-base;
+  }
 
   $space-array: (
     50: $basespace-50,
