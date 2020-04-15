@@ -10,7 +10,10 @@
           el-button(@click="addTask", size="mini", icon="el-icon-plus") タスクを追加
           hr
         el-main
-          el-table(:data="tableData", :cell-style="{padding: '0'}", border)
+          el-table(:data="tableData",
+                   :header-cell-style="{height: '32px', padding: '0'}",
+                   :cell-style="{padding: '0'}",
+                   border)
             el-table-column(label="タスク名", width="480")
               template(slot-scope="scope")
                 el-input(v-model="scope.row.name")
@@ -55,12 +58,6 @@ export default {
         person: '',
         deadline: ''
       })
-    },
-    enableToEdit (row, column, cell, event) {
-      console.log(row)
-      console.log(column)
-      console.log(cell)
-      console.log(event)
     }
   }
 }
@@ -77,6 +74,7 @@ export default {
   /deep/
   .el-input {
     &__inner {
+      height: $basespace-600;
       border-radius: 0px;
     }
   }
