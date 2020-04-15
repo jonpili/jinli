@@ -7,10 +7,10 @@
     el-main
       el-container
         el-header
-          el-button(icon="el-icon-plus") タスクを追加
+          el-button(@click="addTask", icon="el-icon-plus") タスクを追加
           hr
         el-main
-          el-table(:data="tableData")
+          el-table(:data="tableData", :row-style="{height: '12px'}", border)
             el-table-column(prop="name", label="タスク名")
             el-table-column(prop="person", label="担当者")
             el-table-column(prop="deadline", label="期日")
@@ -40,6 +40,15 @@ export default {
         person: 'Tom',
         deadline: '2016-05-01'
       }]
+    }
+  },
+  methods: {
+    addTask () {
+      this.tableData.push({
+        name: '',
+        person: '',
+        deadline: ''
+      })
     }
   }
 }
