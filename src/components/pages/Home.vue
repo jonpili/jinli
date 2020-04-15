@@ -10,7 +10,7 @@
           el-button(@click="addTask", icon="el-icon-plus") タスクを追加
           hr
         el-main
-          el-table(:data="tableData", :row-style="{height: '12px'}", border)
+          el-table(:data="tableData", :row-style="{cursor: 'pointer'}", @cell-click="enableToEdit", border)
             el-table-column(prop="name", label="タスク名")
             el-table-column(prop="person", label="担当者")
             el-table-column(prop="deadline", label="期日")
@@ -49,6 +49,9 @@ export default {
         person: '',
         deadline: ''
       })
+    },
+    enableToEdit () {
+      console.log('わーい');
     }
   }
 }
