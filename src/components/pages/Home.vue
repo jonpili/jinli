@@ -7,7 +7,7 @@
     el-main
       el-container
         el-header
-          el-button(@click="addTask", icon="el-icon-plus") タスクを追加
+          el-button(@click="addTask", size="mini", icon="el-icon-plus") タスクを追加
           hr
         el-main
           el-table(:data="tableData", :row-style="{cursor: 'pointer'}", @cell-click="enableToEdit", border)
