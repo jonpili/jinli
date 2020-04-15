@@ -13,13 +13,13 @@
           el-table(:data="tableData", :cell-style="{padding: '0'}", border)
             el-table-column(label="タスク名", width="480")
               template(slot-scope="scope")
-                input(v-model="scope.row.name")
+                el-input(v-model="scope.row.name")
             el-table-column(label="担当者", width="120")
               template(slot-scope="scope")
-                input.test(v-model="scope.row.person")
+                el-input(v-model="scope.row.person")
             el-table-column(label="期日")
               template(slot-scope="scope", width="120")
-                input(v-model="scope.row.deadline")
+                el-input(v-model="scope.row.deadline")
 </template>
 
 <script>
@@ -67,10 +67,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  input {
-    height: $basespace-600;
-    width: 100px;
-    padding: 0;
-    border: none;
+  /deep/
+  .el-table {
+    .cell {
+      padding: 0px;
+    }
+  }
+
+  /deep/
+  .el-input {
+    &__inner {
+      border-radius: 0px;
+    }
   }
 </style>
