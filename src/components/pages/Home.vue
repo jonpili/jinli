@@ -7,7 +7,7 @@
     el-main
       el-container
         el-header
-          el-button(@click="addTask", size="mini", icon="el-icon-plus") タスクを追加
+          el-button.mb-300(@click="addTask", size="mini", icon="el-icon-plus") タスクを追加
           hr
         el-main
           el-table(:data="tableData",
