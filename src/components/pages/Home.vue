@@ -82,4 +82,11 @@ export default {
     height: $basespace-600;
     border-radius: 0px;
   }
+
+  /deep/
+  td:first-child  {
+    .cell {
+      padding: 0px;
+    }
+  }
 </style>
