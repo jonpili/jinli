@@ -65,10 +65,8 @@ export default {
 
 <style lang="scss" scoped>
   /deep/
-  .el-table {
-    .cell {
-      padding: 0px;
-    }
+  .cell {
+    padding: 0px;
   }
 
   /deep/
