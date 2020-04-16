@@ -39,21 +39,29 @@ export default {
   data () {
     return {
       tableData: [{
-        name: 'AAA',
-        person: 'Tom',
-        deadline: '2016-05-03'
+        name: 'タスクの表示/追加/名前変更機能',
+        person: 'ジョニー',
+        deadline: '4/16',
+        tag: 'MVP',
+        other: ''
       }, {
-        name: 'BBB',
-        person: 'Tom',
-        deadline: '2016-05-02'
+        name: 'セクションの表示/追加/名前変更機能',
+        person: 'ジョニー',
+        deadline: '4/17',
+        tag: 'MVP',
+        other: ''
       }, {
-        name: 'CCC',
-        person: 'Tom',
-        deadline: '2016-05-04'
+        name: 'セクションとタスクの紐付け',
+        person: 'ジョニー',
+        deadline: '4/20',
+        tag: 'MVP',
+        other: ''
       }, {
-        name: 'DDD',
-        person: 'Tom',
-        deadline: '2016-05-01'
+        name: 'タスク/セクションの並び替え機能',
+        person: 'ジョニー',
+        deadline: '4/22',
+        tag: 'MVP',
+        other: ''
       }]
     }
   },
@@ -62,7 +70,9 @@ export default {
       this.tableData.push({
         name: '',
         person: '',
-        deadline: ''
+        deadline: '',
+        tag: '',
+        other: ''
       })
     }
   }
