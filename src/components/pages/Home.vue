@@ -16,13 +16,19 @@
                    border)
             el-table-column(label="タスク名", width="480")
               template(slot-scope="scope")
-                el-input(v-model="scope.row.name")
+                el-input.task-title(v-model="scope.row.name")
             el-table-column(label="担当者", width="120")
               template(slot-scope="scope")
                 el-input(v-model="scope.row.person")
-            el-table-column(label="期日")
-              template(slot-scope="scope", width="120")
+            el-table-column(label="期日", width="120")
+              template(slot-scope="scope")
                 el-input(v-model="scope.row.deadline")
+            el-table-column(label="タグ", width="120")
+              template(slot-scope="scope")
+                el-input(v-model="scope.row.tag")
+            el-table-column(label="その他")
+              template(slot-scope="scope")
+                el-input(v-model="scope.row.other")
 </template>
 
 <script>
