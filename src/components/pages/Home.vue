@@ -14,21 +14,9 @@
                    :header-cell-style="{height: '32px', padding: '0'}",
                    :cell-style="{padding: '0'}",
                    border)
-            el-table-column(label="タスク名", width="480")
+            el-table-column(v-for="column in columnList", :label="column.label", :width="column.width")
               template(slot-scope="scope")
-                el-input.task-title(v-model="scope.row.name")
-            el-table-column(label="担当者", width="120")
-              template(slot-scope="scope")
-                el-input(v-model="scope.row.person")
-            el-table-column(label="期日", width="120")
-              template(slot-scope="scope")
-                el-input(v-model="scope.row.deadline")
-            el-table-column(label="タグ", width="120")
-              template(slot-scope="scope")
-                el-input(v-model="scope.row.tag")
-            el-table-column(label="その他")
-              template(slot-scope="scope")
-                el-input(v-model="scope.row.other")
+                el-input.task-title(v-model="scope.row[column.value]")
 </template>
 
 <script>
@@ -38,6 +26,13 @@ export default {
   },
   data () {
     return {
+      columnList: [
+        { label: 'タスク名', value: 'name', width: 480 },
+        { label: '担当者', value: 'person', width: 120 },
+        { label: '期日', value: 'deadline', width: 120 },
+        { label: 'タグ', value: 'tag', width: 120 },
+        { label: 'その他', value: 'other'},
+      ],
       tableData: [{
         name: 'タスクの表示/追加/名前変更機能',
         person: 'ジョニー',
