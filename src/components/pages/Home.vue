@@ -16,7 +16,7 @@
                    border)
             el-table-column(v-for="column in columnList", :label="column.label", :width="column.width")
               template(slot-scope="scope")
-                el-input.task-title(v-model="scope.row[column.value]")
+                el-input(v-model="scope.row[column.value]")
 </template>
 
 <script>
