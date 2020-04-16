@@ -14,7 +14,7 @@
                    :header-cell-style="{height: '32px', padding: '0'}",
                    :cell-style="{padding: '0'}",
                    border)
-            el-table-column(v-for="column in columnList", :label="column.label", :width="column.width")
+            el-table-column(v-for="column in columnList", :key="column.label", :label="column.label", :width="column.width")
               template(slot-scope="scope")
                 el-input(v-model="scope.row[column.value]")
 </template>
