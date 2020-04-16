@@ -78,10 +78,8 @@ export default {
   }
 
   /deep/
-  .el-input {
-    &__inner {
-      height: $basespace-600;
-      border-radius: 0px;
-    }
+  .el-input__inner {
+    height: $basespace-600;
+    border-radius: 0px;
   }
 </style>
