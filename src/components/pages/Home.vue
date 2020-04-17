@@ -10,13 +10,17 @@
           el-button.mb-300(@click="addTask", size="mini", icon="el-icon-plus") タスクを追加
           hr
         el-main
-          el-table(:data="tableData",
-                   :header-cell-style="{height: '32px', padding: '0'}",
-                   :cell-style="{padding: '0'}",
-                   border)
-            el-table-column(v-for="column in columnList", :key="column.label", :label="column.label", :width="column.width")
-              template(slot-scope="scope")
-                el-input(v-model="scope.row[column.value]")
+          el-collapse(v-model="activeSections")
+            el-collapse-item(title="4/15~29のタスク" name="1")
+              el-table(:data="tableData",
+                       :header-cell-style="{height: '32px', padding: '0'}",
+                       :cell-style="{padding: '0'}",
+                       border)
+                el-table-column(v-for="column in columnList", :key="column.label", :label="column.label", :width="column.width")
+                  template(slot-scope="scope")
+                    el-input(v-model="scope.row[column.value]")
+            el-collapse-item(title="5/04~20のタスク" name="2")
+              div no contents
 </template>
 
 <script>
@@ -30,6 +34,7 @@ export default {
         { label: 'タグ', value: 'tag', width: 120 },
         { label: 'その他', value: 'other'},
       ],
+      activeSections: ['1'],
       tableData: [{
         name: 'タスクの表示/追加/名前変更機能',
         person: 'ジョニー',
