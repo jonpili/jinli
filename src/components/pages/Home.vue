@@ -72,19 +72,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /deep/
-  .cell {
+  ::v-deep .cell {
     padding: 0px;
   }
 
-  /deep/
-  .el-input__inner {
+  ::v-deep .el-input__inner {
     height: $basespace-600;
     border-radius: 0px;
   }
 
-  /deep/
-  td:first-child  {
+  ::v-deep td:first-child  {
     .cell {
       padding: 0px;
     }
