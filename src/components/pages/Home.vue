@@ -16,6 +16,11 @@
           task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
           el-collapse(v-model="activeSections")
             el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id")
+              template(slot="title")
+                .section-title-area(v-if="section.id === editingSectionId")
+                  el-input(v-model="section.label", @blur="editingSectionId = ''", size="mini")
+                .section-title-area(v-else)
+                  .fs-200(@click.stop="editSectionTitle(section.id)") {{ section.label }}
               task-table(:data="sectionTableData(section.id)", :columns="columnList")
 </template>
 
@@ -41,6 +46,7 @@ export default {
       ],
       selectedSectionId: '',
       activeSections: [1, 2],
+      editingSectionId: '',
       tableData: [{
         id: 1,
         section: 1,
@@ -112,6 +118,9 @@ export default {
       return this.tableData.filter(row => {
         return row.section === sectionId
       })
+    },
+    editSectionTitle (id) {
+      this.editingSectionId = id
     }
   }
 }
