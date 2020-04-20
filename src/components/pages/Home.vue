@@ -13,19 +13,18 @@
         el-main
           el-collapse(v-model="activeSections")
             el-collapse-item(title="4/15~29のタスク" name="1")
-              el-table(:data="tableData",
-                       :header-cell-style="{height: '32px', padding: '0'}",
-                       :cell-style="{padding: '0'}",
-                       border)
-                el-table-column(v-for="column in columnList", :key="column.id", :label="column.label", :width="column.width")
-                  template(slot-scope="scope")
-                    el-input(v-model="scope.row[column.value]")
+              task-table(:data="tableData", :columns="columnList")
             el-collapse-item(title="5/04~20のタスク" name="2")
-              div no contents
+              task-table(:data="tableData", :columns="columnList")
 </template>
 
 <script>
+import taskTable from '@/components/molecules/taskTable'
+
 export default {
+  components: {
+    taskTable
+  },
   data () {
     return {
       columnList: [
