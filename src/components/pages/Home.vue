@@ -11,6 +11,7 @@
           el-select.ml-100(v-model="selectedSectionId", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
             el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.id")
           el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
+          el-button.mb-300(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
           hr
         el-main
           task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
@@ -113,6 +114,13 @@ export default {
         other: ''
       })
       this.selectedSectionId = ''
+    },
+    addSection () {
+      const sectionNumber = this.sectionList.length + 1
+      this.sectionList.push({
+        id: sectionNumber,
+        label: 'セクション' + sectionNumber
+      })
     },
     sectionTableData (sectionId) {
       return this.tableData.filter(row => {
