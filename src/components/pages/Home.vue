@@ -13,7 +13,7 @@
           el-tag.ml-100(v-if="existEmptyTask", size="mini", effect="plain") 空のタスクが存在します
           hr
         el-main
-          task-table(:data="notSectionedTableData", :columns="columnList")
+          task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
           el-collapse(v-model="activeSections")
             el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id")
               task-table(:data="sectionTableData(section.id)", :columns="columnList")
