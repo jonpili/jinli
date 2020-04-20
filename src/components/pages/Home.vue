@@ -12,10 +12,8 @@
           hr
         el-main
           el-collapse(v-model="activeSections")
-            el-collapse-item(title="4/15~29のタスク" name="1")
-              task-table(:data="sectionTableData(1)", :columns="columnList")
-            el-collapse-item(title="5/04~20のタスク" name="2")
-              task-table(:data="sectionTableData(2)", :columns="columnList")
+            el-collapse-item(v-for="section in sectionList",:key="section.id", :title="section.label", :name="section.id")
+              task-table(:data="sectionTableData(section.id)", :columns="columnList")
 </template>
 
 <script>
@@ -33,6 +31,10 @@ export default {
         { id: 3, label: '期日', value: 'deadline', width: 120 },
         { id: 4, label: 'タグ', value: 'tag', width: 120 },
         { id: 5, label: 'その他', value: 'other'},
+      ],
+      sectionList: [
+        { id: 1, label: '4/15~29のタスク' },
+        { id: 2, label: '5/04~20のタスク' }
       ],
       activeSections: ['1'],
       tableData: [{
