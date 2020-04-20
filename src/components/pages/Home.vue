@@ -13,9 +13,9 @@
         el-main
           el-collapse(v-model="activeSections")
             el-collapse-item(title="4/15~29のタスク" name="1")
-              task-table(:data="tableData", :columns="columnList")
+              task-table(:data="sectionTableData(1)", :columns="columnList")
             el-collapse-item(title="5/04~20のタスク" name="2")
-              task-table(:data="tableData", :columns="columnList")
+              task-table(:data="sectionTableData(2)", :columns="columnList")
 </template>
 
 <script>
@@ -37,6 +37,7 @@ export default {
       activeSections: ['1'],
       tableData: [{
         id: 1,
+        section: 1,
         name: 'タスクの表示/追加/名前変更機能',
         person: 'ジョニー',
         deadline: '4/16',
@@ -44,6 +45,7 @@ export default {
         other: ''
       }, {
         id: 2,
+        section: 1,
         name: 'セクションの表示/追加/名前変更機能',
         person: 'ジョニー',
         deadline: '4/17',
@@ -51,6 +53,7 @@ export default {
         other: ''
       }, {
         id: 3,
+        section: 1,
         name: 'セクションとタスクの紐付け',
         person: 'ジョニー',
         deadline: '4/20',
@@ -58,10 +61,19 @@ export default {
         other: ''
       }, {
         id: 4,
-        name: 'タスク/セクションの並び替え機能',
+        section: 2,
+        name: 'タスクへのいいね機能',
         person: 'ジョニー',
-        deadline: '4/22',
-        tag: 'MVP',
+        deadline: '5/04',
+        tag: '開発目標',
+        other: ''
+      }, {
+        id: 5,
+        section: 2,
+        name: 'タスクの削除',
+        person: 'ジョニー',
+        deadline: '5/05',
+        tag: '開発目標',
         other: ''
       }]
     }
@@ -81,6 +93,11 @@ export default {
         deadline: '',
         tag: '',
         other: ''
+      })
+    },
+    sectionTableData (sectionId) {
+      return this.tableData.filter(row => {
+        return row.section === sectionId
       })
     }
   }
