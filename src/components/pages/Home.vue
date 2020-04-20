@@ -7,7 +7,8 @@
     el-main
       el-container
         el-header
-          el-button.mb-300(@click="addTask", size="mini", icon="el-icon-plus") タスクを追加
+          el-button.mb-300(@click="addTask", :disabled="existEmptyTask", size="mini", icon="el-icon-plus") タスクを追加
+          el-tag.ml-100(v-if="existEmptyTask", size="mini", effect="plain") 空のタスクが存在します
           hr
         el-main
           el-table(:data="tableData",
@@ -59,6 +60,12 @@ export default {
         tag: 'MVP',
         other: ''
       }]
+    }
+  },
+  computed: {
+    existEmptyTask () {
+      const lastTask = this.tableData.slice(-1)[0]
+      return lastTask.name === ''
     }
   },
   methods: {
