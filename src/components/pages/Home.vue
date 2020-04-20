@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     existEmptyTask () {
-      const lastTask = this.tableData.slice(-1)[0]
+      const lastTask = this.tableData[this.tableData.length - 1]
       return lastTask.name === ''
     }
   },
