@@ -8,7 +8,7 @@
       el-container
         el-header
           el-button.mb-300(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus") タスクを追加
-          el-select(v-model="selectedSectionId", placeholder="セクションを選択", clearable)
+          el-select.ml-100(v-model="selectedSectionId", :disabled="existEmptyTask", placeholder="セクションを選択", clearable)
             el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.id")
           el-tag.ml-100(v-if="existEmptyTask", size="mini", effect="plain") 空のタスクが存在します
           hr
