@@ -7,11 +7,13 @@
     el-main
       el-container
         el-header
-          el-button.mb-300(@click="addTask", :disabled="existEmptyTask", size="mini", icon="el-icon-plus") タスクを追加
+          el-button.mb-300(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus") タスクを追加
+          el-select(v-model="selectedSectionId", placeholder="セクションを選択", clearable)
+            el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.id")
           el-tag.ml-100(v-if="existEmptyTask", size="mini", effect="plain") 空のタスクが存在します
           hr
         el-main
-          task-table(:data="sectionTableData(0)", :columns="columnList")
+          task-table(:data="notSectionedTableData", :columns="columnList")
           el-collapse(v-model="activeSections")
             el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id")
               task-table(:data="sectionTableData(section.id)", :columns="columnList")
@@ -37,6 +39,7 @@ export default {
         { id: 1, label: '4/15~29のタスク' },
         { id: 2, label: '5/04~20のタスク' }
       ],
+      selectedSectionId: '',
       activeSections: [1, 2],
       tableData: [{
         id: 1,
@@ -72,7 +75,7 @@ export default {
         other: ''
       }, {
         id: 5,
-        section: '',
+        section: 2,
         name: 'タスクの削除',
         person: 'ジョニー',
         deadline: '5/05',
@@ -85,19 +88,25 @@ export default {
     existEmptyTask () {
       const lastTask = this.tableData[this.tableData.length - 1]
       return lastTask.name === ''
+    },
+    notSectionedTableData () {
+      return this.tableData.filter(row => {
+        return row.section === ''
+      })
     }
   },
   methods: {
     addTask () {
       this.tableData.push({
         id: this.tableData.length + 1,
-        section: 0,
+        section: this.selectedSectionId,
         name: '',
         person: '',
         deadline: '',
         tag: '',
         other: ''
       })
+      this.selectedSectionId = ''
     },
     sectionTableData (sectionId) {
       return this.tableData.filter(row => {
