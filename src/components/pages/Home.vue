@@ -122,7 +122,7 @@ export default {
     padding: 0px;
   }
 
-  ::v-deep .el-input__inner {
+  .el-table ::v-deep .el-input__inner {
     height: $basespace-600;
     border-radius: 0px;
   }
