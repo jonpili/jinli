@@ -18,7 +18,7 @@
         el-main
           task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
           el-collapse(v-model="activeSections")
-            el-collapse-item(v-for="section in sectionList", :key="section.id", :disabled="section.id === editingSectionId", :title="section.label", :name="section.id")
+            el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="section.id === editingSectionId")
               template(slot="title")
                 .section-title-area(v-if="section.id === editingSectionId")
                   el-input(v-model="section.label", @blur="editingSectionId = ''", size="mini")
