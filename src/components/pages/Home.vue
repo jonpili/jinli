@@ -138,10 +138,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .cell {
-    padding: 0px;
-  }
-
   ::v-deep .el-collapse-item__header {
     height: $basespace-500 * 2;
   }
@@ -157,6 +153,10 @@ export default {
   .el-table ::v-deep .el-input__inner {
     height: $basespace-600;
     border-radius: 0px;
+  }
+
+  ::v-deep .cell {
+    padding: 0px;
   }
 
   ::v-deep td:first-child  {
