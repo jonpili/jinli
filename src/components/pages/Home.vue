@@ -147,7 +147,7 @@ export default {
   }
 
   .isEditing ::v-deep .el-input__inner {
-    border-color: #409EFF;
+    border-color: $basecolor-secondary;
   }
 
   .el-table ::v-deep .el-input__inner {
