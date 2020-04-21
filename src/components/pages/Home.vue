@@ -18,12 +18,10 @@
         el-main
           task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
           el-collapse(v-model="activeSections")
-            el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="section.id === editingSectionId")
+            el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
               template(slot="title")
-                .section-title-area(v-if="section.id === editingSectionId")
-                  el-input(v-model="section.label", @blur="editingSectionId = ''", size="mini")
-                .section-title-area(v-else)
-                  .fs-200(@click.stop="editSectionTitle(section.id)") {{ section.label }}
+                .section-title-area
+                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="mini", :class="{ isEditing: judgeToEdit(section.id) }")
               task-table(:data="sectionTableData(section.id)", :columns="columnList")
 </template>
 
@@ -131,6 +129,9 @@ export default {
     },
     editSectionTitle (id) {
       this.editingSectionId = id
+    },
+    judgeToEdit (id) {
+      return id === this.editingSectionId
     }
   }
 }
@@ -139,6 +140,18 @@ export default {
 <style lang="scss" scoped>
   ::v-deep .cell {
     padding: 0px;
+  }
+
+  ::v-deep .el-collapse-item__header {
+    height: $basespace-600;
+  }
+
+  .section-title-area ::v-deep .el-input__inner {
+    border-color: transparent;
+  }
+
+  .isEditing ::v-deep .el-input__inner {
+    border-color: #409EFF;
   }
 
   .el-table ::v-deep .el-input__inner {
