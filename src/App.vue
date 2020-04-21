@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Home msg="Welcome to Your Vue.js App"/>
+    <Home/>
   </div>
 </template>
 
@@ -50,9 +49,12 @@ export default {
     font-family: 'Rubik', 'Noto Sans JP', "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+  }
+  hr {
+    border: none;
+    height: 1px;
+    background-color: $bdcolor-base;
   }
 
   $space-array: (
