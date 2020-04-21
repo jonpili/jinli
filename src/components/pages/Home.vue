@@ -21,8 +21,8 @@
             el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
               template(slot="title")
                 .section-title-area
-                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="mini", :class="{ isEditing: judgeToEdit(section.id) }")
-              task-table(:data="sectionTableData(section.id)", :columns="columnList")
+                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ isEditing: judgeToEdit(section.id) }")
+              task-table.mt-100(:data="sectionTableData(section.id)", :columns="columnList")
 </template>
 
 <script>
@@ -143,7 +143,7 @@ export default {
   }
 
   ::v-deep .el-collapse-item__header {
-    height: $basespace-600;
+    height: $basespace-500 * 2;
   }
 
   .section-title-area ::v-deep .el-input__inner {
