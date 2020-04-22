@@ -1,7 +1,7 @@
 <template lang="pug">
-  div
+  div.pl-600
+    el-input.header(v-for="column in columns", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
     draggable
-      el-input.header(v-for="column in columns", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
       div(v-for="row in data")
         j-move-icon
         el-input(v-for="column in columns", v-model="row[column.value]", :style="{ width: column.width + 'px' }")

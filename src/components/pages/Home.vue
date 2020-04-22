@@ -10,11 +10,13 @@
           content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData")
           hr
         el-main
-          task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
           el-collapse(v-model="activeSections")
             draggable
+              task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
+                  .pt-100
+                    jMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ isEditing: judgeToEdit(section.id) }")
                 task-table.mt-100(:data="sectionTableData(section.id)", :columns="columnList")
@@ -87,6 +89,14 @@ export default {
         person: 'ジョニー',
         deadline: '5/05',
         tag: '開発目標',
+        other: ''
+      }, {
+        id: 6,
+        section: '',
+        name: 'JavaScriptの勉強',
+        person: 'ジョニー',
+        deadline: '5/24',
+        tag: '個人学習',
         other: ''
       }]
     }

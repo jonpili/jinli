@@ -7,7 +7,9 @@
   .move-icon-area {
     margin: 0 $basespace-200;
     vertical-align: middle;
+    opacity: 0.5;
     &:hover {
+      opacity: 1.0;
       cursor: grab;
     }
     &:active {
