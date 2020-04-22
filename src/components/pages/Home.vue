@@ -147,21 +147,6 @@ export default {
   }
 
   .isEditing ::v-deep .el-input__inner {
-    border-color: $basecolor-secondary;
-  }
-
-  .el-table ::v-deep .el-input__inner {
-    height: $basespace-600;
-    border-radius: 0px;
-  }
-
-  ::v-deep .cell {
-    padding: 0px;
-  }
-
-  ::v-deep td:first-child  {
-    .cell {
-      padding: 0px;
-    }
+    border-color: #409EFF;
   }
 </style>
