@@ -7,7 +7,7 @@
     el-main
       el-container
         el-header.mb-600
-          //- content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData")
+          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData")
           hr
         el-main
           el-collapse(v-model="activeSections")
@@ -51,9 +51,9 @@ export default {
       activeSections: [1, 2],
       editingSectionId: '',
       tableData: {
+        totalNumber: 6,
         notSectioned: [{
-            id: 6,
-            section: '',
+            id: 1,
             name: 'JavaScriptの勉強',
             person: 'ジョニー',
             deadline: '5/24',
@@ -61,24 +61,21 @@ export default {
             other: ''
         }],
         section1: [{
-          id: 1,
-          section: 1,
+          id: 2,
           name: 'タスクの表示/追加/名前変更機能',
           person: 'ジョニー',
           deadline: '4/16',
           tag: 'MVP',
           other: ''
         }, {
-          id: 2,
-          section: 1,
+          id: 3,
           name: 'セクションの表示/追加/名前変更機能',
           person: 'ジョニー',
           deadline: '4/17',
           tag: 'MVP',
           other: ''
         }, {
-          id: 3,
-          section: 1,
+          id: 4,
           name: 'セクションとタスクの紐付け',
           person: 'ジョニー',
           deadline: '4/20',
@@ -86,16 +83,14 @@ export default {
           other: ''
         }],
         section2: [{
-          id: 4,
-          section: 2,
+          id: 5,
           name: 'タスクへのいいね機能',
           person: 'ジョニー',
           deadline: '5/04',
           tag: '開発目標',
           other: ''
         }, {
-          id: 5,
-          section: 2,
+          id: 6,
           name: 'タスクの削除',
           person: 'ジョニー',
           deadline: '5/05',
@@ -105,19 +100,7 @@ export default {
       }
     }
   },
-  computed: {
-    notSectionedTableData () {
-      return this.tableData.filter(row => {
-        return row.section === ''
-      })
-    }
-  },
   methods: {
-    sectionTableData (sectionId) {
-      return this.tableData.filter(row => {
-        return row.section === sectionId
-      })
-    },
     editSectionTitle (id) {
       this.editingSectionId = id
     },
