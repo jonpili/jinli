@@ -1,11 +1,12 @@
 <template lang="pug">
   div
     draggable
+      el-input.header(v-for="column in columns", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
       div(v-for="row in data")
         .row-area
           span.move-icon-area
             v-icon.move-icon(name="grip-vertical")
-          el-input(v-for="column in columns", v-model="row[column.value]", :style="{ width: '120px' }")
+          el-input(v-for="column in columns", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
@@ -23,12 +24,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .header ::v-deep .el-input__inner {
+    margin-left: 34px;
+    border: none;
+  }
   .row-area {
     width: 100%;
     overflow: scroll;
   }
   .move-icon-area {
-    margin: $basespace-200;
+    margin: 0 $basespace-200;
+    vertical-align: middle;
     &:hover {
       cursor: grab;
     }
