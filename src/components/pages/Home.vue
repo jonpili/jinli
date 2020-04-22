@@ -7,19 +7,19 @@
     el-main
       el-container
         el-header.mb-600
-          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData")
+          //- content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData")
           hr
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
+              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
                     jMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ isEditing: judgeToEdit(section.id) }")
-                task-table.mt-100(:data="sectionTableData(section.id)", :columns="columnList")
+                task-table.mt-100(:data="tableData[section.value]", :columns="columnList")
 </template>
 
 <script>
@@ -45,60 +45,64 @@ export default {
         { id: 5, label: 'その他', value: 'other', width: 120 },
       ],
       sectionList: [
-        { id: 1, label: '4/15~29のタスク' },
-        { id: 2, label: '5/04~20のタスク' }
+        { id: 1, label: '4/15~29のタスク', value: 'section1' },
+        { id: 2, label: '5/04~20のタスク', value: 'section2' }
       ],
       activeSections: [1, 2],
       editingSectionId: '',
-      tableData: [{
-        id: 1,
-        section: 1,
-        name: 'タスクの表示/追加/名前変更機能',
-        person: 'ジョニー',
-        deadline: '4/16',
-        tag: 'MVP',
-        other: ''
-      }, {
-        id: 2,
-        section: 1,
-        name: 'セクションの表示/追加/名前変更機能',
-        person: 'ジョニー',
-        deadline: '4/17',
-        tag: 'MVP',
-        other: ''
-      }, {
-        id: 3,
-        section: 1,
-        name: 'セクションとタスクの紐付け',
-        person: 'ジョニー',
-        deadline: '4/20',
-        tag: 'MVP',
-        other: ''
-      }, {
-        id: 4,
-        section: 2,
-        name: 'タスクへのいいね機能',
-        person: 'ジョニー',
-        deadline: '5/04',
-        tag: '開発目標',
-        other: ''
-      }, {
-        id: 5,
-        section: 2,
-        name: 'タスクの削除',
-        person: 'ジョニー',
-        deadline: '5/05',
-        tag: '開発目標',
-        other: ''
-      }, {
-        id: 6,
-        section: '',
-        name: 'JavaScriptの勉強',
-        person: 'ジョニー',
-        deadline: '5/24',
-        tag: '個人学習',
-        other: ''
-      }]
+      tableData: {
+        notSectioned: [{
+            id: 6,
+            section: '',
+            name: 'JavaScriptの勉強',
+            person: 'ジョニー',
+            deadline: '5/24',
+            tag: '個人学習',
+            other: ''
+        }],
+        section1: [{
+          id: 1,
+          section: 1,
+          name: 'タスクの表示/追加/名前変更機能',
+          person: 'ジョニー',
+          deadline: '4/16',
+          tag: 'MVP',
+          other: ''
+        }, {
+          id: 2,
+          section: 1,
+          name: 'セクションの表示/追加/名前変更機能',
+          person: 'ジョニー',
+          deadline: '4/17',
+          tag: 'MVP',
+          other: ''
+        }, {
+          id: 3,
+          section: 1,
+          name: 'セクションとタスクの紐付け',
+          person: 'ジョニー',
+          deadline: '4/20',
+          tag: 'MVP',
+          other: ''
+        }],
+        section2: [{
+          id: 4,
+          section: 2,
+          name: 'タスクへのいいね機能',
+          person: 'ジョニー',
+          deadline: '5/04',
+          tag: '開発目標',
+          other: ''
+        }, {
+          id: 5,
+          section: 2,
+          name: 'タスクの削除',
+          person: 'ジョニー',
+          deadline: '5/05',
+          tag: '開発目標',
+          other: ''
+        }]
+      }
     }
   },
   computed: {
