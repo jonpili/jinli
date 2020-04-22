@@ -7,7 +7,7 @@
     el-main
       el-container
         el-header.mb-600
-          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData")
+          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData", :taskTotalNumber="taskTotalNumber")
           hr
         el-main
           el-collapse(v-model="activeSections")
@@ -50,8 +50,8 @@ export default {
       ],
       activeSections: [1, 2],
       editingSectionId: '',
+      taskTotalNumber: 6,
       tableData: {
-        totalNumber: 6,
         notSectioned: [{
             id: 1,
             name: 'JavaScriptの勉強',

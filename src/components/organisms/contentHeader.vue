@@ -14,7 +14,8 @@ export default {
   props: {
     sectionList: Array,
     activeSections: Array,
-    tableData: Object
+    tableData: Object,
+    taskTotalNumber: Number
   },
   data () {
     return {
@@ -23,18 +24,20 @@ export default {
   },
   computed: {
     existEmptyTask () {
-      // const tableDataKeysArray = Object.keys(this.tableData)
-      // const allTasks = tableDataKeysArray.map((key) => {
-      //   console.log(this.tableData[key])
-      //   return this.tableData[key]
-      // })
+      const tableDataKeysArray = Object.keys(this.tableData)
+      console.log(tableDataKeysArray)
+      const allTasks = tableDataKeysArray.reduce((acc, key) => {
+        console.log(this.tableData[key])
+        return acc.concat(this.tableData[key])
+      })
+      console.log(allTasks)
       return false
     }
   },
   methods: {
     addTask () {
       const emptyTask = {
-        id: this.tableData.totalNumber + 1,
+        id: this.taskTotalNumber+ 1,
         name: '',
         person: '',
         deadline: '',
@@ -44,11 +47,9 @@ export default {
       if (this.selectedSectionValue === '') {
         this.tableData.notSectioned.push(emptyTask)
       } else {
-        console.log(this.selectedSectionValue)
-        console.log(this.tableData)
         this.tableData[this.selectedSectionValue].push(emptyTask)
       }
-      this.tableData.totalNumber += 1
+      this.taskTotalNumber += 1
       this.selectedSectionValue = ''
     },
     addSection () {
