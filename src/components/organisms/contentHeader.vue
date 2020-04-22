@@ -23,12 +23,12 @@ export default {
   },
   computed: {
     existEmptyTask () {
-      const tableDataKeysArray = Object.keys(this.tableData)
-      const allTasks = tableDataKeysArray.map((key) => {
-        console.log(this.tableData[key])
-        return this.tableData[key]
-      })
-      return true
+      // const tableDataKeysArray = Object.keys(this.tableData)
+      // const allTasks = tableDataKeysArray.map((key) => {
+      //   console.log(this.tableData[key])
+      //   return this.tableData[key]
+      // })
+      return false
     }
   },
   methods: {

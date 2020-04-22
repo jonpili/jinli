@@ -18,7 +18,7 @@
                   .pt-100
                     jMoveIcon
                   .section-title-area
-                    el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ is-editing: judgeToEdit(section.id) }")
+                    el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
                 task-table.mt-100(:data="tableData[section.value]", :columns="columnList")
 </template>
 
