@@ -121,6 +121,7 @@ export default {
         id: sectionNumber,
         label: 'セクション' + sectionNumber
       })
+      this.activeSections.push(sectionNumber)
     },
     sectionTableData (sectionId) {
       return this.tableData.filter(row => {
