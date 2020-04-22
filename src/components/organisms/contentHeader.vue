@@ -56,13 +56,13 @@ export default {
       this.selectedSectionValue = ''
     },
     addSection () {
-      const sectionNumber = this.sectionList.length + 1
+      const newSectionId = this.sectionList.length + 1
       this.sectionList.push({
-        id: sectionNumber,
-        label: 'セクション' + sectionNumber,
-        value: 'section' + sectionNumber
+        id: newSectionId,
+        label: 'セクション' + newSectionId,
+        value: 'section' + newSectionId
       })
-      this.activeSections.push(sectionNumber)
+      this.activeSections.push(newSectionId)
     }
   }
 }
