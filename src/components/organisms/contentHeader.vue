@@ -19,25 +19,26 @@ export default {
   },
   data () {
     return {
-      selectedSectionValue: ''
+      selectedSectionValue: '',
+      currentTaskTotalNumber: this.taskTotalNumber
     }
   },
   computed: {
     existEmptyTask () {
-      const tableDataKeysArray = Object.keys(this.tableData)
-      console.log(tableDataKeysArray)
-      const allTasks = tableDataKeysArray.reduce((acc, key) => {
-        console.log(this.tableData[key])
-        return acc.concat(this.tableData[key])
-      })
-      console.log(allTasks)
+      // const tableDataKeysArray = Object.keys(this.tableData)
+      // console.log(tableDataKeysArray)
+      // const allTasks = tableDataKeysArray.reduce((acc, key) => {
+      //   console.log(this.tableData[key])
+      //   return acc.concat(this.tableData[key])
+      // })
+      // console.log(allTasks)
       return false
     }
   },
   methods: {
     addTask () {
       const emptyTask = {
-        id: this.taskTotalNumber+ 1,
+        id: this.currentTaskTotalNumber+ 1,
         name: '',
         person: '',
         deadline: '',
@@ -49,7 +50,7 @@ export default {
       } else {
         this.tableData[this.selectedSectionValue].push(emptyTask)
       }
-      this.taskTotalNumber += 1
+      this.currentTaskTotalNumber += 1
       this.selectedSectionValue = ''
     },
     addSection () {
