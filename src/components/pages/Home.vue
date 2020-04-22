@@ -21,7 +21,7 @@
             el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
               template(slot="title")
                 .section-title-area
-                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ is-editing: judgeToEdit(section.id) }")
+                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
               task-table.mt-100(:data="sectionTableData(section.id)", :columns="columnList")
 </template>
 
