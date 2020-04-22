@@ -4,17 +4,18 @@
       el-input.header(v-for="column in columns", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
       div(v-for="row in data")
         .row-area
-          span.move-icon-area
-            v-icon.move-icon(name="grip-vertical")
+          j-move-icon
           el-input(v-for="column in columns", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
+import jMoveIcon from '@/components/atoms/jMoveIcon'
 
 export default {
   components: {
-    draggable
+    draggable,
+    jMoveIcon
   },
   props: {
     data: Array,
@@ -31,19 +32,6 @@ export default {
   .row-area {
     width: 100%;
     overflow: scroll;
-  }
-  .move-icon-area {
-    margin: 0 $basespace-200;
-    vertical-align: middle;
-    &:hover {
-      cursor: grab;
-    }
-    &:active {
-      cursor: grabbing;
-    }
-  }
-  .move-icon {
-    color: $bdcolor-dark;
   }
   ::v-deep .el-input__inner {
     height: $basespace-600;

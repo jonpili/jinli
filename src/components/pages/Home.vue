@@ -12,21 +12,26 @@
         el-main
           task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
           el-collapse(v-model="activeSections")
-            el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
-              template(slot="title")
-                .section-title-area
-                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ isEditing: judgeToEdit(section.id) }")
-              task-table.mt-100(:data="sectionTableData(section.id)", :columns="columnList")
+            draggable
+              el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
+                template(slot="title")
+                  .section-title-area
+                    el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ isEditing: judgeToEdit(section.id) }")
+                task-table.mt-100(:data="sectionTableData(section.id)", :columns="columnList")
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import contentHeader from '@/components/organisms/contentHeader'
 import taskTable from '@/components/molecules/taskTable'
+import jMoveIcon from '@/components/atoms/jMoveIcon'
 
 export default {
   components: {
+    draggable,
     contentHeader,
-    taskTable
+    taskTable,
+    jMoveIcon
   },
   data () {
     return {
