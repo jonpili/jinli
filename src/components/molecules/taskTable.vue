@@ -11,8 +11,16 @@
 <script>
 export default {
   props: {
-    data: Array,
-    columns: Array
+    data: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
+    columns: {
+      type: Array,
+      required: true
+    }
   }
 }
 </script>

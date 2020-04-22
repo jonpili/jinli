@@ -21,7 +21,7 @@
             el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
               template(slot="title")
                 .section-title-area
-                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ isEditing: judgeToEdit(section.id) }")
+                  el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ is-editing: judgeToEdit(section.id) }")
               task-table.mt-100(:data="sectionTableData(section.id)", :columns="columnList")
 </template>
 
@@ -116,10 +116,10 @@ export default {
       this.selectedSectionId = ''
     },
     addSection () {
-      const sectionNumber = this.sectionList.length + 1
+      const newSectionId = this.sectionList.length + 1
       this.sectionList.push({
-        id: sectionNumber,
-        label: 'セクション' + sectionNumber
+        id: newSectionId,
+        label: 'セクション' + newSectionId
       })
     },
     sectionTableData (sectionId) {
@@ -146,7 +146,7 @@ export default {
     border-color: transparent;
   }
 
-  .isEditing ::v-deep .el-input__inner {
+  .is-editing ::v-deep .el-input__inner {
     border-color: #409EFF;
   }
 
