@@ -7,13 +7,7 @@
     el-main
       el-container
         el-header.mb-600
-          .mb-100
-            el-button(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus", size="mini") タスクを追加
-            el-select.ml-100(v-model="selectedSectionId", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
-              el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.id")
-            el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
-          .mb-500
-            el-button(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
+          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData")
           hr
         el-main
           task-table.mb-500(:data="notSectionedTableData", :columns="columnList")
@@ -26,10 +20,12 @@
 </template>
 
 <script>
+import contentHeader from '@/components/organisms/contentHeader'
 import taskTable from '@/components/molecules/taskTable'
 
 export default {
   components: {
+    contentHeader,
     taskTable
   },
   data () {
@@ -45,7 +41,6 @@ export default {
         { id: 1, label: '4/15~29のタスク' },
         { id: 2, label: '5/04~20のタスク' }
       ],
-      selectedSectionId: '',
       activeSections: [1, 2],
       editingSectionId: '',
       tableData: [{
@@ -92,10 +87,6 @@ export default {
     }
   },
   computed: {
-    existEmptyTask () {
-      const lastTask = this.tableData[this.tableData.length - 1]
-      return lastTask.name === ''
-    },
     notSectionedTableData () {
       return this.tableData.filter(row => {
         return row.section === ''
@@ -103,26 +94,6 @@ export default {
     }
   },
   methods: {
-    addTask () {
-      this.tableData.push({
-        id: this.tableData.length + 1,
-        section: this.selectedSectionId,
-        name: '',
-        person: '',
-        deadline: '',
-        tag: '',
-        other: ''
-      })
-      this.selectedSectionId = ''
-    },
-    addSection () {
-      const sectionNumber = this.sectionList.length + 1
-      this.sectionList.push({
-        id: sectionNumber,
-        label: 'セクション' + sectionNumber
-      })
-      this.activeSections.push(sectionNumber)
-    },
     sectionTableData (sectionId) {
       return this.tableData.filter(row => {
         return row.section === sectionId
