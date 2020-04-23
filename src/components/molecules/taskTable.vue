@@ -1,10 +1,10 @@
 <template lang="pug">
   div.pl-600
-    el-input.header(v-for="column in columns", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
+    el-input.header(v-for="column in columns", :key="column.id", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
     draggable(:options="{ group: 'tasks' }")
       div(v-for="row in data")
         j-move-icon
-        el-input(v-for="column in columns", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
+        el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
