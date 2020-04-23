@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
   .header ::v-deep .el-input__inner {
-    margin-left: 34px;
+    margin-left: 68px;
     border: none;
   }
   ::v-deep .el-input__inner {
