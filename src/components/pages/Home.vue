@@ -114,6 +114,11 @@ export default {
 <style lang="scss" scoped>
   ::v-deep .el-collapse-item__header {
     height: $basespace-500 * 2;
+    font-size: $basespace-300;
+  }
+
+  ::v-deep .el-collapse-item__content {
+    font-size: $basespace-300;
   }
 
   .section-title-area ::v-deep .el-input__inner {
