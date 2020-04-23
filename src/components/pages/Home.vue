@@ -7,7 +7,7 @@
     el-main
       el-container
         el-header.mb-600
-          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask")
+          content-header(:sectionList="sectionList", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
           hr
         el-main
           el-collapse(v-model="activeSections")
@@ -104,6 +104,15 @@ export default {
     addTask (sectionValue, task) {
       this.tableData[sectionValue].push(task)
       this.currentTaskTotalNumber += 1
+    },
+    addSection () {
+      const newSectionId = this.sectionList.length + 1
+      this.sectionList.push({
+        id: newSectionId,
+        label: 'セクション' + newSectionId,
+        value: 'section' + newSectionId
+      })
+      this.activeSections.push(newSectionId)
     },
     editSectionTitle (id) {
       this.editingSectionId = id

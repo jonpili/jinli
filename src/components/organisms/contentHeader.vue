@@ -13,7 +13,6 @@
 export default {
   props: {
     sectionList: Array,
-    activeSections: Array,
     tableData: Object,
     taskTotalNumber: Number
   },
@@ -52,13 +51,7 @@ export default {
       this.selectedSectionValue = ''
     },
     addSection () {
-      const newSectionId = this.sectionList.length + 1
-      this.sectionList.push({
-        id: newSectionId,
-        label: 'セクション' + newSectionId,
-        value: 'section' + newSectionId
-      })
-      this.activeSections.push(newSectionId)
+      this.$emit('addSection')
     }
   }
 }
