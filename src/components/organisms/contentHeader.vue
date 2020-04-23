@@ -46,11 +46,10 @@ export default {
         other: ''
       }
       if (this.selectedSectionValue === '') {
-        this.tableData.notSectioned.push(emptyTask)
+        this.$emit('addTask', 'notSectioned', emptyTask)
       } else {
-        this.tableData[this.selectedSectionValue].push(emptyTask)
+        this.$emit('addTask', this.selectedSectionValue, emptyTask)
       }
-      this.currentTaskTotalNumber += 1
       this.selectedSectionValue = ''
     },
     addSection () {

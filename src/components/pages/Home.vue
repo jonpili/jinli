@@ -7,7 +7,7 @@
     el-main
       el-container
         el-header.mb-600
-          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData", :taskTotalNumber="taskTotalNumber")
+          content-header(:sectionList="sectionList", :activeSections="activeSections", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask")
           hr
         el-main
           el-collapse(v-model="activeSections")
@@ -101,6 +101,10 @@ export default {
     }
   },
   methods: {
+    addTask (sectionValue, task) {
+      this.tableData[sectionValue].push(task)
+      this.currentTaskTotalNumber += 1
+    },
     editSectionTitle (id) {
       this.editingSectionId = id
     },
