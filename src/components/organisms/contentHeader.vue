@@ -25,14 +25,14 @@ export default {
   },
   computed: {
     existEmptyTask () {
-      // const tableDataKeysArray = Object.keys(this.tableData)
-      // console.log(tableDataKeysArray)
-      // const allTasks = tableDataKeysArray.reduce((acc, key) => {
-      //   console.log(this.tableData[key])
-      //   return acc.concat(this.tableData[key])
-      // })
-      // console.log(allTasks)
-      return false
+      const tableDataKeysArray = Object.keys(this.tableData)
+      const allTasks = tableDataKeysArray.reduce((acc, key) => {
+        return acc.concat(this.tableData[key])
+      }, [])
+      const emptyTasks = allTasks.filter((task) => {
+        return task.name === ''
+      })
+      return emptyTasks.length > 0
     }
   },
   methods: {
