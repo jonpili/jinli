@@ -19,8 +19,7 @@ export default {
   },
   data () {
     return {
-      selectedSectionValue: '',
-      currentTaskTotalNumber: this.taskTotalNumber
+      selectedSectionValue: ''
     }
   },
   computed: {
@@ -38,7 +37,7 @@ export default {
   methods: {
     addTask () {
       const emptyTask = {
-        id: this.currentTaskTotalNumber+ 1,
+        id: this.taskTotalNumber+ 1,
         name: '',
         person: '',
         deadline: '',
