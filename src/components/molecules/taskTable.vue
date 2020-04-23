@@ -2,22 +2,23 @@
   div.pl-600
     el-input.header(v-for="column in columns", :key="column.id", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
     draggable(group="tasks")
-      div(v-for="row in data")
-        j-move-icon
-        j-complete-button(@click="completeTask(row.id)")
-        el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
+      transition-group(name="list", tag="div")
+        div(v-for="row in data", :key="row.id")
+          j-move-icon
+          j-complete-button(@click="completeTask(row.id)")
+          el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
-import jMoveIcon from '@/components/atoms/jMoveIcon'
-import jCompleteButton from '@/components/atoms/jCompleteButton'
+import JMoveIcon from '@/components/atoms/JMoveIcon'
+import JCompleteButton from '@/components/atoms/JCompleteButton'
 
 export default {
   components: {
     draggable,
-    jMoveIcon,
-    jCompleteButton
+    JMoveIcon,
+    JCompleteButton
   },
   props: {
     data: {
@@ -51,5 +52,12 @@ export default {
   ::v-deep .el-input__inner {
     height: $basespace-600;
     border-radius: 0px;
+  }
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to /* .list-leave-active for below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
   }
 </style>

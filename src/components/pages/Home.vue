@@ -16,7 +16,7 @@
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
-                    jMoveIcon
+                    JMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
                 task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask")
@@ -26,14 +26,14 @@
 import draggable from 'vuedraggable'
 import contentHeader from '@/components/organisms/contentHeader'
 import taskTable from '@/components/molecules/taskTable'
-import jMoveIcon from '@/components/atoms/jMoveIcon'
+import JMoveIcon from '@/components/atoms/JMoveIcon'
 
 export default {
   components: {
     draggable,
     contentHeader,
     taskTable,
-    jMoveIcon
+    JMoveIcon
   },
   data () {
     return {
