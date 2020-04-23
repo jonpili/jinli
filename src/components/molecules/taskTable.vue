@@ -4,17 +4,20 @@
     draggable(group="tasks")
       div(v-for="row in data")
         j-move-icon
+        j-done-button
         el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import jMoveIcon from '@/components/atoms/jMoveIcon'
+import jDoneButton from '@/components/atoms/jDoneButton'
 
 export default {
   components: {
     draggable,
-    jMoveIcon
+    jMoveIcon,
+    jDoneButton
   },
   props: {
     data: {
