@@ -2,8 +2,8 @@
   div.pl-600
     el-input.header(v-for="column in columns", :key="column.id", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
     draggable(group="tasks")
-      transition-group(name="list", tag="div")
-        div(v-for="row in data", :key="row.id")
+      transition-group(name="task-list", tag="div")
+        .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
           j-complete-button(@click="completeTask(row.id)")
           el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
@@ -53,11 +53,15 @@ export default {
     height: $basespace-600;
     border-radius: 0px;
   }
-  .list-enter-active, .list-leave-active {
-    transition: all 1s;
+  .task-list-item {
+    transition: all 0.5s;
   }
-  .list-enter, .list-leave-to /* .list-leave-active for below version 2.1.8 */ {
+  .task-list-enter {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateX($basespace-500 * -10);
+  }
+  .task-list-leave-to {
+    opacity: 0;
+    transform: translateX($basespace-500 * 10);
   }
 </style>
