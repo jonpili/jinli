@@ -103,16 +103,18 @@ export default {
   methods: {
     addTask (sectionValue, task) {
       this.tableData[sectionValue].push(task)
-      this.currentTaskTotalNumber += 1
+      this.taskTotalNumber += 1
     },
     addSection () {
       const newSectionId = this.sectionList.length + 1
+      const newSectionValue = 'section' + newSectionId
       this.sectionList.push({
         id: newSectionId,
         label: 'セクション' + newSectionId,
-        value: 'section' + newSectionId
+        value: newSectionValue
       })
       this.activeSections.push(newSectionId)
+      this.tableData[newSectionValue] = []
     },
     editSectionTitle (id) {
       this.editingSectionId = id
