@@ -1,14 +1,24 @@
 <template lang="pug">
-  span.done-button-area
-    font-awesome-icon.done-button(:icon="['far', 'check-circle']")
+  span.complete-button-area
+    font-awesome-icon.complete-button(:icon="['far', 'check-circle']", @click="handleClick")
 </template>
 
+<script>
+export default {
+  methods: {
+    handleClick () {
+      this.$emit('click')
+    }
+  }
+}
+</script>
+
 <style lang="scss" scoped>
-  .done-button-area {
+  .complete-button-area {
     margin: 0 $basespace-100;
     vertical-align: middle;
   }
-  .done-button {
+  .complete-button {
     color: $bdcolor-dark;
     &:hover {
       color: $basecolor-success;

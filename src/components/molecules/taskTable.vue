@@ -4,20 +4,20 @@
     draggable(group="tasks")
       div(v-for="row in data")
         j-move-icon
-        j-done-button
+        j-complete-button(@click="completeTask(row.id)")
         el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import jMoveIcon from '@/components/atoms/jMoveIcon'
-import jDoneButton from '@/components/atoms/jDoneButton'
+import jCompleteButton from '@/components/atoms/jCompleteButton'
 
 export default {
   components: {
     draggable,
     jMoveIcon,
-    jDoneButton
+    jCompleteButton
   },
   props: {
     data: {
@@ -29,6 +29,15 @@ export default {
     columns: {
       type: Array,
       required: true
+    },
+    sectionValue: {
+      type: String,
+      default: 'notSectioned'
+    }
+  },
+  methods: {
+    completeTask (taskId) {
+      this.$emit('completeTask', taskId, this.sectionValue)
     }
   }
 }

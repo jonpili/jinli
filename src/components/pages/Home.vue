@@ -12,14 +12,14 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList")
+              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList", @completeTask="completeTask")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
                     jMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="tableData[section.value]", :columns="columnList")
+                task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask")
 </template>
 
 <script>
@@ -106,6 +106,12 @@ export default {
     },
     judgeToEdit (id) {
       return id === this.editingSectionId
+    },
+    completeTask (taskId, sectionValue) {
+      const newSectionedTableData = this.tableData[sectionValue].filter((task) => {
+        return task.id !== taskId
+      })
+      this.tableData[sectionValue] = newSectionedTableData
     }
   }
 }
