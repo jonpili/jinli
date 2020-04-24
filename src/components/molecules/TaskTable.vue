@@ -1,7 +1,7 @@
 <template lang="pug">
   div.pl-600
     el-input.header(v-model="columns[0].label", :style="{ width: columns[0].width + 'px' }", readonly)
-    .open-detail-modal-button-area
+    .open-modal-button-area
     el-input.header(v-for="column in columns.slice(1)", :key="column.id", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
