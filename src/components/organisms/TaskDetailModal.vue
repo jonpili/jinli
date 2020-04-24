@@ -2,6 +2,7 @@
   el-container
     el-header
       .pt-400.pb-100.pl-500
+        j-complete-button-square(@click="completeTask")
         font-awesome-icon.close-button(:icon="['fas', 'chevron-right']", @click="closeTaskDetailModal")
       hr
     el-main
@@ -14,12 +15,21 @@
 </template>
 
 <script>
+import JCompleteButtonSquare from '@/components/atoms/JCompleteButtonSquare'
+
 export default {
+  components: {
+    JCompleteButtonSquare
+  },
   props: {
     task: Object,
+    sectionValue: String,
     columnList: Array
   },
   methods: {
+    completeTask () {
+      this.$emit('completeTask', this.task.id, this.sectionValue)
+    },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
     }
@@ -28,6 +38,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .complete-button {
+    color: $textcolor-light;
+  }
   .close-button {
     font-size: $basespace-500;
     color: $textcolor-light;

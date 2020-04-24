@@ -29,7 +29,7 @@
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", :columnList="columnList", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>
@@ -110,6 +110,7 @@ export default {
           other: ''
         }]
       },
+      taskDetailModalSectionValue: '',
       taskDetailModalContent: {},
       showTaskDetailModal: false
     }
@@ -142,8 +143,10 @@ export default {
       })
       this.tableData[sectionValue] = newSectionedTableData
       this.taskTotalNumber -= 1
+      this.showTaskDetailModal = false
     },
     openTaskDetailModal (taskId, sectionValue) {
+      this.taskDetailModalSectionValue = sectionValue
       this.taskDetailModalContent = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
       })
@@ -151,6 +154,7 @@ export default {
     },
     closeTaskDetailModal () {
       this.showTaskDetailModal = false
+      this.taskDetailModalSectionValue = ''
       this.taskDetailModalContent = {}
     }
   }

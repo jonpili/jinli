@@ -7,7 +7,7 @@
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
-          j-complete-button(@click="completeTask(row.id)")
+          j-complete-button-round(@click="completeTask(row.id)")
           el-input(v-model="row[columns[0].value]", :style="{ width: columns[0].width + 'px' }")
           .open-modal-button-area(@click="openTaskDetailModal(row.id)")
             span 詳細 >
@@ -17,13 +17,13 @@
 <script>
 import draggable from 'vuedraggable'
 import JMoveIcon from '@/components/atoms/JMoveIcon'
-import JCompleteButton from '@/components/atoms/JCompleteButton'
+import JCompleteButtonRound from '@/components/atoms/JCompleteButtonRound'
 
 export default {
   components: {
     draggable,
     JMoveIcon,
-    JCompleteButton
+    JCompleteButtonRound
   },
   props: {
     data: {
