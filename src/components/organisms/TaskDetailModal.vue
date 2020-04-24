@@ -5,7 +5,7 @@
         font-awesome-icon.close-button(:icon="['fas', 'chevron-right']", @click="closeTaskDetailModal")
       hr
     el-main
-      .fs-600.fw-bold.mb-400 {{ task.name }}
+      .fs-600.fw-bold.mb-400 {{ task[columnList[0].value] }}
       el-row.mb-200(v-for="column in columnList.slice(1)")
         el-col.pt-100(:span="6")
           span {{ column.label }}
