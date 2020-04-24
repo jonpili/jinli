@@ -1,7 +1,7 @@
 <template lang="pug">
   el-container
     el-header
-      .header-button-area
+      .header-button-area.my-300
         j-complete-button-square(@click="completeTask")
         font-awesome-icon.close-button.mr-200(:icon="['fas', 'chevron-right']", @click="closeTaskDetailModal")
       hr
@@ -42,7 +42,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: $basespace-300 0 $basespace-200;
   }
   .complete-button {
     color: $textcolor-light;
