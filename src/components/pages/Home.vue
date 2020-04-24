@@ -21,12 +21,14 @@
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
                 task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask", @openDetailModal="openDetailModal")
       transition(name="detail-modal")
-        .detail-modal(v-if="showDetailModal") {{ detailModalContent.name }}
+        .modal-area(v-if="showDetailModal")
+          task-detail-modal(:task="detailModalContent")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import contentHeader from '@/components/organisms/contentHeader'
+import TaskDetailModal from '@/components/organisms/TaskDetailModal'
 import taskTable from '@/components/molecules/taskTable'
 import JMoveIcon from '@/components/atoms/JMoveIcon'
 
@@ -34,6 +36,7 @@ export default {
   components: {
     draggable,
     contentHeader,
+    TaskDetailModal,
     taskTable,
     JMoveIcon
   },
@@ -161,11 +164,10 @@ export default {
     border-color: #409EFF;
   }
 
-  .detail-modal {
+  .modal-area {
     position: fixed;
     top: 60px;
     right: 0;
-    z-index: 1;
     transition: all 0.5s;
   }
   .detail-modal-enter {
