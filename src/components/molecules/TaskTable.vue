@@ -9,7 +9,7 @@
           j-move-icon
           j-complete-button(@click="completeTask(row.id)")
           el-input(v-model="row[columns[0].value]", :style="{ width: columns[0].width + 'px' }")
-          .open-detail-modal-button-area(@click="openDetailModal(row.id)")
+          .open-modal-button-area(@click="openTaskDetailModal(row.id)")
             span 詳細 >
           el-input(v-for="column in columns.slice(1)", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
@@ -72,7 +72,7 @@ export default {
     opacity: 0;
     transform: translateX($basespace-500 * 10);
   }
-  .open-detail-modal-button-area {
+  .open-modal-button-area {
     display: inline-block;
     text-align: center;
     width: $basespace-600 * 2;
