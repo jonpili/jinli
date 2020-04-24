@@ -1,8 +1,7 @@
 <template lang="pug">
   el-container
-    el-header
-      el-button(icon="el-icon-notebook-2", type="success", circle)
-      span.fs-500.fw-bold.ml-500 jinli
+    el-header(height="84px")
+      img(src="@/assets/logo.png")
       hr
     el-main
       el-container
