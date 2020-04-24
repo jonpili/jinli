@@ -12,14 +12,16 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList", @completeTask="completeTask")
+              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList", @completeTask="completeTask", @openDetailModal="openDetailModal")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
                     JMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask")
+                task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask", @openDetailModal="openDetailModal")
+      transition(name="detail-modal")
+        .detail-modal(v-if="showDetailModal") {{ detailModalContent.name }}
 </template>
 
 <script>
@@ -97,7 +99,9 @@ export default {
           tag: '開発目標',
           other: ''
         }]
-      }
+      },
+      detailModalContent: {},
+      showDetailModal: false
     }
   },
   methods: {
@@ -128,6 +132,12 @@ export default {
       })
       this.tableData[sectionValue] = newSectionedTableData
       this.taskTotalNumber -= 1
+    },
+    openDetailModal (taskId, sectionValue) {
+      this.detailModalContent = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      this.showDetailModal = true
     }
   }
 }
@@ -149,5 +159,16 @@ export default {
 
   .is-editing ::v-deep .el-input__inner {
     border-color: #409EFF;
+  }
+
+  .detail-modal {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    z-index: 1;
+    transition: all 0.5s;
+  }
+  .detail-modal-enter {
+    transform: translateX($basespace-600 * 10);
   }
 </style>
