@@ -45,8 +45,8 @@ export default {
     completeTask (taskId) {
       this.$emit('completeTask', taskId, this.sectionValue)
     },
-    openDetailModal (taskId) {
-      this.$emit('openDetailModal', taskId, this.sectionValue)
+    openTaskDetailModal (taskId) {
+      this.$emit('openTaskDetailModal', taskId, this.sectionValue)
     }
   }
 }

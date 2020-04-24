@@ -12,17 +12,24 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList", @completeTask="completeTask", @openTaskDetailModal="openTaskDetailModal")
+              task-table.mb-500(:data="tableData.notSectioned",
+                                :columns="columnList",
+                                @completeTask="completeTask",
+                                @openTaskDetailModal="openTaskDetailModal")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
                     JMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask", @openTaskDetailModal="openTaskDetailModal")
+                task-table.mt-100(:data="tableData[section.value]",
+                                  :columns="columnList",
+                                  :sectionValue="section.value",
+                                  @completeTask="completeTask",
+                                  @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent")
+          task-detail-modal(:task="taskDetailModalContent", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>
@@ -141,6 +148,10 @@ export default {
         return task.id === taskId
       })
       this.showTaskDetailModal = true
+    },
+    closeTaskDetailModal () {
+      this.showTaskDetailModal = false
+      this.taskDetailModalContent = {}
     }
   }
 }
@@ -175,6 +186,9 @@ export default {
     transition: all 0.5s;
   }
   .task-detail-modal-enter {
-    transform: translateX($basespace-600 * 10);
+    transform: translateX(100%);
+  }
+  .task-detail-modal-leave-to {
+    transform: translateX(100%);
   }
 </style>
