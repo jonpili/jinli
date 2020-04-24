@@ -13,14 +13,12 @@
 export default {
   props: {
     sectionList: Array,
-    activeSections: Array,
     tableData: Object,
     taskTotalNumber: Number
   },
   data () {
     return {
-      selectedSectionValue: '',
-      currentTaskTotalNumber: this.taskTotalNumber
+      selectedSectionValue: ''
     }
   },
   computed: {
@@ -38,7 +36,7 @@ export default {
   methods: {
     addTask () {
       const emptyTask = {
-        id: this.currentTaskTotalNumber+ 1,
+        id: this.taskTotalNumber+ 1,
         name: '',
         person: '',
         deadline: '',
@@ -46,21 +44,14 @@ export default {
         other: ''
       }
       if (this.selectedSectionValue === '') {
-        this.tableData.notSectioned.push(emptyTask)
+        this.$emit('addTask', 'notSectioned', emptyTask)
       } else {
-        this.tableData[this.selectedSectionValue].push(emptyTask)
+        this.$emit('addTask', this.selectedSectionValue, emptyTask)
       }
-      this.currentTaskTotalNumber += 1
       this.selectedSectionValue = ''
     },
     addSection () {
-      const newSectionId = this.sectionList.length + 1
-      this.sectionList.push({
-        id: newSectionId,
-        label: 'セクション' + newSectionId,
-        value: 'section' + newSectionId
-      })
-      this.activeSections.push(newSectionId)
+      this.$emit('addSection')
     }
   }
 }
