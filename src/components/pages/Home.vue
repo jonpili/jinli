@@ -127,6 +127,7 @@ export default {
         return task.id !== taskId
       })
       this.tableData[sectionValue] = newSectionedTableData
+      this.taskTotalNumber -= 1
     }
   }
 }
