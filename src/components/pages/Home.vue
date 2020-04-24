@@ -166,8 +166,12 @@ export default {
 
   .modal-area {
     position: fixed;
-    top: 60px;
+    top: 58px;
     right: 0;
+    width: 50%;
+    height: 100%;
+    background-color: white;
+    box-shadow: -10px 0 10px $shadowcolor-base;
     transition: all 0.5s;
   }
   .detail-modal-enter {

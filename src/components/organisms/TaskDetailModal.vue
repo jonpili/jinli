@@ -1,6 +1,8 @@
 <template lang="pug">
-  div
-    div(v-for="taskItem in task") {{ taskItem }}
+  el-container
+    el-header
+    el-main
+      div(v-for="taskItem in task") {{ taskItem }}
 </template>
 
 <script>
