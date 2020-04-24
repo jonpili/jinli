@@ -29,7 +29,7 @@
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent", :columnList="columnList", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>

@@ -3,13 +3,17 @@
     el-header.pt-200
       font-awesome-icon.close-button(:icon="['fas', 'chevron-right']", @click="closeTaskDetailModal")
     el-main
-      div(v-for="taskItem in task") {{ taskItem }}
+      .fs-700.fw-bold {{ task.name }}
+      div(v-for="column in columnList")
+        span {{ column.label }}
+        span {{ task[column.value] }}
 </template>
 
 <script>
 export default {
   props: {
-    task: Object
+    task: Object,
+    columnList: Array
   },
   methods: {
     closeTaskDetailModal () {
