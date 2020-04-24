@@ -19,7 +19,7 @@ export default {
     vertical-align: middle;
   }
   .complete-button {
-    color: $bdcolor-dark;
+    color: $textcolor-light;
     &:hover {
       color: $basecolor-success;
       cursor: pointer;
