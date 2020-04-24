@@ -1,9 +1,9 @@
 <template lang="pug">
   el-container
     el-header
-      .pt-400.pb-100.pl-500
+      .header-button-area
         j-complete-button-square(@click="completeTask")
-        font-awesome-icon.close-button(:icon="['fas', 'chevron-right']", @click="closeTaskDetailModal")
+        font-awesome-icon.close-button.mr-200(:icon="['fas', 'chevron-right']", @click="closeTaskDetailModal")
       hr
     el-main
       .fs-600.fw-bold.mb-400 {{ task[columnList[0].value] }}
@@ -38,11 +38,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .header-button-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: $basespace-300 0 $basespace-200;
+  }
   .complete-button {
     color: $textcolor-light;
   }
   .close-button {
-    font-size: $basespace-500;
+    font-size: $basespace-400;
     color: $textcolor-light;
     &:hover {
       color: $textcolor-base;
