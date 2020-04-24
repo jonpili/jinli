@@ -27,17 +27,17 @@
 
 <script>
 import draggable from 'vuedraggable'
-import contentHeader from '@/components/organisms/contentHeader'
+import ContentHeader from '@/components/organisms/ContentHeader'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
-import taskTable from '@/components/molecules/taskTable'
+import TaskTable from '@/components/molecules/TaskTable'
 import JMoveIcon from '@/components/atoms/JMoveIcon'
 
 export default {
   components: {
     draggable,
-    contentHeader,
+    ContentHeader,
     TaskDetailModal,
-    taskTable,
+    TaskTable,
     JMoveIcon
   },
   data () {
