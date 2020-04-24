@@ -20,9 +20,9 @@
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
                 task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask", @openDetailModal="openDetailModal")
-      transition(name="detail-modal")
-        .modal-area(v-if="showDetailModal")
-          task-detail-modal(:task="detailModalContent")
+      transition(name="task-detail-modal")
+        .task-detail-modal-area(v-if="showTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent")
 </template>
 
 <script>
@@ -103,8 +103,8 @@ export default {
           other: ''
         }]
       },
-      detailModalContent: {},
-      showDetailModal: false
+      taskDetailModalContent: {},
+      showTaskDetailModal: false
     }
   },
   methods: {
@@ -137,10 +137,10 @@ export default {
       this.taskTotalNumber -= 1
     },
     openDetailModal (taskId, sectionValue) {
-      this.detailModalContent = this.tableData[sectionValue].find((task) => {
+      this.taskDetailModalContent = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
       })
-      this.showDetailModal = true
+      this.showTaskDetailModal = true
     }
   }
 }
@@ -164,7 +164,7 @@ export default {
     border-color: #409EFF;
   }
 
-  .modal-area {
+  .task-detail-modal-area {
     position: fixed;
     top: 58px;
     right: 0;
@@ -174,7 +174,7 @@ export default {
     box-shadow: -10px 0 10px $shadowcolor-base;
     transition: all 0.5s;
   }
-  .detail-modal-enter {
+  .task-detail-modal-enter {
     transform: translateX($basespace-600 * 10);
   }
 </style>
