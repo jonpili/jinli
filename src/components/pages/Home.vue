@@ -143,7 +143,9 @@ export default {
       })
       this.tableData[sectionValue] = newSectionedTableData
       this.taskTotalNumber -= 1
-      this.showTaskDetailModal = false
+      if (taskId === this.taskDetailModalContent.id) {
+        this.showTaskDetailModal = false
+      }
     },
     openTaskDetailModal (taskId, sectionValue) {
       this.taskDetailModalSectionValue = sectionValue
