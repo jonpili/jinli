@@ -49,11 +49,11 @@ export default {
   data () {
     return {
       columnList: [
-        { id: 1, label: 'タスク名', value: 'name', width: 240 },
-        { id: 2, label: '担当者', value: 'person', width: 120 },
-        { id: 3, label: '期日', value: 'deadline', width: 120 },
-        { id: 4, label: 'タグ', value: 'tag', width: 120 },
-        { id: 5, label: 'その他', value: 'other', width: 120 },
+        { id: 1, label: 'タスク名', value: 'name', width: 480 },
+        { id: 2, label: '担当者', value: 'person', width: 100 },
+        { id: 3, label: '期日', value: 'deadline', width: 100 },
+        { id: 4, label: 'タグ', value: 'tag', width: 100 },
+        { id: 5, label: 'その他', value: 'other', width: 100 }
       ],
       sectionList: [
         { id: 1, label: '4/15~29のタスク', value: 'section1' },
