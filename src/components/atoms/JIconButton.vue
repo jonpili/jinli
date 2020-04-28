@@ -1,5 +1,5 @@
 <template lang="pug">
-  font-awesome-icon.button(:icon="[genre, value]", @click="handleClick")
+  font-awesome-icon(:icon="[genre, value]", @click="handleClick")
 </template>
 
 <script>
@@ -12,6 +12,17 @@ export default {
     value: {
       type: String,
       required: true
+    },
+    type: {
+      type: String,
+      default: 'default'
+    }
+  },
+  classes (props) {
+    return {
+      'j-icon-button': true,
+      'j-icon-button-default': props.type === 'default',
+      'j-icon-button-success': props.type === 'success'
     }
   },
   methods: {
@@ -23,11 +34,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .button {
+  .j-icon-button {
     color: $bdcolor-dark;
+    cursor: pointer;
+  }
+  .j-icon-button-default{
     &:hover {
       color: $basecolor-success;
-      cursor: pointer;
+    }
+  }
+  .j-icon-button-success{
+    &:hover {
+      color: $basecolor-success;
     }
   }
 </style>
