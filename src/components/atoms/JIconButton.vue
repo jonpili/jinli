@@ -35,12 +35,12 @@ export default {
 
 <style lang="scss" scoped>
   .j-icon-button {
-    color: $bdcolor-dark;
+    color: $bdcolor-base;
     cursor: pointer;
   }
   .j-icon-button-default{
     &:hover {
-      color: $basecolor-success;
+      color: $bdcolor-dark;
     }
   }
   .j-icon-button-success{
