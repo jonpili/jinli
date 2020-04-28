@@ -5,20 +5,21 @@
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
-          j-complete-button(@click="completeTask(row.id)")
+          span.complete-button-area
+            j-icon-button(@click="completeTask(row.id)")
           el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import JMoveIcon from '@/components/atoms/JMoveIcon'
-import JCompleteButton from '@/components/atoms/JCompleteButton'
+import JIconButton from '@/components/atoms/JIconButton'
 
 export default {
   components: {
     draggable,
     JMoveIcon,
-    JCompleteButton
+    JIconButton
   },
   props: {
     data: {
@@ -63,5 +64,9 @@ export default {
   .task-list-leave-to {
     opacity: 0;
     transform: translateX($basespace-500 * 10);
+  }
+  .complete-button-area {
+    margin: 0 $basespace-100;
+    vertical-align: middle;
   }
 </style>
