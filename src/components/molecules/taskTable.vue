@@ -6,7 +6,7 @@
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
           span.complete-button-area
-            j-icon-button(@click="completeTask(row.id)")
+            j-icon-button(genre="far", value="check-circle", @click="completeTask(row.id)")
           el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
