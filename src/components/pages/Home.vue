@@ -128,7 +128,7 @@ export default {
         value: newSectionValue
       })
       this.activeSections.push(newSectionId)
-      this.tableData[newSectionValue] = []
+      this.$set(this.tableData, newSectionValue, [])
     },
     editSectionTitle (id) {
       this.editingSectionId = id
