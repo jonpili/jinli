@@ -7,12 +7,12 @@
         j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
       hr
     el-main
-      .fs-600.fw-bold.mb-400 {{ task[columnList[0].value] }}
+      .fs-600.fw-bold.mb-400 {{ task.data[columnList[0].value] }}
       el-row.mb-200(v-for="column in columnList.slice(1)", :key="column.id")
         el-col.pt-100(:span="6")
           span {{ column.label }}
         el-col(:span="18")
-          el-input(v-model="task[column.value]")
+          el-input(v-model="task.data[column.value]")
 </template>
 
 <script>
