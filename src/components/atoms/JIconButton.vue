@@ -1,5 +1,5 @@
-<template lang="pug">
-  font-awesome-icon(:icon="[genre, value]", @click="handleClick")
+<template functional lang="pug">
+  font-awesome-icon(:icon="[props.genre, props.value]", :class="[data.class, data.staticClass, $options.classes(props)]", v-on="listeners")
 </template>
 
 <script>
@@ -23,11 +23,6 @@ export default {
       'j-icon-button': true,
       'j-icon-button-default': props.type === 'default',
       'j-icon-button-success': props.type === 'success'
-    }
-  },
-  methods: {
-    handleClick () {
-      this.$emit('click')
     }
   }
 }
