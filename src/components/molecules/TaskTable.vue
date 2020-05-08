@@ -17,14 +17,10 @@
 
 <script>
 import draggable from 'vuedraggable'
-import JMoveIcon from '@/components/atoms/JMoveIcon'
-import JIconButton from '@/components/atoms/JIconButton'
 
 export default {
   components: {
-    draggable,
-    JMoveIcon,
-    JIconButton
+    draggable
   },
   props: {
     data: {

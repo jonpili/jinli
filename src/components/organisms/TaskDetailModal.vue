@@ -15,12 +15,7 @@
 </template>
 
 <script>
-import JIconButton from '@/components/atoms/JIconButton'
-
 export default {
-  components: {
-    JIconButton
-  },
   props: {
     task: Object,
     sectionValue: String,
