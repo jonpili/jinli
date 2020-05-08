@@ -7,7 +7,7 @@
   .move-icon-area {
     margin: 0 $basespace-200;
     vertical-align: middle;
-    opacity: 0.5;
+    opacity: 0.3;
     &:hover {
       opacity: 1.0;
       cursor: grab;
@@ -17,7 +17,7 @@
     }
   }
   .move-icon {
-    color: $bdcolor-dark;
+    color: $textcolor-light;
   }
   ::v-deep .el-input__inner {
     height: $basespace-600;

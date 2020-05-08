@@ -1,13 +1,18 @@
 <template lang="pug">
   div.pl-600
-    el-input.header(v-for="column in columns", :key="column.id", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
+    template(v-for="(column, index) in columns")
+      el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
+      .open-modal-button-area(v-if="index === 0")
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
           span.complete-button-area
             j-icon-button(genre="far", value="check-circle", type="success", @click="completeTask(row.id)")
-          el-input(v-for="column in columns", :key="column.id", v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
+          template(v-for="(column, index) in columns")
+            el-input(v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
+            .open-modal-button-area(v-if="index === 0", @click="openTaskDetailModal(row.id)")
+              span 詳細 >
 </template>
 
 <script>
@@ -40,6 +45,9 @@ export default {
   methods: {
     completeTask (taskId) {
       this.$emit('completeTask', taskId, this.sectionValue)
+    },
+    openTaskDetailModal (taskId) {
+      this.$emit('openTaskDetailModal', taskId, this.sectionValue)
     }
   }
 }
@@ -68,5 +76,16 @@ export default {
   .complete-button-area {
     margin: 0 $basespace-100;
     vertical-align: middle;
+  }
+  .open-modal-button-area {
+    display: inline-block;
+    text-align: center;
+    width: $basespace-600 * 2;
+    font-size: $basespace-200;
+    cursor: pointer;
+    opacity: 0;
+    &:hover {
+      opacity: 1;
+    }
   }
 </style>

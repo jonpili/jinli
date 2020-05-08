@@ -11,27 +11,39 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)", :columns="columnList", @completeTask="completeTask")
+              task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)",
+                                :columns="columnList",
+                                @completeTask="completeTask",
+                                @openTaskDetailModal="openTaskDetailModal")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
                     JMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="filterCompletedTasks(tableData[section.value])", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask")
+                task-table.mt-100(:data="filterCompletedTasks(tableData[section.value])",
+                                  :columns="columnList",
+                                  :sectionValue="section.value",
+                                  @completeTask="completeTask",
+                                  @openTaskDetailModal="openTaskDetailModal")
+      transition(name="task-detail-modal")
+        .task-detail-modal-area(v-if="showTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
-import contentHeader from '@/components/organisms/contentHeader'
-import taskTable from '@/components/molecules/taskTable'
+import ContentHeader from '@/components/organisms/ContentHeader'
+import TaskDetailModal from '@/components/organisms/TaskDetailModal'
+import TaskTable from '@/components/molecules/TaskTable'
 import JMoveIcon from '@/components/atoms/JMoveIcon'
 
 export default {
   components: {
     draggable,
-    contentHeader,
-    taskTable,
+    ContentHeader,
+    TaskDetailModal,
+    TaskTable,
     JMoveIcon
   },
   data () {
@@ -114,7 +126,10 @@ export default {
             other: ''
           }
         }]
-      }
+      },
+      taskDetailModalSectionValue: '',
+      taskDetailModalContent: {},
+      showTaskDetailModal: false
     }
   },
   methods: {
@@ -150,6 +165,21 @@ export default {
       })
       targetTask.completedAt = Date()
       this.taskTotalNumber -= 1
+      if (taskId === this.taskDetailModalContent.id) {
+        this.showTaskDetailModal = false
+      }
+    },
+    openTaskDetailModal (taskId, sectionValue) {
+      this.taskDetailModalSectionValue = sectionValue
+      this.taskDetailModalContent = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      this.showTaskDetailModal = true
+    },
+    closeTaskDetailModal () {
+      this.showTaskDetailModal = false
+      this.taskDetailModalSectionValue = ''
+      this.taskDetailModalContent = {}
     }
   }
 }
@@ -171,5 +201,22 @@ export default {
 
   .is-editing ::v-deep .el-input__inner {
     border-color: #409EFF;
+  }
+
+  .task-detail-modal-area {
+    position: fixed;
+    top: 58px;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-color: white;
+    box-shadow: -10px 0 10px $shadowcolor-base;
+    transition: all 0.5s;
+  }
+  .task-detail-modal-enter {
+    transform: translateX(100%);
+  }
+  .task-detail-modal-leave-to {
+    transform: translateX(100%);
   }
 </style>
