@@ -14,6 +14,7 @@
               task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)",
                                 :columns="columnList",
                                 @completeTask="completeTask",
+                                @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
@@ -25,6 +26,7 @@
                                   :columns="columnList",
                                   :sectionValue="section.value",
                                   @completeTask="completeTask",
+                                  @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")

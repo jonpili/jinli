@@ -2,7 +2,9 @@
   div.pl-600
     template(v-for="(column, index) in columns")
       el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
-      .open-modal-button-area(v-if="index === 0")
+      span(v-if="index === 0")
+        .like-button-area
+        .open-modal-button-area
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="row in data", :key="row.id")
@@ -11,8 +13,11 @@
             j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(row.id)")
           template(v-for="(column, index) in columns")
             el-input(v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
-            .open-modal-button-area(v-if="index === 0", @click="openTaskDetailModal(row.id)")
-              span 詳細 >
+            span(v-if="index === 0")
+              .like-button-area
+                j-icon-button(v-if="row.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(row.id)")
+              .open-modal-button-area(@click="openTaskDetailModal(row.id)")
+                span 詳細 >
 </template>
 
 <script>
@@ -41,6 +46,9 @@ export default {
   methods: {
     completeTask (taskId) {
       this.$emit('completeTask', taskId, this.sectionValue)
+    },
+    switchLiked (taskId) {
+      this.$emit('switchLiked', taskId, this.sectionValue)
     },
     openTaskDetailModal (taskId) {
       this.$emit('openTaskDetailModal', taskId, this.sectionValue)
@@ -72,6 +80,11 @@ export default {
   .complete-button-area {
     margin: 0 $basespace-100;
     vertical-align: middle;
+  }
+  .like-button-area {
+    display: inline-block;
+    text-align: center;
+    width: $basespace-600;
   }
   .open-modal-button-area {
     display: inline-block;
