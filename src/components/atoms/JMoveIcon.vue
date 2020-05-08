@@ -17,7 +17,7 @@
     }
   }
   .move-icon {
-    color: $textcolor-base;
+    color: $textcolor-light;
   }
   ::v-deep .el-input__inner {
     height: $basespace-600;
