@@ -18,10 +18,10 @@
                                 @openTaskDetailModal="openTaskDetailModal")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
-                  .pt-100
-                    j-move-icon
+                  j-move-icon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
+                  j-icon-button(genre="far", value="trash-alt", @click="deleteSection")
                 task-table.mt-100(:data="filterHiddenTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
@@ -38,15 +38,13 @@ import draggable from 'vuedraggable'
 import ContentHeader from '@/components/organisms/ContentHeader'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
 import TaskTable from '@/components/molecules/TaskTable'
-import JMoveIcon from '@/components/atoms/JMoveIcon'
 
 export default {
   components: {
     draggable,
     ContentHeader,
     TaskDetailModal,
-    TaskTable,
-    JMoveIcon
+    TaskTable
   },
   data () {
     return {
@@ -190,6 +188,9 @@ export default {
       targetTask.deletedAt = Date()
       this.taskTotalNumber -= 1
       this.showTaskDetailModal = false
+    },
+    deleteSection () {
+
     },
     switchLiked (taskId, sectionValue) {
       const targetTask = this.tableData[sectionValue].find((task) => {
