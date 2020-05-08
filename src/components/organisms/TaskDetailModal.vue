@@ -3,7 +3,7 @@
     el-header
       .header-button-area.my-300
         el-button(@click="completeTask", icon="el-icon-check", size="mini") 完了にする
-        font-awesome-icon.close-button.mr-200(:icon="['fas', 'chevron-right']", @click="closeTaskDetailModal")
+        j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
       hr
     el-main
       .fs-600.fw-bold.mb-400 {{ task[columnList[0].value] }}
@@ -15,7 +15,12 @@
 </template>
 
 <script>
+import JIconButton from '@/components/atoms/JIconButton'
+
 export default {
+  components: {
+    JIconButton
+  },
   props: {
     task: Object,
     sectionValue: String,
@@ -37,13 +42,5 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  .close-button {
-    font-size: $basespace-400;
-    color: $textcolor-light;
-    &:hover {
-      color: $textcolor-base;
-      cursor: pointer;
-    }
   }
 </style>
