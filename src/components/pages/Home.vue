@@ -6,7 +6,7 @@
     el-main
       el-container
         el-header.mb-600
-          content-header(:sectionList="sectionList", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
+          content-header(:sectionList="filterDeletedSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
           hr
         el-main
           el-collapse(v-model="activeSections")
@@ -16,12 +16,12 @@
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
+              el-collapse-item(v-for="section in filterDeletedSections(sectionList)", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   j-move-icon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                  j-icon-button(genre="far", value="trash-alt", @click="deleteSection")
+                  j-icon-button(genre="far", value="trash-alt", @click="deleteSection(section)")
                 task-table.mt-100(:data="filterHiddenTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
@@ -56,8 +56,8 @@ export default {
         { id: 5, label: 'その他', value: 'other', width: 100 }
       ],
       sectionList: [
-        { id: 1, label: '4/15~29のタスク', value: 'section1' },
-        { id: 2, label: '5/04~20のタスク', value: 'section2' }
+        { id: 1, deletedAt: '', label: '4/15~29のタスク', value: 'section1' },
+        { id: 2, deletedAt: '', label: '5/04~20のタスク', value: 'section2' }
       ],
       activeSections: [1, 2],
       editingSectionId: '',
@@ -166,6 +166,11 @@ export default {
     judgeToEdit (id) {
       return id === this.editingSectionId
     },
+    filterDeletedSections (sections) {
+      return sections.filter((section) => {
+        return section.deletedAt === ''
+      })
+    },
     filterHiddenTasks (tasks) {
       return tasks.filter((task) => {
         return task.completedAt === '' & task.deletedAt === ''
@@ -181,6 +186,9 @@ export default {
         this.showTaskDetailModal = false
       }
     },
+    deleteSection (section) {
+      section.deletedAt = Date()
+    },
     deleteTask (taskId, sectionValue) {
       const targetTask = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
@@ -188,9 +196,6 @@ export default {
       targetTask.deletedAt = Date()
       this.taskTotalNumber -= 1
       this.showTaskDetailModal = false
-    },
-    deleteSection () {
-
     },
     switchLiked (taskId, sectionValue) {
       const targetTask = this.tableData[sectionValue].find((task) => {
