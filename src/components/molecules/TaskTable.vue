@@ -9,7 +9,7 @@
           j-move-icon
           span.complete-button-area
             j-icon-button(genre="far", value="check-circle", type="success", @click="completeTask(row.id)")
-          el-input(v-model="row[columns[0].value]", :style="{ width: columns[0].width + 'px' }")
+          el-input(v-model="row.data[columns[0].value]", :style="{ width: columns[0].width + 'px' }")
           .open-modal-button-area(@click="openTaskDetailModal(row.id)")
             span 詳細 >
           el-input(v-for="column in columns.slice(1)", :key="column.id", v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
