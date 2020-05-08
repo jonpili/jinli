@@ -1,18 +1,18 @@
 <template lang="pug">
   div.pl-600
-    el-input.header(v-model="columns[0].label", :style="{ width: columns[0].width + 'px' }", readonly)
-    .open-modal-button-area
-    el-input.header(v-for="column in columns.slice(1)", :key="column.id", v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
+    template(v-for="(column, index) in columns")
+      el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
+      .open-modal-button-area(v-if="index === 0")
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
           span.complete-button-area
             j-icon-button(genre="far", value="check-circle", type="success", @click="completeTask(row.id)")
-          el-input(v-model="row.data[columns[0].value]", :style="{ width: columns[0].width + 'px' }")
-          .open-modal-button-area(@click="openTaskDetailModal(row.id)")
-            span 詳細 >
-          el-input(v-for="column in columns.slice(1)", :key="column.id", v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
+          template(v-for="(column, index) in columns")
+            el-input(v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
+            .open-modal-button-area(v-if="index === 0", @click="openTaskDetailModal(row.id)")
+              span 詳細 >
 </template>
 
 <script>
