@@ -19,7 +19,7 @@
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
-                    JMoveIcon
+                    j-move-icon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
                 task-table.mt-100(:data="filterHiddenTasks(tableData[section.value])",
