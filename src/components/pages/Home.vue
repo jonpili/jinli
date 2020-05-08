@@ -53,48 +53,60 @@ export default {
       tableData: {
         notSectioned: [{
             id: 1,
-            name: 'JavaScriptの勉強',
-            person: 'ジョニー',
-            deadline: '5/24',
-            tag: '個人学習',
-            other: ''
+            data: {
+              name: 'JavaScriptの勉強',
+              person: 'ジョニー',
+              deadline: '5/24',
+              tag: '個人学習',
+              other: ''
+            }
         }],
         section1: [{
           id: 2,
-          name: 'タスクの表示/追加/名前変更機能',
-          person: 'ジョニー',
-          deadline: '4/16',
-          tag: 'MVP',
-          other: ''
+          data: {
+            name: 'タスクの表示/追加/名前変更機能',
+            person: 'ジョニー',
+            deadline: '4/16',
+            tag: 'MVP',
+            other: ''
+          }
         }, {
           id: 3,
-          name: 'セクションの表示/追加/名前変更機能',
-          person: 'ジョニー',
-          deadline: '4/17',
-          tag: 'MVP',
-          other: ''
+          data: {
+            name: 'セクションの表示/追加/名前変更機能',
+            person: 'ジョニー',
+            deadline: '4/17',
+            tag: 'MVP',
+            other: ''
+          }
         }, {
           id: 4,
-          name: 'セクションとタスクの紐付け',
-          person: 'ジョニー',
-          deadline: '4/20',
-          tag: 'MVP',
-          other: ''
+          data: {
+            name: 'セクションとタスクの紐付け',
+            person: 'ジョニー',
+            deadline: '4/20',
+            tag: 'MVP',
+            other: ''
+          }
         }],
         section2: [{
           id: 5,
-          name: 'タスクへのいいね機能',
-          person: 'ジョニー',
-          deadline: '5/04',
-          tag: '開発目標',
-          other: ''
+          data: {
+            name: 'タスクへのいいね機能',
+            person: 'ジョニー',
+            deadline: '5/04',
+            tag: '開発目標',
+            other: ''
+          }
         }, {
           id: 6,
-          name: 'タスクの削除',
-          person: 'ジョニー',
-          deadline: '5/05',
-          tag: '開発目標',
-          other: ''
+          data: {
+            name: 'タスクの削除',
+            person: 'ジョニー',
+            deadline: '5/05',
+            tag: '開発目標',
+            other: ''
+          }
         }]
       }
     }

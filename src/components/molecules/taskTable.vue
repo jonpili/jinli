@@ -7,7 +7,7 @@
           j-move-icon
           span.complete-button-area
             j-icon-button(genre="far", value="check-circle", type="success", @click="completeTask(row.id)")
-          el-input(v-for="column in columns", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
+          el-input(v-for="column in columns", :key="column.id", v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
