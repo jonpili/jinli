@@ -11,14 +11,14 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList", @completeTask="completeTask")
+              task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)", :columns="columnList", @completeTask="completeTask")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
                     JMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="tableData[section.value]", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask")
+                task-table.mt-100(:data="filterCompletedTasks(tableData[section.value])", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask")
 </template>
 
 <script>
@@ -53,6 +53,7 @@ export default {
       tableData: {
         notSectioned: [{
             id: 1,
+            completedAt: '',
             data: {
               name: 'JavaScriptの勉強',
               person: 'ジョニー',
@@ -63,6 +64,7 @@ export default {
         }],
         section1: [{
           id: 2,
+          completedAt: '',
           data: {
             name: 'タスクの表示/追加/名前変更機能',
             person: 'ジョニー',
@@ -72,6 +74,7 @@ export default {
           }
         }, {
           id: 3,
+          completedAt: '',
           data: {
             name: 'セクションの表示/追加/名前変更機能',
             person: 'ジョニー',
@@ -81,6 +84,7 @@ export default {
           }
         }, {
           id: 4,
+          completedAt: '',
           data: {
             name: 'セクションとタスクの紐付け',
             person: 'ジョニー',
@@ -91,6 +95,7 @@ export default {
         }],
         section2: [{
           id: 5,
+          completedAt: '',
           data: {
             name: 'タスクへのいいね機能',
             person: 'ジョニー',
@@ -100,6 +105,7 @@ export default {
           }
         }, {
           id: 6,
+          completedAt: '',
           data: {
             name: 'タスクの削除',
             person: 'ジョニー',
@@ -133,11 +139,16 @@ export default {
     judgeToEdit (id) {
       return id === this.editingSectionId
     },
-    completeTask (taskId, sectionValue) {
-      const newSectionedTableData = this.tableData[sectionValue].filter((task) => {
-        return task.id !== taskId
+    filterCompletedTasks (tasks) {
+      return tasks.filter((task) => {
+        return task.completedAt === ''
       })
-      this.tableData[sectionValue] = newSectionedTableData
+    },
+    completeTask (taskId, sectionValue) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      targetTask.completedAt = Date()
       this.taskTotalNumber -= 1
     }
   }
