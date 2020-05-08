@@ -28,7 +28,7 @@
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @giveLikeToTask="giveLikeToTask", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>
@@ -66,6 +66,7 @@ export default {
         notSectioned: [{
             id: 1,
             completedAt: '',
+            liked: false,
             data: {
               name: 'JavaScriptの勉強',
               person: 'ジョニー',
@@ -77,6 +78,7 @@ export default {
         section1: [{
           id: 2,
           completedAt: '',
+          liked: false,
           data: {
             name: 'タスクの表示/追加/名前変更機能',
             person: 'ジョニー',
@@ -87,6 +89,7 @@ export default {
         }, {
           id: 3,
           completedAt: '',
+          liked: false,
           data: {
             name: 'セクションの表示/追加/名前変更機能',
             person: 'ジョニー',
@@ -97,6 +100,7 @@ export default {
         }, {
           id: 4,
           completedAt: '',
+          liked: false,
           data: {
             name: 'セクションとタスクの紐付け',
             person: 'ジョニー',
@@ -108,6 +112,7 @@ export default {
         section2: [{
           id: 5,
           completedAt: '',
+          liked: false,
           data: {
             name: 'タスクへのいいね機能',
             person: 'ジョニー',
@@ -118,6 +123,7 @@ export default {
         }, {
           id: 6,
           completedAt: '',
+          liked: false,
           data: {
             name: 'タスクの削除',
             person: 'ジョニー',
@@ -168,6 +174,12 @@ export default {
       if (taskId === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
+    },
+    giveLikeToTask (taskId, sectionValue) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      targetTask.liked = true
     },
     openTaskDetailModal (taskId, sectionValue) {
       this.taskDetailModalSectionValue = sectionValue
