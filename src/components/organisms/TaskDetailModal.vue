@@ -3,6 +3,7 @@
     el-header
       .header-button-area.my-300
         el-button(@click="completeTask", icon="el-icon-check", size="mini") 完了にする
+        j-icon-button.ml-a.mr-400(genre="far", value="thumbs-up", @click="closeTaskDetailModal")
         j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
       hr
     el-main
@@ -35,7 +36,6 @@ export default {
 <style lang="scss" scoped>
   .header-button-area {
     display: flex;
-    justify-content: space-between;
     align-items: center;
   }
 </style>
