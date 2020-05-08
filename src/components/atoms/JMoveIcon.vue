@@ -1,6 +1,6 @@
 <template lang="pug">
   span.move-icon-area
-    v-icon.move-icon(name="grip-vertical")
+    font-awesome-icon.move-icon(:icon="['fas', 'grip-vertical']")
 </template>
 
 <style lang="scss" scoped>
