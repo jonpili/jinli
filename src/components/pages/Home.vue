@@ -11,28 +11,28 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="tableData.notSectioned", :columns="columnList")
+              task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)", :columns="columnList", @completeTask="completeTask")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   .pt-100
-                    jMoveIcon
+                    JMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="tableData[section.value]", :columns="columnList")
+                task-table.mt-100(:data="filterCompletedTasks(tableData[section.value])", :columns="columnList", :sectionValue="section.value", @completeTask="completeTask")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import contentHeader from '@/components/organisms/contentHeader'
 import taskTable from '@/components/molecules/taskTable'
-import jMoveIcon from '@/components/atoms/jMoveIcon'
+import JMoveIcon from '@/components/atoms/JMoveIcon'
 
 export default {
   components: {
     draggable,
     contentHeader,
     taskTable,
-    jMoveIcon
+    JMoveIcon
   },
   data () {
     return {
@@ -53,48 +53,66 @@ export default {
       tableData: {
         notSectioned: [{
             id: 1,
-            name: 'JavaScriptの勉強',
-            person: 'ジョニー',
-            deadline: '5/24',
-            tag: '個人学習',
-            other: ''
+            completedAt: '',
+            data: {
+              name: 'JavaScriptの勉強',
+              person: 'ジョニー',
+              deadline: '5/24',
+              tag: '個人学習',
+              other: ''
+            }
         }],
         section1: [{
           id: 2,
-          name: 'タスクの表示/追加/名前変更機能',
-          person: 'ジョニー',
-          deadline: '4/16',
-          tag: 'MVP',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'タスクの表示/追加/名前変更機能',
+            person: 'ジョニー',
+            deadline: '4/16',
+            tag: 'MVP',
+            other: ''
+          }
         }, {
           id: 3,
-          name: 'セクションの表示/追加/名前変更機能',
-          person: 'ジョニー',
-          deadline: '4/17',
-          tag: 'MVP',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'セクションの表示/追加/名前変更機能',
+            person: 'ジョニー',
+            deadline: '4/17',
+            tag: 'MVP',
+            other: ''
+          }
         }, {
           id: 4,
-          name: 'セクションとタスクの紐付け',
-          person: 'ジョニー',
-          deadline: '4/20',
-          tag: 'MVP',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'セクションとタスクの紐付け',
+            person: 'ジョニー',
+            deadline: '4/20',
+            tag: 'MVP',
+            other: ''
+          }
         }],
         section2: [{
           id: 5,
-          name: 'タスクへのいいね機能',
-          person: 'ジョニー',
-          deadline: '5/04',
-          tag: '開発目標',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'タスクへのいいね機能',
+            person: 'ジョニー',
+            deadline: '5/04',
+            tag: '開発目標',
+            other: ''
+          }
         }, {
           id: 6,
-          name: 'タスクの削除',
-          person: 'ジョニー',
-          deadline: '5/05',
-          tag: '開発目標',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'タスクの削除',
+            person: 'ジョニー',
+            deadline: '5/05',
+            tag: '開発目標',
+            other: ''
+          }
         }]
       }
     }
@@ -113,13 +131,25 @@ export default {
         value: newSectionValue
       })
       this.activeSections.push(newSectionId)
-      this.tableData[newSectionValue] = []
+      this.$set(this.tableData, newSectionValue, [])
     },
     editSectionTitle (id) {
       this.editingSectionId = id
     },
     judgeToEdit (id) {
       return id === this.editingSectionId
+    },
+    filterCompletedTasks (tasks) {
+      return tasks.filter((task) => {
+        return task.completedAt === ''
+      })
+    },
+    completeTask (taskId, sectionValue) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      targetTask.completedAt = Date()
+      this.taskTotalNumber -= 1
     }
   }
 }
@@ -128,6 +158,11 @@ export default {
 <style lang="scss" scoped>
   ::v-deep .el-collapse-item__header {
     height: $basespace-500 * 2;
+    font-size: $basespace-300;
+  }
+
+  ::v-deep .el-collapse-item__content {
+    font-size: $basespace-300;
   }
 
   .section-title-area ::v-deep .el-input__inner {
