@@ -201,6 +201,7 @@ export default {
             message: section.label + 'は削除されました'
           })
           section.deletedAt = Date()
+          this.showTaskDetailModal = false
         }).catch(() => {
           this.$message({
             type: 'info',
