@@ -11,7 +11,7 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="tableData.notSectioned",
+              task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)",
                                 :columns="columnList",
                                 @completeTask="completeTask",
                                 @openTaskDetailModal="openTaskDetailModal")
@@ -21,7 +21,7 @@
                     JMoveIcon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="tableData[section.value]",
+                task-table.mt-100(:data="filterCompletedTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
                                   @completeTask="completeTask",
@@ -65,48 +65,66 @@ export default {
       tableData: {
         notSectioned: [{
             id: 1,
-            name: 'JavaScriptの勉強',
-            person: 'ジョニー',
-            deadline: '5/24',
-            tag: '個人学習',
-            other: ''
+            completedAt: '',
+            data: {
+              name: 'JavaScriptの勉強',
+              person: 'ジョニー',
+              deadline: '5/24',
+              tag: '個人学習',
+              other: ''
+            }
         }],
         section1: [{
           id: 2,
-          name: 'タスクの表示/追加/名前変更機能',
-          person: 'ジョニー',
-          deadline: '4/16',
-          tag: 'MVP',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'タスクの表示/追加/名前変更機能',
+            person: 'ジョニー',
+            deadline: '4/16',
+            tag: 'MVP',
+            other: ''
+          }
         }, {
           id: 3,
-          name: 'セクションの表示/追加/名前変更機能',
-          person: 'ジョニー',
-          deadline: '4/17',
-          tag: 'MVP',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'セクションの表示/追加/名前変更機能',
+            person: 'ジョニー',
+            deadline: '4/17',
+            tag: 'MVP',
+            other: ''
+          }
         }, {
           id: 4,
-          name: 'セクションとタスクの紐付け',
-          person: 'ジョニー',
-          deadline: '4/20',
-          tag: 'MVP',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'セクションとタスクの紐付け',
+            person: 'ジョニー',
+            deadline: '4/20',
+            tag: 'MVP',
+            other: ''
+          }
         }],
         section2: [{
           id: 5,
-          name: 'タスクへのいいね機能',
-          person: 'ジョニー',
-          deadline: '5/04',
-          tag: '開発目標',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'タスクへのいいね機能',
+            person: 'ジョニー',
+            deadline: '5/04',
+            tag: '開発目標',
+            other: ''
+          }
         }, {
           id: 6,
-          name: 'タスクの削除',
-          person: 'ジョニー',
-          deadline: '5/05',
-          tag: '開発目標',
-          other: ''
+          completedAt: '',
+          data: {
+            name: 'タスクの削除',
+            person: 'ジョニー',
+            deadline: '5/05',
+            tag: '開発目標',
+            other: ''
+          }
         }]
       },
       taskDetailModalSectionValue: '',
@@ -136,11 +154,16 @@ export default {
     judgeToEdit (id) {
       return id === this.editingSectionId
     },
-    completeTask (taskId, sectionValue) {
-      const newSectionedTableData = this.tableData[sectionValue].filter((task) => {
-        return task.id !== taskId
+    filterCompletedTasks (tasks) {
+      return tasks.filter((task) => {
+        return task.completedAt === ''
       })
-      this.tableData[sectionValue] = newSectionedTableData
+    },
+    completeTask (taskId, sectionValue) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      targetTask.completedAt = Date()
       this.taskTotalNumber -= 1
       if (taskId === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false

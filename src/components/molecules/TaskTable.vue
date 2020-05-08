@@ -7,23 +7,24 @@
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
-          j-complete-button-round(@click="completeTask(row.id)")
+          span.complete-button-area
+            j-icon-button(genre="far", value="check-circle", type="success", @click="completeTask(row.id)")
           el-input(v-model="row[columns[0].value]", :style="{ width: columns[0].width + 'px' }")
           .open-modal-button-area(@click="openTaskDetailModal(row.id)")
             span 詳細 >
-          el-input(v-for="column in columns.slice(1)", :key="column.id", v-model="row[column.value]", :style="{ width: column.width + 'px' }")
+          el-input(v-for="column in columns.slice(1)", :key="column.id", v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import JMoveIcon from '@/components/atoms/JMoveIcon'
-import JCompleteButtonRound from '@/components/atoms/JCompleteButtonRound'
+import JIconButton from '@/components/atoms/JIconButton'
 
 export default {
   components: {
     draggable,
     JMoveIcon,
-    JCompleteButtonRound
+    JIconButton
   },
   props: {
     data: {
@@ -71,6 +72,10 @@ export default {
   .task-list-leave-to {
     opacity: 0;
     transform: translateX($basespace-500 * 10);
+  }
+  .complete-button-area {
+    margin: 0 $basespace-100;
+    vertical-align: middle;
   }
   .open-modal-button-area {
     display: inline-block;
