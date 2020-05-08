@@ -28,7 +28,7 @@
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @giveLikeToTask="giveLikeToTask", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @switchLiked="switchLiked", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>
@@ -175,11 +175,15 @@ export default {
         this.showTaskDetailModal = false
       }
     },
-    giveLikeToTask (taskId, sectionValue) {
+    switchLiked (taskId, sectionValue) {
       const targetTask = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
       })
-      targetTask.liked = true
+      if (targetTask.liked) {
+        targetTask.liked = false
+      } else {
+        targetTask.liked = true
+      }
     },
     openTaskDetailModal (taskId, sectionValue) {
       this.taskDetailModalSectionValue = sectionValue

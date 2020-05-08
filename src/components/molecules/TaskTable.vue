@@ -8,7 +8,7 @@
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
           span.complete-button-area
-            j-icon-button(genre="far", value="check-circle", type="success", @click="completeTask(row.id)")
+            j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(row.id)")
           template(v-for="(column, index) in columns")
             el-input(v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
             .open-modal-button-area(v-if="index === 0", @click="openTaskDetailModal(row.id)")
