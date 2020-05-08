@@ -21,7 +21,7 @@
                   j-move-icon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                  j-icon-button(genre="far", value="trash-alt", @click="deleteSection(section)")
+                  j-icon-button(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:data="filterHiddenTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
@@ -154,6 +154,7 @@ export default {
       const newSectionValue = 'section' + newSectionId
       this.sectionList.push({
         id: newSectionId,
+        deletedAt: '',
         label: 'セクション' + newSectionId,
         value: newSectionValue
       })
@@ -187,7 +188,25 @@ export default {
       }
     },
     deleteSection (section) {
-      section.deletedAt = Date()
+      this.$confirm(
+        '紐付いたタスクを含む「' + section.label + '」のすべてが削除されます。',
+        'セクションを削除してもよろしいですか？',
+        {
+          confirmButtonText: 'セクションを削除',
+          cancelButtonText: 'キャンセル',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: section.label + 'は削除されました'
+          })
+          section.deletedAt = Date()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '削除はキャンセルされました'
+          })
+        })
     },
     deleteTask (taskId, sectionValue) {
       const targetTask = this.tableData[sectionValue].find((task) => {

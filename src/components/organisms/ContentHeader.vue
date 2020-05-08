@@ -37,11 +37,16 @@ export default {
     addTask () {
       const emptyTask = {
         id: this.taskTotalNumber+ 1,
-        name: '',
-        person: '',
-        deadline: '',
-        tag: '',
-        other: ''
+        completedAt: '',
+        deletedAt: '',
+        liked: false,
+        data: {
+          name: '',
+          person: '',
+          deadline: '',
+          tag: '',
+          other: ''
+        }
       }
       if (this.selectedSectionValue === '') {
         this.$emit('addTask', 'notSectioned', emptyTask)
