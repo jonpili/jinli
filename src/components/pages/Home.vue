@@ -150,6 +150,7 @@ export default {
       const newSectionValue = 'section' + newSectionId
       this.sectionList.push({
         id: newSectionId,
+        deletedAt: '',
         label: 'セクション' + newSectionId,
         value: newSectionValue
       })
