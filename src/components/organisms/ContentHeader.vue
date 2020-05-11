@@ -28,7 +28,7 @@ export default {
         return acc.concat(this.tableData[key])
       }, [])
       const emptyTasks = allTasks.filter((task) => {
-        return task.name === ''
+        return task.data.name === ''
       })
       return emptyTasks.length > 0
     }
