@@ -174,7 +174,7 @@ export default {
     },
     filterTasks (tasks) {
       return tasks.filter((task) => {
-        return task.completedAt === '' & task.deletedAt === ''
+        return task.completedAt === '' && task.deletedAt === ''
       })
     },
     completeTask (taskId, sectionValue) {
