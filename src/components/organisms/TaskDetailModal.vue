@@ -21,9 +21,22 @@
 <script>
 export default {
   props: {
-    task: Object,
-    sectionValue: String,
-    columnList: Array
+    task: {
+      type: Object,
+      default: function () {
+        return {}
+      }
+    },
+    sectionValue: {
+      type: String,
+      default: 'notSectioned'
+    },
+    columnList: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    }
   },
   methods: {
     completeTask () {

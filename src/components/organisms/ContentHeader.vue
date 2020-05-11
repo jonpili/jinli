@@ -12,9 +12,22 @@
 <script>
 export default {
   props: {
-    sectionList: Array,
-    tableData: Object,
-    taskTotalNumber: Number
+    sectionList: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
+    tableData: {
+      type: Object,
+      default: function () {
+        return {}
+      }
+    },
+    taskTotalNumber: {
+      type: Number,
+      default: 0
+    }
   },
   data () {
     return {
