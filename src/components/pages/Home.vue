@@ -6,23 +6,23 @@
     el-main
       el-container
         el-header.mb-600
-          content-header(:sectionList="filterDeletedSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
+          content-header(:sectionList="filterSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
           hr
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="filterHiddenTasks(tableData.notSectioned)",
+              task-table.mb-500(:data="filterTasks(tableData.notSectioned)",
                                 :columns="columnList",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in filterDeletedSections(sectionList)", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
+              el-collapse-item(v-for="section in filterSections(sectionList)", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   j-move-icon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
-                task-table.mt-100(:data="filterHiddenTasks(tableData[section.value])",
+                task-table.mt-100(:data="filterTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
                                   @completeTask="completeTask",
@@ -167,12 +167,12 @@ export default {
     judgeToEdit (id) {
       return id === this.editingSectionId
     },
-    filterDeletedSections (sections) {
+    filterSections (sections) {
       return sections.filter((section) => {
         return section.deletedAt === ''
       })
     },
-    filterHiddenTasks (tasks) {
+    filterTasks (tasks) {
       return tasks.filter((task) => {
         return task.completedAt === '' & task.deletedAt === ''
       })
