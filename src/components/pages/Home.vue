@@ -14,6 +14,7 @@
               task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)",
                                 :columns="columnList",
                                 @completeTask="completeTask",
+                                @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
               el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
@@ -25,10 +26,11 @@
                                   :columns="columnList",
                                   :sectionValue="section.value",
                                   @completeTask="completeTask",
+                                  @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @switchLiked="switchLiked", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>
@@ -66,6 +68,7 @@ export default {
         notSectioned: [{
             id: 1,
             completedAt: '',
+            liked: false,
             data: {
               name: 'JavaScriptの勉強',
               person: 'ジョニー',
@@ -77,6 +80,7 @@ export default {
         section1: [{
           id: 2,
           completedAt: '',
+          liked: false,
           data: {
             name: 'タスクの表示/追加/名前変更機能',
             person: 'ジョニー',
@@ -87,6 +91,7 @@ export default {
         }, {
           id: 3,
           completedAt: '',
+          liked: false,
           data: {
             name: 'セクションの表示/追加/名前変更機能',
             person: 'ジョニー',
@@ -97,6 +102,7 @@ export default {
         }, {
           id: 4,
           completedAt: '',
+          liked: false,
           data: {
             name: 'セクションとタスクの紐付け',
             person: 'ジョニー',
@@ -108,6 +114,7 @@ export default {
         section2: [{
           id: 5,
           completedAt: '',
+          liked: false,
           data: {
             name: 'タスクへのいいね機能',
             person: 'ジョニー',
@@ -118,6 +125,7 @@ export default {
         }, {
           id: 6,
           completedAt: '',
+          liked: false,
           data: {
             name: 'タスクの削除',
             person: 'ジョニー',
@@ -142,6 +150,7 @@ export default {
       const newSectionValue = 'section' + newSectionId
       this.sectionList.push({
         id: newSectionId,
+        deletedAt: '',
         label: 'セクション' + newSectionId,
         value: newSectionValue
       })
@@ -167,6 +176,16 @@ export default {
       this.taskTotalNumber -= 1
       if (taskId === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
+      }
+    },
+    switchLiked (taskId, sectionValue) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      if (targetTask.liked) {
+        targetTask.liked = false
+      } else {
+        targetTask.liked = true
       }
     },
     openTaskDetailModal (taskId, sectionValue) {

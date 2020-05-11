@@ -2,17 +2,20 @@
   div.pl-600
     template(v-for="(column, index) in columns")
       el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
-      .open-modal-button-area(v-if="index === 0")
+      span(v-if="index === 0")
+        .task-action-space
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="row in data", :key="row.id")
           j-move-icon
           span.complete-button-area
-            j-icon-button(genre="far", value="check-circle", type="success", @click="completeTask(row.id)")
+            j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(row.id)")
           template(v-for="(column, index) in columns")
             el-input(v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
-            .open-modal-button-area(v-if="index === 0", @click="openTaskDetailModal(row.id)")
-              span 詳細 >
+            span(v-if="index === 0")
+              .task-action-space
+                j-icon-button.mx-100(v-if="row.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(row.id)")
+                .open-modal-button.fs-100.mx-200(@click="openTaskDetailModal(row.id)") 詳細 >
 </template>
 
 <script>
@@ -41,6 +44,9 @@ export default {
   methods: {
     completeTask (taskId) {
       this.$emit('completeTask', taskId, this.sectionValue)
+    },
+    switchLiked (taskId) {
+      this.$emit('switchLiked', taskId, this.sectionValue)
     },
     openTaskDetailModal (taskId) {
       this.$emit('openTaskDetailModal', taskId, this.sectionValue)
@@ -73,11 +79,13 @@ export default {
     margin: 0 $basespace-100;
     vertical-align: middle;
   }
-  .open-modal-button-area {
+  .task-action-space {
     display: inline-block;
-    text-align: center;
-    width: $basespace-600 * 2;
-    font-size: $basespace-200;
+    text-align: right;
+    width: $basespace-600 * 3;
+  }
+  .open-modal-button {
+    display: inline-block;
     cursor: pointer;
     opacity: 0;
     &:hover {

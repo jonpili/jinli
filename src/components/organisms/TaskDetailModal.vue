@@ -3,6 +3,9 @@
     el-header
       .header-button-area.my-300
         el-button(@click="completeTask", icon="el-icon-check", size="mini") 完了にする
+        .ml-a
+          j-icon-button.mr-400(v-if="!task.liked", genre="far", value="thumbs-up", @click="switchLiked")
+          j-icon-button.mr-400(v-else, genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked")
         j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
       hr
     el-main
@@ -25,6 +28,9 @@ export default {
     completeTask () {
       this.$emit('completeTask', this.task.id, this.sectionValue)
     },
+    switchLiked () {
+      this.$emit('switchLiked', this.task.id, this.sectionValue)
+    },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
     }
@@ -35,7 +41,6 @@ export default {
 <style lang="scss" scoped>
   .header-button-area {
     display: flex;
-    justify-content: space-between;
     align-items: center;
   }
 </style>

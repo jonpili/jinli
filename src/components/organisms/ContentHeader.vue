@@ -28,7 +28,7 @@ export default {
         return acc.concat(this.tableData[key])
       }, [])
       const emptyTasks = allTasks.filter((task) => {
-        return task.name === ''
+        return task.data.name === ''
       })
       return emptyTasks.length > 0
     }
@@ -37,11 +37,16 @@ export default {
     addTask () {
       const emptyTask = {
         id: this.taskTotalNumber+ 1,
-        name: '',
-        person: '',
-        deadline: '',
-        tag: '',
-        other: ''
+        completedAt: '',
+        deletedAt: '',
+        liked: false,
+        data: {
+          name: '',
+          person: '',
+          deadline: '',
+          tag: '',
+          other: ''
+        }
       }
       if (this.selectedSectionValue === '') {
         this.$emit('addTask', 'notSectioned', emptyTask)
