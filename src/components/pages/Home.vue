@@ -6,23 +6,23 @@
     el-main
       el-container
         el-header.mb-600
-          content-header(:sectionList="sectionList", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
+          content-header(:sectionList="filterSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
           hr
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="filterCompletedTasks(tableData.notSectioned)",
+              task-table.mb-500(:data="filterTasks(tableData.notSectioned)",
                                 :columns="columnList",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in sectionList", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
+              el-collapse-item(v-for="section in filterSections(sectionList)", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
-                  .pt-100
-                    JMoveIcon
+                  j-move-icon
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                task-table.mt-100(:data="filterCompletedTasks(tableData[section.value])",
+                  j-icon-button(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
+                task-table.mt-100(:data="filterTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
                                   @completeTask="completeTask",
@@ -30,7 +30,7 @@
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @switchLiked="switchLiked", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @deleteTask="deleteTask", @switchLiked="switchLiked", @closeTaskDetailModal="closeTaskDetailModal")
 </template>
 
 <script>
@@ -38,15 +38,13 @@ import draggable from 'vuedraggable'
 import ContentHeader from '@/components/organisms/ContentHeader'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
 import TaskTable from '@/components/molecules/TaskTable'
-import JMoveIcon from '@/components/atoms/JMoveIcon'
 
 export default {
   components: {
     draggable,
     ContentHeader,
     TaskDetailModal,
-    TaskTable,
-    JMoveIcon
+    TaskTable
   },
   data () {
     return {
@@ -58,8 +56,8 @@ export default {
         { id: 5, label: 'その他', value: 'other', width: 100 }
       ],
       sectionList: [
-        { id: 1, label: '4/15~29のタスク', value: 'section1' },
-        { id: 2, label: '5/04~20のタスク', value: 'section2' }
+        { id: 1, deletedAt: '', label: '4/15~29のタスク', value: 'section1' },
+        { id: 2, deletedAt: '', label: '5/04~20のタスク', value: 'section2' }
       ],
       activeSections: [1, 2],
       editingSectionId: '',
@@ -68,6 +66,7 @@ export default {
         notSectioned: [{
             id: 1,
             completedAt: '',
+            deletedAt: '',
             liked: false,
             data: {
               name: 'JavaScriptの勉強',
@@ -80,6 +79,7 @@ export default {
         section1: [{
           id: 2,
           completedAt: '',
+          deletedAt: '',
           liked: false,
           data: {
             name: 'タスクの表示/追加/名前変更機能',
@@ -91,6 +91,7 @@ export default {
         }, {
           id: 3,
           completedAt: '',
+          deletedAt: '',
           liked: false,
           data: {
             name: 'セクションの表示/追加/名前変更機能',
@@ -102,6 +103,7 @@ export default {
         }, {
           id: 4,
           completedAt: '',
+          deletedAt: '',
           liked: false,
           data: {
             name: 'セクションとタスクの紐付け',
@@ -114,6 +116,7 @@ export default {
         section2: [{
           id: 5,
           completedAt: '',
+          deletedAt: '',
           liked: false,
           data: {
             name: 'タスクへのいいね機能',
@@ -125,6 +128,7 @@ export default {
         }, {
           id: 6,
           completedAt: '',
+          deletedAt: '',
           liked: false,
           data: {
             name: 'タスクの削除',
@@ -163,9 +167,14 @@ export default {
     judgeToEdit (id) {
       return id === this.editingSectionId
     },
-    filterCompletedTasks (tasks) {
+    filterSections (sections) {
+      return sections.filter((section) => {
+        return section.deletedAt === ''
+      })
+    },
+    filterTasks (tasks) {
       return tasks.filter((task) => {
-        return task.completedAt === ''
+        return task.completedAt === '' && task.deletedAt === ''
       })
     },
     completeTask (taskId, sectionValue) {
@@ -177,6 +186,36 @@ export default {
       if (taskId === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
+    },
+    deleteSection (section) {
+      this.$confirm(
+        '紐付いたタスクを含む「' + section.label + '」のすべてが削除されます。',
+        'セクションを削除してもよろしいですか？',
+        {
+          confirmButtonText: 'セクションを削除',
+          cancelButtonText: 'キャンセル',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: section.label + 'は削除されました'
+          })
+          section.deletedAt = Date()
+          this.showTaskDetailModal = false
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '削除はキャンセルされました'
+          })
+        })
+    },
+    deleteTask (taskId, sectionValue) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      targetTask.deletedAt = Date()
+      this.taskTotalNumber -= 1
+      this.showTaskDetailModal = false
     },
     switchLiked (taskId, sectionValue) {
       const targetTask = this.tableData[sectionValue].find((task) => {
