@@ -16,6 +16,8 @@
           span {{ column.label }}
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
+      template.mt-200(v-for="subtask in task.subtasks")
+        span {{ subtask.data }}
       el-button.mt-200(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
 
