@@ -6,16 +6,16 @@
         .task-action-space
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
-        .task-list-item(v-for="row in data", :key="row.id")
+        .task-list-item(v-for="task in tasks", :key="task.id")
           j-move-icon
           span.complete-button-area
-            j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(row.id)")
+            j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(task.id)")
           template(v-for="(column, index) in columns")
-            el-input(v-model="row.data[column.value]", :style="{ width: column.width + 'px' }")
+            el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
             span(v-if="index === 0")
               .task-action-space
-                j-icon-button.mx-100(v-if="row.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(row.id)")
-                .open-modal-button.fs-100.mx-200(@click="openTaskDetailModal(row)") 詳細 ＞
+                j-icon-button.mx-100(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task.id)")
+                .open-modal-button.fs-100.mx-200(@click="openTaskDetailModal(task)") 詳細 ＞
 </template>
 
 <script>
@@ -26,7 +26,7 @@ export default {
     draggable
   },
   props: {
-    data: {
+    tasks: {
       type: Array,
       default: function () {
         return []
