@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     completeTask () {
-      this.$emit('completeTask', this.sectionValue, this.task.id)
+      this.$emit('completeTask', this.task)
     },
     deleteTask () {
       this.$emit('deleteTask', this.sectionValue, this.task.id)

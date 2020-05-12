@@ -199,13 +199,10 @@ export default {
         return task.completedAt === '' && task.deletedAt === ''
       })
     },
-    completeTask (sectionValue, taskId) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      targetTask.completedAt = Date()
+    completeTask (task) {
+      task.completedAt = Date()
       this.taskTotalNumber -= 1
-      if (taskId === this.taskDetailModalContent.id) {
+      if (task.id === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
     },

@@ -9,7 +9,7 @@
         .task-list-item(v-for="task in tasks", :key="task.id")
           j-move-icon
           span.complete-button-area
-            j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(task.id)")
+            j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(task)")
           template(v-for="(column, index) in columns")
             el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
             span(v-if="index === 0")
@@ -42,8 +42,8 @@ export default {
     }
   },
   methods: {
-    completeTask (taskId) {
-      this.$emit('completeTask', this.sectionValue, taskId)
+    completeTask (task) {
+      this.$emit('completeTask', task)
     },
     switchLiked (taskId) {
       this.$emit('switchLiked', this.sectionValue, taskId)
