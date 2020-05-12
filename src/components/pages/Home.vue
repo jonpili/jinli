@@ -33,6 +33,7 @@
           task-detail-modal(:task="taskDetailModalContent",
                             :columnList="columnList",
                             @completeTask="completeTask",
+                            @uncompleteTask="uncompleteTask",
                             @deleteTask="deleteTask",
                             @switchLiked="switchLiked",
                             @closeTaskDetailModal="closeTaskDetailModal",
@@ -200,6 +201,10 @@ export default {
       if (isMainTask && task.id === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
+    },
+    uncompleteTask (task) {
+      task.completedAt = ''
+      this.taskTotalNumber += 1
     },
     completeSubtask (subtask) {
       subtask.completedAt = Date()

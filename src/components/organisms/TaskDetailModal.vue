@@ -2,7 +2,8 @@
   el-container
     el-header
       .header-button-area.my-300
-        el-button.mr-a(@click="completeTask", icon="el-icon-check", size="mini") 完了にする
+        el-button.mr-a(v-if="task.completedAt === ''", @click="completeTask", icon="el-icon-check", size="mini", type="success", plain) 完了にする
+        el-button.mr-a(v-else, @click="uncompleteTask", icon="el-icon-check", size="mini", type="success") 完了済み
         div
           j-icon-button.mr-400(v-if="!task.liked", genre="far", value="thumbs-up", @click="switchLiked(task)")
           j-icon-button.mr-400(v-else, genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
@@ -48,7 +49,11 @@ export default {
   },
   methods: {
     completeTask () {
-      this.$emit('completeTask', this.task)
+      const isMainTask = 'subtasks' in this.task
+      this.$emit('completeTask', this.task, isMainTask)
+    },
+    uncompleteTask () {
+      this.$emit('uncompleteTask', this.task)
     },
     deleteTask () {
       this.$emit('deleteTask', this.task)
