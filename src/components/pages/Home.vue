@@ -194,10 +194,10 @@ export default {
         return task.completedAt === '' && task.deletedAt === ''
       })
     },
-    completeTask (task) {
+    completeTask (task, isMainTask) {
       task.completedAt = Date()
       this.taskTotalNumber -= 1
-      if (task.id === this.taskDetailModalContent.id) {
+      if (isMainTask && task.id === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
     },
