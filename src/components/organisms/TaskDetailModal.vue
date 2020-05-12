@@ -41,13 +41,13 @@ export default {
   },
   methods: {
     completeTask () {
-      this.$emit('completeTask', this.task.id, this.sectionValue)
+      this.$emit('completeTask', this.sectionValue, this.task.id)
     },
     deleteTask () {
-      this.$emit('deleteTask', this.task.id, this.sectionValue)
+      this.$emit('deleteTask', this.sectionValue, this.task.id)
     },
     switchLiked () {
-      this.$emit('switchLiked', this.task.id, this.sectionValue)
+      this.$emit('switchLiked', this.sectionValue, this.task.id)
     },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
@@ -66,7 +66,7 @@ export default {
           other: ''
         }
       }
-      this.$emit('addSubtask', this.task.id, this.sectionValue, emptySubtask)
+      this.$emit('addSubtask', this.sectionValue, this.task.id, emptySubtask)
     }
   }
 }

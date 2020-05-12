@@ -43,13 +43,13 @@ export default {
   },
   methods: {
     completeTask (taskId) {
-      this.$emit('completeTask', taskId, this.sectionValue)
+      this.$emit('completeTask', this.sectionValue, taskId)
     },
     switchLiked (taskId) {
-      this.$emit('switchLiked', taskId, this.sectionValue)
+      this.$emit('switchLiked', this.sectionValue, taskId)
     },
     openTaskDetailModal (taskId) {
-      this.$emit('openTaskDetailModal', taskId, this.sectionValue)
+      this.$emit('openTaskDetailModal', this.sectionValue, taskId)
     }
   }
 }

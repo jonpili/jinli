@@ -162,7 +162,7 @@ export default {
       this.tableData[sectionValue].push(task)
       this.taskTotalNumber += 1
     },
-    addSubtask (taskId, sectionValue, subtask) {
+    addSubtask (sectionValue, taskId, subtask) {
       const targetTask = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
       })
@@ -196,7 +196,7 @@ export default {
         return task.completedAt === '' && task.deletedAt === ''
       })
     },
-    completeTask (taskId, sectionValue) {
+    completeTask (sectionValue, taskId) {
       const targetTask = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
       })
@@ -228,7 +228,7 @@ export default {
           })
         })
     },
-    deleteTask (taskId, sectionValue) {
+    deleteTask (sectionValue, taskId) {
       const targetTask = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
       })
@@ -236,7 +236,7 @@ export default {
       this.taskTotalNumber -= 1
       this.showTaskDetailModal = false
     },
-    switchLiked (taskId, sectionValue) {
+    switchLiked (sectionValue, taskId) {
       const targetTask = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
       })
@@ -246,7 +246,7 @@ export default {
         targetTask.liked = true
       }
     },
-    openTaskDetailModal (taskId, sectionValue) {
+    openTaskDetailModal (sectionValue, taskId) {
       this.taskDetailModalSectionValue = sectionValue
       this.taskDetailModalContent = this.tableData[sectionValue].find((task) => {
         return task.id === taskId
