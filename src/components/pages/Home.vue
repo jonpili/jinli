@@ -251,14 +251,11 @@ export default {
       this.taskTotalNumber -= 1
       this.showTaskDetailModal = false
     },
-    switchLiked (sectionValue, taskId) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      if (targetTask.liked) {
-        targetTask.liked = false
+    switchLiked (task) {
+      if (task.liked) {
+        task.liked = false
       } else {
-        targetTask.liked = true
+        task.liked = true
       }
     },
     openTaskDetailModal (sectionValue, task) {

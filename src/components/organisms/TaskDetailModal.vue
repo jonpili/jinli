@@ -57,7 +57,7 @@ export default {
       this.$emit('deleteTask', this.task)
     },
     switchLiked () {
-      this.$emit('switchLiked', this.sectionValue, this.task.id)
+      this.$emit('switchLiked', this.task)
     },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')

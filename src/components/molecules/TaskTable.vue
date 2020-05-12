@@ -14,7 +14,7 @@
             el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
             span(v-if="index === 0")
               .task-action-space
-                j-icon-button.mx-100(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task.id)")
+                j-icon-button.mx-100(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
                 .open-modal-button.fs-100.mx-200(@click="openTaskDetailModal(task)") 詳細 ＞
 </template>
 
@@ -45,8 +45,8 @@ export default {
     completeTask (task) {
       this.$emit('completeTask', task)
     },
-    switchLiked (taskId) {
-      this.$emit('switchLiked', this.sectionValue, taskId)
+    switchLiked (task) {
+      this.$emit('switchLiked', task)
     },
     openTaskDetailModal (task) {
       this.$emit('openTaskDetailModal', this.sectionValue, task)
