@@ -158,16 +158,6 @@ export default {
     }
   },
   methods: {
-    addTask (sectionValue, task) {
-      this.tableData[sectionValue].push(task)
-      this.taskTotalNumber += 1
-    },
-    addSubtask (sectionValue, taskId, subtask) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      targetTask.subtasks.push(subtask)
-    },
     addSection () {
       const newSectionId = this.sectionList.length + 1
       const newSectionValue = 'section' + newSectionId
@@ -179,6 +169,16 @@ export default {
       })
       this.activeSections.push(newSectionId)
       this.$set(this.tableData, newSectionValue, [])
+    },
+    addTask (sectionValue, task) {
+      this.tableData[sectionValue].push(task)
+      this.taskTotalNumber += 1
+    },
+    addSubtask (sectionValue, taskId, subtask) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      targetTask.subtasks.push(subtask)
     },
     editSectionTitle (id) {
       this.editingSectionId = id
