@@ -4,8 +4,8 @@
       .header-button-area.my-300
         el-button.mr-a(@click="completeTask", icon="el-icon-check", size="mini") 完了にする
         div
-          j-icon-button.mr-400(v-if="!task.liked", genre="far", value="thumbs-up", @click="switchLiked")
-          j-icon-button.mr-400(v-else, genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked")
+          j-icon-button.mr-400(v-if="!task.liked", genre="far", value="thumbs-up", @click="switchLiked(task)")
+          j-icon-button.mr-400(v-else, genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
         j-icon-button.mr-400(genre="far", value="trash-alt", @click="deleteTask")
         j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
       hr
@@ -24,6 +24,7 @@
           j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask)")
           j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask)")
           el-input.subtask-name(v-model="subtask.data.name")
+          j-icon-button.mr-200(v-if="subtask.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(subtask)")
           .open-modal-button.fs-100(@click="openTaskDetailModal(subtask)") 詳細 ＞
           hr
         el-button(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
@@ -52,8 +53,8 @@ export default {
     deleteTask () {
       this.$emit('deleteTask', this.task)
     },
-    switchLiked () {
-      this.$emit('switchLiked', this.task)
+    switchLiked (task) {
+      this.$emit('switchLiked', task)
     },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
