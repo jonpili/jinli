@@ -59,7 +59,8 @@ export default {
           deadline: '',
           tag: '',
           other: ''
-        }
+        },
+        subtasks: []
       }
       if (this.selectedSectionValue === '') {
         this.$emit('addTask', 'notSectioned', emptyTask)
