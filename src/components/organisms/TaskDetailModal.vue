@@ -16,15 +16,16 @@
           span {{ column.label }}
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
-      .mt-600(v-if="'subtasks' in task && task.subtasks.length > 0")
-        .mb-100 サブタスク
-        hr
-      .subtask-list-item(v-for="subtask in task.subtasks")
-        j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask.id)")
-        j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask.id)")
-        el-input.subtask(v-model="subtask.data.name")
-        hr
-      el-button(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
+      .mt-200(v-if="'subtasks' in task")
+        .mt-500(v-if="task.subtasks.length > 0")
+          .mb-100 サブタスク
+          hr
+        .subtask-list-item(v-for="subtask in task.subtasks")
+          j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask.id)")
+          j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask.id)")
+          el-input.subtask(v-model="subtask.data.name")
+          hr
+        el-button(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
 
 <script>
