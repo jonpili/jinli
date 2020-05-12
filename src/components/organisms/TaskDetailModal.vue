@@ -17,7 +17,7 @@
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
       .mt-200(v-if="'subtasks' in task")
-        .mt-500(v-if="task.subtasks.length > 0")
+        .mt-500(v-if="filterSubtasks(task.subtasks).length > 0")
           .mb-100 サブタスク
           hr
         .subtask-list-item(v-for="subtask in filterSubtasks(task.subtasks)")
