@@ -16,7 +16,7 @@
           span {{ column.label }}
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
-      .mt-600(v-if="task.subtasks.length > 0")
+      .mt-600(v-if="'subtasks' in task && task.subtasks.length > 0")
         .mb-100 サブタスク
         hr
       .subtask-list-item(v-for="subtask in task.subtasks")
