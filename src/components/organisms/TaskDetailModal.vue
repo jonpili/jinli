@@ -16,8 +16,13 @@
           span {{ column.label }}
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
-      template.mt-200(v-for="subtask in task.subtasks")
+      .mt-600(v-if="filterSubtasks(task.subtasks).length > 0")
+        .mb-100 サブタスク
+        hr
+      .subtask-list-item(v-for="subtask in filterSubtasks(task.subtasks)")
+        j-icon-button.ml-100(genre="far", value="check-circle", hover-color="success", @click="completeSubtask(subtask.id)")
         el-input.subtask(v-model="subtask.data.name")
+        hr
       el-button.mt-200(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
 
@@ -54,6 +59,11 @@ export default {
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
     },
+    filterSubtasks (subtasks) {
+      return subtasks.filter((subtask) => {
+        return subtask.completedAt === ''
+      })
+    },
     addSubtask () {
       const emptySubtask = {
         id: this.task.subtasks.length + 1,
@@ -69,6 +79,9 @@ export default {
         }
       }
       this.$emit('addSubtask', this.sectionValue, this.task.id, emptySubtask)
+    },
+    completeSubtask (subtaskId) {
+      this.$emit('completeSubtask', this.sectionValue, this.task.id, subtaskId)
     }
   }
 }
@@ -79,8 +92,17 @@ export default {
     display: flex;
     align-items: center;
   }
+  .subtask-list-item {
+    display: block;
+  }
+  .subtask {
+    width: 240px;
+  }
   .subtask ::v-deep .el-input__inner {
     height: $basespace-600;
-    border-radius: 0px;
+    border-color: transparent;
+  }
+  hr {
+    margin: 0 0;
   }
 </style>

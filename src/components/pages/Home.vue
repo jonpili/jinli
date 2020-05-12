@@ -36,7 +36,8 @@
                             @completeTask="completeTask",
                             @deleteTask="deleteTask",
                             @switchLiked="switchLiked",
-                            @closeTaskDetailModal="closeTaskDetailModal"
+                            @closeTaskDetailModal="closeTaskDetailModal",
+                            @completeSubtask="completeSubtask",
                             @addSubtask="addSubtask")
 </template>
 
@@ -205,6 +206,15 @@ export default {
       if (taskId === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
+    },
+    completeSubtask (sectionValue, taskId, subtaskId) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      const targetSubtask = targetTask.subtasks.find((subtask) => {
+        return subtask.id === subtaskId
+      })
+      targetSubtask.completedAt = Date()
     },
     deleteSection (section) {
       this.$confirm(
