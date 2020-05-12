@@ -16,11 +16,12 @@
           span {{ column.label }}
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
-      .mt-600(v-if="filterSubtasks(task.subtasks).length > 0")
+      .mt-600(v-if="task.subtasks.length > 0")
         .mb-100 サブタスク
         hr
-      .subtask-list-item(v-for="subtask in filterSubtasks(task.subtasks)")
-        j-icon-button.ml-100(genre="far", value="check-circle", hover-color="success", @click="completeSubtask(subtask.id)")
+      .subtask-list-item(v-for="subtask in task.subtasks")
+        j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask.id)")
+        j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask.id)")
         el-input.subtask(v-model="subtask.data.name")
         hr
       el-button.mt-200(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
@@ -59,11 +60,6 @@ export default {
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
     },
-    filterSubtasks (subtasks) {
-      return subtasks.filter((subtask) => {
-        return subtask.completedAt === ''
-      })
-    },
     addSubtask () {
       const emptySubtask = {
         id: this.task.subtasks.length + 1,
@@ -82,6 +78,9 @@ export default {
     },
     completeSubtask (subtaskId) {
       this.$emit('completeSubtask', this.sectionValue, this.task.id, subtaskId)
+    },
+    uncompleteSubtask (subtaskId) {
+      this.$emit('uncompleteSubtask', this.sectionValue, this.task.id, subtaskId)
     }
   }
 }
