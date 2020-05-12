@@ -30,7 +30,14 @@
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @deleteTask="deleteTask", @switchLiked="switchLiked", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent",
+                            :sectionValue="taskDetailModalSectionValue",
+                            :columnList="columnList",
+                            @completeTask="completeTask",
+                            @deleteTask="deleteTask",
+                            @switchLiked="switchLiked",
+                            @closeTaskDetailModal="closeTaskDetailModal"
+                            @addSubtask="addSubtask")
 </template>
 
 <script>
@@ -74,7 +81,8 @@ export default {
               deadline: '5/24',
               tag: '個人学習',
               other: ''
-            }
+            },
+            subtasks: []
         }],
         section1: [{
           id: 2,
@@ -87,7 +95,8 @@ export default {
             deadline: '4/16',
             tag: 'MVP',
             other: ''
-          }
+          },
+          subtasks: []
         }, {
           id: 3,
           completedAt: '',
@@ -99,7 +108,8 @@ export default {
             deadline: '4/17',
             tag: 'MVP',
             other: ''
-          }
+          },
+          subtasks: []
         }, {
           id: 4,
           completedAt: '',
@@ -111,7 +121,8 @@ export default {
             deadline: '4/20',
             tag: 'MVP',
             other: ''
-          }
+          },
+          subtasks: []
         }],
         section2: [{
           id: 5,
@@ -124,7 +135,8 @@ export default {
             deadline: '5/04',
             tag: '開発目標',
             other: ''
-          }
+          },
+          subtasks: []
         }, {
           id: 6,
           completedAt: '',
@@ -136,7 +148,8 @@ export default {
             deadline: '5/05',
             tag: '開発目標',
             other: ''
-          }
+          },
+          subtasks: []
         }]
       },
       taskDetailModalSectionValue: '',
@@ -148,6 +161,12 @@ export default {
     addTask (sectionValue, task) {
       this.tableData[sectionValue].push(task)
       this.taskTotalNumber += 1
+    },
+    addSubtask (taskId, sectionValue, subtask) {
+      const targetTask = this.tableData[sectionValue].find((task) => {
+        return task.id === taskId
+      })
+      targetTask.subtasks.push(subtask)
     },
     addSection () {
       const newSectionId = this.sectionList.length + 1

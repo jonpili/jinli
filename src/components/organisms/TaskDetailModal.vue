@@ -53,7 +53,20 @@ export default {
       this.$emit('closeTaskDetailModal')
     },
     addSubtask () {
-
+      const emptySubtask = {
+        id: this.task.subtasks.length + 1,
+        completedAt: '',
+        deletedAt: '',
+        liked: false,
+        data: {
+          name: '',
+          person: '',
+          deadline: '',
+          tag: '',
+          other: ''
+        }
+      }
+      this.$emit('addSubtask', this.task.id, this.sectionValue, emptySubtask)
     }
   }
 }
