@@ -24,7 +24,7 @@
         j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask.id)")
         el-input.subtask(v-model="subtask.data.name")
         hr
-      el-button.mt-200(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
+      el-button(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
 
 <script>
