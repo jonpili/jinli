@@ -246,11 +246,8 @@ export default {
           })
         })
     },
-    deleteTask (sectionValue, taskId) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      targetTask.deletedAt = Date()
+    deleteTask (task) {
+      task.deletedAt = Date()
       this.taskTotalNumber -= 1
       this.showTaskDetailModal = false
     },

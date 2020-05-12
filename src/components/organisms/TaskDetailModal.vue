@@ -54,7 +54,7 @@ export default {
       this.$emit('completeTask', this.task)
     },
     deleteTask () {
-      this.$emit('deleteTask', this.sectionValue, this.task.id)
+      this.$emit('deleteTask', this.task)
     },
     switchLiked () {
       this.$emit('switchLiked', this.sectionValue, this.task.id)
