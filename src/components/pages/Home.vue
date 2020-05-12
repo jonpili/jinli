@@ -268,7 +268,7 @@ export default {
   }
 
   .is-editing ::v-deep .el-input__inner {
-    border-color: #409EFF;
+    border-color: $basecolor-secondary;
   }
 
   .task-detail-modal-area {
