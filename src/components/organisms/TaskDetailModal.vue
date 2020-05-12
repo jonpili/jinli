@@ -20,7 +20,7 @@
         .mt-500(v-if="task.subtasks.length > 0")
           .mb-100 サブタスク
           hr
-        .subtask-list-item(v-for="subtask in task.subtasks")
+        .subtask-list-item(v-for="subtask in filterSubtasks(task.subtasks)")
           j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask)")
           j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask)")
           el-input.subtask-name(v-model="subtask.data.name")
@@ -57,6 +57,11 @@ export default {
     },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
+    },
+    filterSubtasks (subtasks) {
+      return subtasks.filter((subtask) => {
+        return subtask.deletedAt === ''
+      })
     },
     addSubtask () {
       const emptySubtask = {
