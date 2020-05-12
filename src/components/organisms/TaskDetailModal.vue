@@ -16,6 +16,7 @@
           span {{ column.label }}
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
+      el-button.mt-200(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
 
 <script>
@@ -50,6 +51,9 @@ export default {
     },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
+    },
+    addSubtask () {
+
     }
   }
 }
