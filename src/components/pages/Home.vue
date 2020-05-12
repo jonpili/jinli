@@ -11,7 +11,7 @@
         el-main
           el-collapse(v-model="activeSections")
             draggable
-              task-table.mb-500(:data="filterTasks(tableData.notSectioned)",
+              task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
                                 :columns="columnList",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
@@ -22,7 +22,7 @@
                   .section-title-area
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
-                task-table.mt-100(:data="filterTasks(tableData[section.value])",
+                task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
                                   @completeTask="completeTask",
