@@ -17,7 +17,7 @@
         el-col(:span="18")
           el-input(v-model="task.data[column.value]")
       template.mt-200(v-for="subtask in task.subtasks")
-        span {{ subtask.data }}
+        el-input.subtask(v-model="subtask.data.name")
       el-button.mt-200(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
 
@@ -78,5 +78,9 @@ export default {
   .header-button-area {
     display: flex;
     align-items: center;
+  }
+  .subtask ::v-deep .el-input__inner {
+    height: $basespace-600;
+    border-radius: 0px;
   }
 </style>
