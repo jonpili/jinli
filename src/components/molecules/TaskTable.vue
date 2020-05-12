@@ -15,7 +15,7 @@
             span(v-if="index === 0")
               .task-action-space
                 j-icon-button.mx-100(v-if="row.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(row.id)")
-                .open-modal-button.fs-100.mx-200(@click="openTaskDetailModal(row.id)") 詳細 ＞
+                .open-modal-button.fs-100.mx-200(@click="openTaskDetailModal(row)") 詳細 ＞
 </template>
 
 <script>
@@ -48,8 +48,8 @@ export default {
     switchLiked (taskId) {
       this.$emit('switchLiked', this.sectionValue, taskId)
     },
-    openTaskDetailModal (taskId) {
-      this.$emit('openTaskDetailModal', this.sectionValue, taskId)
+    openTaskDetailModal (task) {
+      this.$emit('openTaskDetailModal', this.sectionValue, task)
     }
   }
 }

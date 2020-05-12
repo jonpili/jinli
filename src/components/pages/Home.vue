@@ -39,6 +39,7 @@
                             @closeTaskDetailModal="closeTaskDetailModal",
                             @completeSubtask="completeSubtask",
                             @uncompleteSubtask="uncompleteSubtask",
+                            @openTaskDetailModal="openTaskDetailModal"
                             @addSubtask="addSubtask")
 </template>
 
@@ -266,11 +267,9 @@ export default {
         targetTask.liked = true
       }
     },
-    openTaskDetailModal (sectionValue, taskId) {
+    openTaskDetailModal (sectionValue, task) {
       this.taskDetailModalSectionValue = sectionValue
-      this.taskDetailModalContent = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
+      this.taskDetailModalContent = task
       this.showTaskDetailModal = true
     },
     closeTaskDetailModal () {

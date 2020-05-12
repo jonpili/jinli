@@ -24,7 +24,7 @@
           j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask.id)")
           j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask.id)")
           el-input.subtask-name(v-model="subtask.data.name")
-          .open-modal-button.fs-100(@click="openTaskDetailModal(row.id)") 詳細 ＞
+          .open-modal-button.fs-100(@click="openTaskDetailModal(subtask)") 詳細 ＞
           hr
         el-button(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
@@ -83,6 +83,9 @@ export default {
     },
     uncompleteSubtask (subtaskId) {
       this.$emit('uncompleteSubtask', this.sectionValue, this.task.id, subtaskId)
+    },
+    openTaskDetailModal (subtask) {
+      this.$emit('openTaskDetailModal', this.sectionValue, subtask)
     }
   }
 }
