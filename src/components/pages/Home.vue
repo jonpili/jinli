@@ -177,11 +177,8 @@ export default {
       this.tableData[sectionValue].push(task)
       this.taskTotalNumber += 1
     },
-    addSubtask (sectionValue, taskId, subtask) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      targetTask.subtasks.push(subtask)
+    addSubtask (task, subtask) {
+      task.subtasks.push(subtask)
     },
     editSectionTitle (id) {
       this.editingSectionId = id
@@ -206,23 +203,11 @@ export default {
         this.showTaskDetailModal = false
       }
     },
-    completeSubtask (sectionValue, taskId, subtaskId) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      const targetSubtask = targetTask.subtasks.find((subtask) => {
-        return subtask.id === subtaskId
-      })
-      targetSubtask.completedAt = Date()
+    completeSubtask (subtask) {
+      subtask.completedAt = Date()
     },
-    uncompleteSubtask (sectionValue, taskId, subtaskId) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      const targetSubtask = targetTask.subtasks.find((subtask) => {
-        return subtask.id === subtaskId
-      })
-      targetSubtask.completedAt = ''
+    uncompleteSubtask (subtask) {
+      subtask.completedAt = ''
     },
     deleteSection (section) {
       this.$confirm(

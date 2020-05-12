@@ -21,8 +21,8 @@
           .mb-100 サブタスク
           hr
         .subtask-list-item(v-for="subtask in task.subtasks")
-          j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask.id)")
-          j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask.id)")
+          j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask)")
+          j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask)")
           el-input.subtask-name(v-model="subtask.data.name")
           .open-modal-button.fs-100(@click="openTaskDetailModal(subtask)") 詳細 ＞
           hr
@@ -76,13 +76,13 @@ export default {
           other: ''
         }
       }
-      this.$emit('addSubtask', this.sectionValue, this.task.id, emptySubtask)
+      this.$emit('addSubtask', this.task, emptySubtask)
     },
-    completeSubtask (subtaskId) {
-      this.$emit('completeSubtask', this.sectionValue, this.task.id, subtaskId)
+    completeSubtask (subtask) {
+      this.$emit('completeSubtask', subtask)
     },
-    uncompleteSubtask (subtaskId) {
-      this.$emit('uncompleteSubtask', this.sectionValue, this.task.id, subtaskId)
+    uncompleteSubtask (subtask) {
+      this.$emit('uncompleteSubtask', subtask)
     },
     openTaskDetailModal (subtask) {
       this.$emit('openTaskDetailModal', this.sectionValue, subtask)
