@@ -31,7 +31,6 @@
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :sectionValue="taskDetailModalSectionValue",
                             :columnList="columnList",
                             @completeTask="completeTask",
                             @deleteTask="deleteTask",
@@ -155,7 +154,6 @@ export default {
           subtasks: []
         }]
       },
-      taskDetailModalSectionValue: '',
       taskDetailModalContent: {},
       showTaskDetailModal: false
     }
@@ -243,14 +241,12 @@ export default {
         task.liked = true
       }
     },
-    openTaskDetailModal (sectionValue, task) {
-      this.taskDetailModalSectionValue = sectionValue
+    openTaskDetailModal (task) {
       this.taskDetailModalContent = task
       this.showTaskDetailModal = true
     },
     closeTaskDetailModal () {
       this.showTaskDetailModal = false
-      this.taskDetailModalSectionValue = ''
       this.taskDetailModalContent = {}
     }
   }

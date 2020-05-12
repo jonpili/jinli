@@ -49,7 +49,7 @@ export default {
       this.$emit('switchLiked', task)
     },
     openTaskDetailModal (task) {
-      this.$emit('openTaskDetailModal', this.sectionValue, task)
+      this.$emit('openTaskDetailModal', task)
     }
   }
 }

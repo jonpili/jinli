@@ -38,10 +38,6 @@ export default {
         return {}
       }
     },
-    sectionValue: {
-      type: String,
-      default: 'notSectioned'
-    },
     columnList: {
       type: Array,
       default: function () {
@@ -85,7 +81,7 @@ export default {
       this.$emit('uncompleteSubtask', subtask)
     },
     openTaskDetailModal (subtask) {
-      this.$emit('openTaskDetailModal', this.sectionValue, subtask)
+      this.$emit('openTaskDetailModal', subtask)
     }
   }
 }
