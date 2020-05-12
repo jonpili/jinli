@@ -23,7 +23,7 @@
         .subtask-list-item(v-for="subtask in task.subtasks")
           j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask.id)")
           j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask.id)")
-          el-input.subtask(v-model="subtask.data.name")
+          el-input.subtask-name(v-model="subtask.data.name")
           hr
         el-button(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
@@ -95,10 +95,10 @@ export default {
   .subtask-list-item {
     display: block;
   }
-  .subtask {
+  .subtask-name {
     width: 240px;
   }
-  .subtask ::v-deep .el-input__inner {
+  .subtask-name ::v-deep .el-input__inner {
     height: $basespace-600;
     border-color: transparent;
   }
