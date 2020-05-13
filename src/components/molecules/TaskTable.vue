@@ -3,7 +3,7 @@
     template(v-for="(column, index) in columns")
       el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
       span(v-if="index === 0")
-        .task-action-space
+        .task-action-space-all
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="task in tasks", :key="task.id")
@@ -86,6 +86,10 @@ export default {
   .complete-button-area {
     margin: 0 $basespace-100;
     vertical-align: middle;
+  }
+  .task-action-space-all {
+    display: inline-block;
+    width: $basespace-600 * 4;
   }
   .task-action-space {
     display: inline-block;
