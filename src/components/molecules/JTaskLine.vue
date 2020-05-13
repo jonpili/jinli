@@ -1,13 +1,14 @@
 <template lang="pug">
   div
-    .task-action-space
+    .task-action-space-double(v-if="type === 'subtask'")
+    .task-action-space(v-if="type === 'task'")
       j-icon-button(genre="fas", value="grip-vertical", type="grab")
     .task-action-space
       j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(task)")
     template(v-for="(column, index) in columns")
       el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
       span(v-if="index === 0")
-        .task-action-space
+        .task-action-space(v-if="type === 'task'")
           j-icon-button(v-if="filterSubtasks(task.subtasks).length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="displaySubtasks(filterSubtasks(task.subtasks))")
         .task-action-space
           j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
@@ -27,6 +28,10 @@ export default {
     columns: {
       type: Array,
       required: true
+    },
+    type: {
+      type: String,
+      default: 'task'
     }
   },
   methods: {

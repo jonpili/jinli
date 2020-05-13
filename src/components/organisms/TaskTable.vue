@@ -13,6 +13,13 @@
                       @displaySubtasks="displaySubtasks",
                       @switchLiked="switchLiked",
                       @openTaskDetailModal="openTaskDetailModal")
+          div(v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
+            j-task-line(:task="subtask",
+                        :columns="columns",
+                        type="subtask",
+                        @completeTask="completeTask",
+                        @switchLiked="switchLiked",
+                        @openTaskDetailModal="openTaskDetailModal")
 </template>
 
 <script>
