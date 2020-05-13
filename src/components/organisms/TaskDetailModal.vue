@@ -1,6 +1,6 @@
 <template lang="pug">
   el-container
-    el-header
+    el-header(height="68px")
       .header-button-area.my-400
         el-button.mr-a(v-if="task.completedAt === ''", @click="completeTask", icon="el-icon-check", size="mini", type="success", plain) 完了にする
         el-button.mr-a(v-else, @click="uncompleteTask", icon="el-icon-check", size="mini", type="success") 完了済み
