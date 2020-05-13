@@ -221,14 +221,12 @@ export default {
     },
     completeTask (task, isMainTask) {
       task.completedAt = Date()
-      this.taskTotalNumber -= 1
       if (isMainTask && task.id === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
     },
     uncompleteTask (task) {
       task.completedAt = ''
-      this.taskTotalNumber += 1
     },
     completeSubtask (subtask) {
       subtask.completedAt = Date()
@@ -260,7 +258,6 @@ export default {
     },
     deleteTask (task) {
       task.deletedAt = Date()
-      this.taskTotalNumber -= 1
       this.showTaskDetailModal = false
     },
     switchLiked (task) {
