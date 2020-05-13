@@ -21,12 +21,15 @@
         .mt-500(v-if="filterSubtasks(task.subtasks).length > 0")
           .mb-100 サブタスク
           hr
-        .subtask-list-item(v-for="subtask in filterSubtasks(task.subtasks)")
-          j-icon-button.ml-100(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask)")
-          j-icon-button.ml-100(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask)")
+        div(v-for="subtask in filterSubtasks(task.subtasks)")
+          .task-action-space
+            j-icon-button(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask)")
+            j-icon-button(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask)")
           el-input.subtask-name(v-model="subtask.data.name")
-          j-icon-button.mr-200(v-if="subtask.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(subtask)")
-          .open-modal-button.fs-100(@click="openTaskDetailModal(subtask)") 詳細 ＞
+          .task-action-space
+            j-icon-button(v-if="subtask.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(subtask)")
+          .task-action-space-double
+            .open-modal-button.fs-200(@click="openTaskDetailModal(subtask)") 詳細 ＞
           hr
         el-button(@click="addSubtask", icon="el-icon-plus", type="text") サブタスクを追加
 </template>
@@ -103,8 +106,15 @@ export default {
     display: flex;
     align-items: center;
   }
-  .subtask-list-item {
-    display: block;
+  .task-action-space {
+    display: inline-block;
+    width: 5%;
+    text-align: center;
+  }
+  .task-action-space-double {
+    display: inline-block;
+    width: 10%;
+    text-align: center;
   }
   .subtask-name {
     width: 80%;
