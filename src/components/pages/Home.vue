@@ -123,7 +123,19 @@ export default {
             tag: 'MVP',
             other: ''
           },
-          subtasks: []
+          subtasks: [{
+              id: 1,
+              completedAt: '',
+              deletedAt: '',
+              liked: false,
+              data: {
+                name: '新規ページの作成',
+                person: 'ジョニー',
+                deadline: '5/24',
+                tag: 'MVP',
+                other: ''
+              }
+          }]
         }, {
           id: 3,
           completedAt: '',
@@ -155,7 +167,7 @@ export default {
           id: 5,
           completedAt: '',
           deletedAt: '',
-          liked: false,
+          liked: true,
           data: {
             name: 'タスクへのいいね機能',
             person: 'ジョニー',
