@@ -5,8 +5,8 @@
       span(v-if="index === 0")
         .task-action-space-all
     draggable(group="tasks")
-      transition-group(name="task-list", tag="div")
-        .task-list-item(v-for="task in tasks", :key="task.id")
+      transition-group(name="task-table", tag="div")
+        .task-table-item(v-for="task in tasks", :key="task.id")
           j-task-line(:task="task",
                       :columns="columns",
                       @completeTask="completeTask",
@@ -65,14 +65,14 @@ export default {
     height: $basespace-600;
     border-radius: 0px;
   }
-  .task-list-item {
+  .task-table-item {
     transition: all 0.5s;
   }
-  .task-list-enter {
+  .task-table-enter {
     opacity: 0;
     transform: translateX($basespace-500 * -10);
   }
-  .task-list-leave-to {
+  .task-table-leave-to {
     opacity: 0;
     transform: translateX($basespace-500 * 10);
   }
