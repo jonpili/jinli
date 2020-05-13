@@ -19,7 +19,7 @@
               .task-action-space
                 j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
               .task-action-space-double
-                .open-modal-button.fs-100(@click="openTaskDetailModal(task)") 詳細 ＞
+                .open-modal-button.fs-200(@click="openTaskDetailModal(task)") 詳細 ＞
 </template>
 
 <script>
@@ -104,7 +104,7 @@ export default {
   .open-modal-button {
     display: inline-block;
     cursor: pointer;
-    opacity: 0;
+    opacity: 0.3;
     &:hover {
       opacity: 1;
     }
