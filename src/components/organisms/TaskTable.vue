@@ -49,7 +49,8 @@ export default {
   },
   methods: {
     completeTask (task) {
-      this.$emit('completeTask', task)
+      const isMainTask = 'subtasks' in task
+      this.$emit('completeTask', task, isMainTask)
     },
     filterSubtasks (subtasks) {
       return subtasks.filter((subtask) => {
