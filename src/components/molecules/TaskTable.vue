@@ -8,13 +8,13 @@
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="task in tasks", :key="task.id")
           j-move-icon
-          span.complete-button-area
+          .task-action-space
             j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(task)")
           template(v-for="(column, index) in columns")
             el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
             span(v-if="index === 0")
               .task-action-space
-                j-icon-button(v-if="filterSubtasks(task.subtasks).length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="")
+                j-icon-button(v-if="filterSubtasks(task.subtasks).length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="displaySubtasks(filterSubtasks(task.subtasks))")
               .task-action-space
                 j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
               .task-action-space-double
@@ -53,6 +53,9 @@ export default {
         return subtask.deletedAt === ''
       })
     },
+    displaySubtasks (subtasks) {
+      console.log(subtasks);
+    },
     switchLiked (task) {
       this.$emit('switchLiked', task)
     },
@@ -82,10 +85,6 @@ export default {
   .task-list-leave-to {
     opacity: 0;
     transform: translateX($basespace-500 * 10);
-  }
-  .complete-button-area {
-    margin: 0 $basespace-100;
-    vertical-align: middle;
   }
   .task-action-space-all {
     display: inline-block;
