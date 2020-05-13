@@ -4,7 +4,7 @@
     .task-action-space(v-if="type === 'task'")
       j-icon-button(genre="fas", value="grip-vertical", type="grab")
     .task-action-space
-      j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(task)")
+      j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask")
     template(v-for="(column, index) in columns")
       el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
       span(v-if="index === 0")
@@ -13,9 +13,9 @@
             j-icon-button(v-if="task.visibleSubtasks", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="switchVisibleSubtasks")
             j-icon-button(v-else, genre="fas", value="code-branch", @click="switchVisibleSubtasks")
         .task-action-space
-          j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
+          j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked")
         .task-action-space-double
-          .open-modal-button.fs-200(@click="openTaskDetailModal(task)") 詳細 ＞
+          .open-modal-button.fs-200(@click="openTaskDetailModal") 詳細 ＞
 </template>
 
 <script>
@@ -37,8 +37,8 @@ export default {
     }
   },
   methods: {
-    completeTask (task) {
-      this.$emit('completeTask', task)
+    completeTask () {
+      this.$emit('completeTask', this.task)
     },
     filterSubtasks (subtasks) {
       return subtasks.filter((subtask) => {
@@ -48,11 +48,11 @@ export default {
     switchVisibleSubtasks () {
       this.$emit('switchVisibleSubtasks', this.task)
     },
-    switchLiked (task) {
-      this.$emit('switchLiked', task)
+    switchLiked () {
+      this.$emit('switchLiked', this.task)
     },
-    openTaskDetailModal (task) {
-      this.$emit('openTaskDetailModal', task)
+    openTaskDetailModal () {
+      this.$emit('openTaskDetailModal', this.task)
     }
   }
 }
