@@ -131,7 +131,4 @@ export default {
       opacity: 1;
     }
   }
-  hr {
-    margin: 0 0;
-  }
 </style>
