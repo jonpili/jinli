@@ -50,7 +50,6 @@ export default {
       })
     },
     switchVisibleSubtasks () {
-      console.log(this.visibleSubtasks);
       this.$emit('switchVisibleSubtasks')
     },
     switchLiked (task) {
