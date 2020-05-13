@@ -9,6 +9,7 @@
         .task-table-item(v-for="task in tasks", :key="task.id")
           j-task-line(:task="task",
                       :columns="columns",
+                      :visibleSubtasks="visibleSubtasks",
                       @completeTask="completeTask",
                       @switchVisibleSubtasks="switchVisibleSubtasks",
                       @switchLiked="switchLiked",

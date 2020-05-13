@@ -9,7 +9,9 @@
       el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
       span(v-if="index === 0")
         .task-action-space(v-if="type === 'task'")
-          j-icon-button(v-if="filterSubtasks(task.subtasks).length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="switchVisibleSubtasks")
+          div(v-if="filterSubtasks(task.subtasks).length > 0")
+            j-icon-button(v-if="visibleSubtasks", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="switchVisibleSubtasks")
+            j-icon-button(v-else, genre="fas", value="code-branch", @click="switchVisibleSubtasks")
         .task-action-space
           j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
         .task-action-space-double
@@ -32,6 +34,10 @@ export default {
     type: {
       type: String,
       default: 'task'
+    },
+    visibleSubtasks: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -44,6 +50,7 @@ export default {
       })
     },
     switchVisibleSubtasks () {
+      console.log(this.visibleSubtasks);
       this.$emit('switchVisibleSubtasks')
     },
     switchLiked (task) {
