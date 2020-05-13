@@ -14,7 +14,7 @@
             el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
             span(v-if="index === 0")
               .task-action-space
-                j-icon-button(v-if="task.subtasks.length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="")
+                j-icon-button(v-if="filterSubtasks(task.subtasks).length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="")
               .task-action-space
                 j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
               .task-action-space-double
@@ -47,6 +47,11 @@ export default {
   methods: {
     completeTask (task) {
       this.$emit('completeTask', task)
+    },
+    filterSubtasks (subtasks) {
+      return subtasks.filter((subtask) => {
+        return subtask.deletedAt === ''
+      })
     },
     switchLiked (task) {
       this.$emit('switchLiked', task)
