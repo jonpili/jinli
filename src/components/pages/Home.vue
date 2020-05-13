@@ -77,7 +77,7 @@ export default {
             id: 1,
             completedAt: '',
             deletedAt: '',
-            liked: false,
+            liked: true,
             data: {
               name: 'JavaScriptの勉強',
               person: 'ジョニー',
@@ -101,7 +101,7 @@ export default {
                 id: 2,
                 completedAt: '',
                 deletedAt: '',
-                liked: false,
+                liked: true,
                 data: {
                   name: 'JSのみでアプリを作ってみる',
                   person: 'ジョニー',
