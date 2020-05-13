@@ -9,7 +9,7 @@
       el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
       span(v-if="index === 0")
         .task-action-space(v-if="type === 'task'")
-          j-icon-button(v-if="filterSubtasks(task.subtasks).length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="displaySubtasks(filterSubtasks(task.subtasks))")
+          j-icon-button(v-if="filterSubtasks(task.subtasks).length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="switchVisibleSubtasks")
         .task-action-space
           j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
         .task-action-space-double
@@ -43,8 +43,8 @@ export default {
         return subtask.deletedAt === ''
       })
     },
-    displaySubtasks (subtasks) {
-      this.$emit('displaySubtasks', subtasks)
+    switchVisibleSubtasks () {
+      this.$emit('switchVisibleSubtasks')
     },
     switchLiked (task) {
       this.$emit('switchLiked', task)

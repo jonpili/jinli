@@ -10,10 +10,10 @@
           j-task-line(:task="task",
                       :columns="columns",
                       @completeTask="completeTask",
-                      @displaySubtasks="displaySubtasks",
+                      @switchVisibleSubtasks="switchVisibleSubtasks",
                       @switchLiked="switchLiked",
                       @openTaskDetailModal="openTaskDetailModal")
-          div(v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
+          div(v-if="visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
             j-task-line(:task="subtask",
                         :columns="columns",
                         type="subtask",
@@ -41,6 +41,11 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      visibleSubtasks: false
+    }
+  },
   methods: {
     completeTask (task) {
       this.$emit('completeTask', task)
@@ -50,8 +55,12 @@ export default {
         return subtask.deletedAt === ''
       })
     },
-    displaySubtasks (subtasks) {
-      console.log(subtasks);
+    switchVisibleSubtasks () {
+      if (this.visibleSubtasks) {
+        this.visibleSubtasks = false
+      } else {
+        this.visibleSubtasks = true
+      }
     },
     switchLiked (task) {
       this.$emit('switchLiked', task)
