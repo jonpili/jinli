@@ -9,13 +9,12 @@
         .task-table-item(v-for="task in tasks", :key="task.id")
           j-task-line(:task="task",
                       :columns="columns",
-                      :visibleSubtasks="visibleSubtasks",
                       @completeTask="completeTask",
                       @switchVisibleSubtasks="switchVisibleSubtasks",
                       @switchLiked="switchLiked",
                       @openTaskDetailModal="openTaskDetailModal")
           transition-group(name="subtask-table", tag="div")
-            .subtask-table-item(v-if="visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
+            .subtask-table-item(v-if="task.visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
               j-task-line(:task="subtask",
                           :columns="columns",
                           type="subtask",
@@ -43,11 +42,6 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      visibleSubtasks: false
-    }
-  },
   methods: {
     completeTask (task) {
       const isMainTask = 'subtasks' in task
@@ -58,11 +52,11 @@ export default {
         return subtask.deletedAt === '' && subtask.completedAt === ''
       })
     },
-    switchVisibleSubtasks () {
-      if (this.visibleSubtasks) {
-        this.visibleSubtasks = false
+    switchVisibleSubtasks (task) {
+      if (task.visibleSubtasks) {
+        task.visibleSubtasks = false
       } else {
-        this.visibleSubtasks = true
+        task.visibleSubtasks = true
       }
     },
     switchLiked (task) {

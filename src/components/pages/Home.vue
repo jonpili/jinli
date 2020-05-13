@@ -108,7 +108,8 @@ export default {
                   tag: '個人学習',
                   other: ''
                 }
-            }]
+            }],
+            visibleSubtasks: false
         }],
         section1: [{
           id: 2,
@@ -134,7 +135,8 @@ export default {
                 tag: 'MVP',
                 other: ''
               }
-          }]
+          }],
+          visibleSubtasks: false
         }, {
           id: 3,
           completedAt: '',
@@ -147,7 +149,8 @@ export default {
             tag: 'MVP',
             other: ''
           },
-          subtasks: []
+          subtasks: [],
+          visibleSubtasks: false
         }, {
           id: 4,
           completedAt: '',
@@ -160,7 +163,8 @@ export default {
             tag: 'MVP',
             other: ''
           },
-          subtasks: []
+          subtasks: [],
+          visibleSubtasks: false
         }],
         section2: [{
           id: 5,
@@ -174,7 +178,8 @@ export default {
             tag: '開発目標',
             other: ''
           },
-          subtasks: []
+          subtasks: [],
+          visibleSubtasks: false
         }, {
           id: 6,
           completedAt: '',
@@ -187,7 +192,8 @@ export default {
             tag: '開発目標',
             other: ''
           },
-          subtasks: []
+          subtasks: [],
+          visibleSubtasks: false
         }]
       },
       taskDetailModalContent: {},
