@@ -71,7 +71,6 @@ export default {
   }
   .j-icon-button-grab {
     &:hover {
-      opacity: 1.0;
       cursor: grab;
     }
     &:active {

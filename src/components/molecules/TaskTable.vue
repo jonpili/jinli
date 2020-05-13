@@ -7,7 +7,6 @@
     draggable(group="tasks")
       transition-group(name="task-list", tag="div")
         .task-list-item(v-for="task in tasks", :key="task.id")
-          j-move-icon
           .task-action-space
             j-icon-button(genre="fas", value="grip-vertical", type="grab")
           .task-action-space

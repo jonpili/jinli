@@ -18,10 +18,10 @@
                                 @openTaskDetailModal="openTaskDetailModal")
               el-collapse-item(v-for="section in filterSections(sectionList)", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
                 template(slot="title")
-                  j-move-icon
-                  .section-title-area
+                  j-icon-button(genre="fas", value="grip-vertical", type="grab")
+                  .section-title-area.ml-200
                     el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                  j-icon-button(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
+                  j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
@@ -263,19 +263,15 @@ export default {
     height: $basespace-500 * 2;
     font-size: $basespace-300;
   }
-
   ::v-deep .el-collapse-item__content {
     font-size: $basespace-300;
   }
-
   .section-title-area ::v-deep .el-input__inner {
     border-color: transparent;
   }
-
   .is-editing ::v-deep .el-input__inner {
     border-color: $basecolor-secondary;
   }
-
   .task-detail-modal-area {
     position: fixed;
     top: 58px;
