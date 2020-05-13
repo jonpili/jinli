@@ -20,6 +20,10 @@ export default {
     hoverColor: {
       type: String,
       default: 'default'
+    },
+    type: {
+      type: String,
+      default: 'default'
     }
   },
   classes (props) {
@@ -30,7 +34,8 @@ export default {
       'j-icon-button-success': props.color === 'success',
       'j-icon-button-hover-default': props.hoverColor === 'default',
       'j-icon-button-hover-primary': props.hoverColor === 'primary',
-      'j-icon-button-hover-success': props.hoverColor === 'success'
+      'j-icon-button-hover-success': props.hoverColor === 'success',
+      'j-icon-button-grab': props.type === 'grab'
     }
   }
 }
@@ -62,6 +67,15 @@ export default {
   .j-icon-button-hover-success {
     &:hover {
       color: $basecolor-success;
+    }
+  }
+  .j-icon-button-grab {
+    &:hover {
+      opacity: 1.0;
+      cursor: grab;
+    }
+    &:active {
+      cursor: grabbing;
     }
   }
 </style>

@@ -9,6 +9,8 @@
         .task-list-item(v-for="task in tasks", :key="task.id")
           j-move-icon
           .task-action-space
+            j-icon-button(genre="fas", value="grip-vertical", type="grab")
+          .task-action-space
             j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask(task)")
           template(v-for="(column, index) in columns")
             el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
