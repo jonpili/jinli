@@ -94,7 +94,7 @@ export default {
     transform: translateX($basespace-500 * 10);
   }
   .subtask-table-item {
-    transition: all 0.5s;
+    transition: all 0.25s;
   }
   .subtask-table-enter {
     opacity: 0;

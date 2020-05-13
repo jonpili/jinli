@@ -85,7 +85,31 @@ export default {
               tag: '個人学習',
               other: ''
             },
-            subtasks: []
+            subtasks: [{
+                id: 1,
+                completedAt: '',
+                deletedAt: '',
+                liked: false,
+                data: {
+                  name: '本を読む',
+                  person: 'ジョニー',
+                  deadline: '5/24',
+                  tag: '個人学習',
+                  other: ''
+                }
+              }, {
+                id: 2,
+                completedAt: '',
+                deletedAt: '',
+                liked: false,
+                data: {
+                  name: 'JSのみでアプリを作ってみる',
+                  person: 'ジョニー',
+                  deadline: '5/24',
+                  tag: '個人学習',
+                  other: ''
+                }
+            }]
         }],
         section1: [{
           id: 2,
