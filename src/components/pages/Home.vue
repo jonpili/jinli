@@ -216,7 +216,7 @@ export default {
     },
     filterTasks (tasks) {
       return tasks.filter((task) => {
-        return task.completedAt === '' && task.deletedAt === ''
+        return task.deletedAt === '' && task.completedAt === ''
       })
     },
     completeTask (task, isMainTask) {

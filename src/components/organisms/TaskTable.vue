@@ -53,7 +53,7 @@ export default {
     },
     filterSubtasks (subtasks) {
       return subtasks.filter((subtask) => {
-        return subtask.deletedAt === ''
+        return subtask.deletedAt === '' && subtask.completedAt === ''
       })
     },
     switchVisibleSubtasks () {
