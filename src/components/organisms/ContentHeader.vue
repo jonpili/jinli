@@ -1,12 +1,10 @@
 <template lang="pug">
-  .mb-500
-    .mb-100
-      el-button(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus", size="mini") タスクを追加
-      el-select.ml-100(v-model="selectedSectionValue", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
-        el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
-      el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
-    div
-      el-button(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
+  div
+    el-button(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
+    el-button.ml-100(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus", size="mini") タスクを追加
+    el-select.ml-100(v-model="selectedSectionValue", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
+      el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
+    el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
 </template>
 
 <script>

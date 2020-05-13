@@ -5,8 +5,8 @@
     hr
     el-main
       el-container
-        el-header.mb-600
-          content-header(:sectionList="filterSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
+        el-header
+          content-header.mb-200(:sectionList="filterSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
           hr
         el-main
           el-collapse(v-model="activeSections")
