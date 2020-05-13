@@ -13,13 +13,14 @@
                       @switchVisibleSubtasks="switchVisibleSubtasks",
                       @switchLiked="switchLiked",
                       @openTaskDetailModal="openTaskDetailModal")
-          div(v-if="visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
-            j-task-line(:task="subtask",
-                        :columns="columns",
-                        type="subtask",
-                        @completeTask="completeTask",
-                        @switchLiked="switchLiked",
-                        @openTaskDetailModal="openTaskDetailModal")
+          transition-group(name="subtask-table", tag="div")
+            .subtask-table-item(v-if="visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
+              j-task-line(:task="subtask",
+                          :columns="columns",
+                          type="subtask",
+                          @completeTask="completeTask",
+                          @switchLiked="switchLiked",
+                          @openTaskDetailModal="openTaskDetailModal")
 </template>
 
 <script>
@@ -91,6 +92,15 @@ export default {
   .task-table-leave-to {
     opacity: 0;
     transform: translateX($basespace-500 * 10);
+  }
+  .subtask-table-item {
+    transition: all 0.5s;
+  }
+  .subtask-table-enter {
+    opacity: 0;
+  }
+  .subtask-table-leave-to {
+    opacity: 0;
   }
   .task-action-space-all {
     display: inline-block;
