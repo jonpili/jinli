@@ -52,14 +52,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .header ::v-deep .el-input__inner {
-    margin-left: 68px;
-    border: none;
-  }
-  ::v-deep .el-input__inner {
-    height: $basespace-600;
-    border-radius: 0px;
-  }
   .task-action-space {
     display: inline-block;
     width: $basespace-600;
