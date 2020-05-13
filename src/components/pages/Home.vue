@@ -1,8 +1,8 @@
 <template lang="pug">
   el-container
-    el-header(height="84px")
+    el-header(height="75px")
       img(src="@/assets/logo.png")
-      hr
+    hr
     el-main
       el-container
         el-header.mb-600
@@ -307,7 +307,7 @@ export default {
   }
   .task-detail-modal-area {
     position: fixed;
-    top: 58px;
+    top: 84px;
     right: 0;
     width: 50%;
     height: 100%;
