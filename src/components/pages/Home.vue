@@ -47,7 +47,7 @@
 import draggable from 'vuedraggable'
 import ContentHeader from '@/components/organisms/ContentHeader'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
-import TaskTable from '@/components/molecules/TaskTable'
+import TaskTable from '@/components/organisms/TaskTable'
 
 export default {
   components: {

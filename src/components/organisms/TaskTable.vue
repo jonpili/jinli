@@ -39,10 +39,6 @@ export default {
     columns: {
       type: Array,
       required: true
-    },
-    sectionValue: {
-      type: String,
-      default: 'notSectioned'
     }
   },
   methods: {
