@@ -5,7 +5,7 @@
         el-button.mr-a(v-if="task.completedAt === ''", @click="completeTask", icon="el-icon-check", size="mini", type="success", plain) 完了にする
         el-button.mr-a(v-else, @click="uncompleteTask", icon="el-icon-check", size="mini", type="success") 完了済み
         div
-          j-icon-button.mr-400(v-if="!task.liked", genre="far", value="thumbs-up", @click="switchLiked(task)")
+          j-icon-button.mr-400(v-if="!task.liked", genre="far", value="thumbs-up", @click="switchLiked")
           j-icon-button.mr-400(v-else, genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
         j-icon-button.mr-400(genre="far", value="trash-alt", @click="deleteTask")
         j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
@@ -61,8 +61,8 @@ export default {
     deleteTask () {
       this.$emit('deleteTask', this.task)
     },
-    switchLiked (task) {
-      this.$emit('switchLiked', task)
+    switchLiked () {
+      this.$emit('switchLiked', this.task)
     },
     closeTaskDetailModal () {
       this.$emit('closeTaskDetailModal')
