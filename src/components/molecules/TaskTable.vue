@@ -14,8 +14,11 @@
             el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
             span(v-if="index === 0")
               .task-action-space
-                j-icon-button.mx-100(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
-                .open-modal-button.fs-100.mx-200(@click="openTaskDetailModal(task)") 詳細 ＞
+                j-icon-button(v-if="task.subtasks.length > 0", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="")
+              .task-action-space
+                j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(task)")
+              .task-action-space-double
+                .open-modal-button.fs-100(@click="openTaskDetailModal(task)") 詳細 ＞
 </template>
 
 <script>
@@ -81,8 +84,13 @@ export default {
   }
   .task-action-space {
     display: inline-block;
-    text-align: right;
-    width: $basespace-600 * 3;
+    width: $basespace-600;
+    text-align: center;
+  }
+  .task-action-space-double {
+    display: inline-block;
+    width: $basespace-600 * 2;
+    text-align: center;
   }
   .open-modal-button {
     display: inline-block;
