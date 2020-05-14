@@ -6,7 +6,12 @@
     el-main
       el-container
         el-header(height="28px")
-          content-header(:sectionList="filterSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
+          content-header(:sectionList="filterSections(sectionList)",
+                         :tableData="tableData",
+                         :taskTotalNumber="taskTotalNumber",
+                         :columns="columnList",
+                         @addTask="addTask",
+                         @addSection="addSection")
         el-main
           el-collapse(v-model="activeSections")
             draggable

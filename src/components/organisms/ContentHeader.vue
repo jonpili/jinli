@@ -7,7 +7,11 @@
         el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
       el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
     span.edit-action-space
-      el-button(@click="", icon="el-icon-notebook-2", size="mini") フィールドを編集
+      el-dropdown(trigger="click")
+        span(class="el-dropdown-link")
+          el-button(icon="el-icon-notebook-2", size="mini") フィールドを編集
+        el-dropdown-menu(slot="dropdown")
+          el-dropdown-item(v-for="column in columns") {{ column.label }}
 </template>
 
 <script>
@@ -28,6 +32,12 @@ export default {
     taskTotalNumber: {
       type: Number,
       default: 0
+    },
+    columns: {
+      type: Array,
+      default: function () {
+        return []
+      }
     }
   },
   data () {
