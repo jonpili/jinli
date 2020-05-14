@@ -11,7 +11,9 @@
         span(class="el-dropdown-link")
           el-button(icon="el-icon-notebook-2", size="mini") フィールドを編集
         el-dropdown-menu(slot="dropdown")
-          el-dropdown-item(v-for="column in columns") {{ column.label }}
+          .field-item(v-for="column in columns")
+            el-switch
+            el-dropdown-item {{ column.label }}
 </template>
 
 <script>
@@ -90,5 +92,9 @@ export default {
 <style lang="scss" scoped>
   .edit-action-space {
     float: right;
+  }
+  .field-item {
+    display: flex;
+    align-items: center;
   }
 </style>
