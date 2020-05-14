@@ -1,10 +1,13 @@
 <template lang="pug">
   div
-    el-button(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
-    el-button.ml-100(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus", size="mini") タスクを追加
-    el-select.ml-100(v-model="selectedSectionValue", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
-      el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
-    el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
+    span.add-action-space
+      el-button(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
+      el-button.ml-100(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus", size="mini") タスクを追加
+      el-select.ml-100(v-model="selectedSectionValue", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
+        el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
+      el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
+    span.edit-action-space
+      el-button(@click="", icon="el-icon-notebook-2", size="mini") フィールドを編集
 </template>
 
 <script>
@@ -73,3 +76,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .edit-action-space {
+    float: right;
+  }
+</style>
