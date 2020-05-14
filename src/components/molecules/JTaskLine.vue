@@ -10,8 +10,8 @@
       span(v-if="index === 0")
         .task-action-space(v-if="type === 'task'")
           div(v-if="filterSubtasks(task.subtasks).length > 0")
-            j-icon-button(v-if="task.visibleSubtasks", genre="fas", value="code-branch", color="primary", hover-color="primary", @click="switchVisibleSubtasks")
-            j-icon-button(v-else, genre="fas", value="code-branch", @click="switchVisibleSubtasks")
+            j-icon-button(v-if="task.visibleSubtasks", genre="fas", value="sitemap", color="primary", hover-color="primary", @click="switchVisibleSubtasks")
+            j-icon-button(v-else, genre="fas", value="sitemap", @click="switchVisibleSubtasks")
         .task-action-space
           j-icon-button(v-if="task.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked")
         .task-action-space-double
