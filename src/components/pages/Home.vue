@@ -9,7 +9,7 @@
           content-header(:sectionList="filterSections(sectionList)",
                          :tableData="tableData",
                          :taskTotalNumber="taskTotalNumber",
-                         :columns="columnList",
+                         :columns="filteredColumns",
                          @addTask="addTask",
                          @addSection="addSection",
                          @addField="addField",
@@ -18,7 +18,7 @@
           el-collapse(v-model="activeSections")
             draggable
               task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                :columns="columnList",
+                                :columns="filteredColumns",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
@@ -37,14 +37,14 @@
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
-                                  :columns="columnList",
+                                  :columns="filteredColumns",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :columnList="columnList",
+                            :columnList="filteredColumns",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
                             @deleteTask="deleteTask",
@@ -213,6 +213,13 @@ export default {
       },
       taskDetailModalContent: {},
       showTaskDetailModal: false
+    }
+  },
+  computed: {
+    filteredColumns () {
+      return this.columnList.filter((column) => {
+        return column.deletedAt === ''
+      })
     }
   },
   methods: {
