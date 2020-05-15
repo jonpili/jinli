@@ -1,6 +1,9 @@
 <template lang="pug">
   .overlay(@click.self="closeModal")
     .window
+      .header
+        slot(name="header")
+      hr
       .contents
         slot
 </template>
@@ -33,7 +36,10 @@ export default {
     border-radius: 4px;
     overflow: hidden;
   }
+  .header {
+    padding: $basespace-200 $basespace-400;
+  }
   .contents {
-    padding: $basespace-100 $basespace-200;
+    padding: $basespace-200 $basespace-400;
   }
 </style>

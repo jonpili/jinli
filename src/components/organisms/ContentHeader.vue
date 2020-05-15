@@ -17,8 +17,11 @@
           hr.my-100
           .field-item
             el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
-    j-modal(v-if="visibleFieldModal", @closeModal="closeModal")
-      .edit-field-modal {{ selectedField }}
+    j-modal(v-if="visibleFieldModal", @closeModal="closeFieldModal")
+      template(v-slot:header)
+        div へっだー
+      template
+        div {{ selectedField }}
 </template>
 
 <script>
@@ -107,7 +110,7 @@ export default {
       this.selectedField = field
       this.visibleFieldModal = true
     },
-    closeModal () {
+    closeFieldModal () {
       this.visibleFieldModal = false
       this.selectedField = {}
     }
