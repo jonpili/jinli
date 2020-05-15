@@ -14,7 +14,7 @@
           .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
             el-dropdown-item.column-label {{ column.label }}
             el-switch.mx-200(v-model="column.visible")
-          hr
+          hr.mt-100
           .field-item
             el-button.mt-200(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
 </template>
