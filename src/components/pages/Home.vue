@@ -228,6 +228,11 @@ export default {
     },
     addField (field) {
       this.columnList.push(field)
+      this.sectionList.forEach((section) => {
+        this.tableData[section.value].forEach((task) => {
+          this.$set(task.data, field.value, '')
+        })
+      })
     },
     editSectionTitle (id) {
       this.editingSectionId = id
