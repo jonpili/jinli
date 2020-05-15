@@ -14,6 +14,9 @@
           .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
             el-dropdown-item.column-label {{ column.label }}
             el-switch.mx-200(v-model="column.visible")
+          hr
+          .field-item
+            el-button.mt-200(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
 </template>
 
 <script>
@@ -84,6 +87,9 @@ export default {
     },
     addSection () {
       this.$emit('addSection')
+    },
+    addField () {
+
     }
   }
 }
@@ -95,6 +101,7 @@ export default {
   }
   .field-item {
     display: flex;
+    justify-content: center;
     align-items: center;
   }
   .column-label {
