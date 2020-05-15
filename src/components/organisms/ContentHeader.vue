@@ -7,12 +7,12 @@
         el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
       el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
     span.edit-action-space
-      el-dropdown(trigger="click")
+      el-dropdown(trigger="click", @command="handleCommand")
         span(class="el-dropdown-link")
           el-button(icon="el-icon-notebook-2", size="mini") フィールドを編集
         el-dropdown-menu(slot="dropdown")
           .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
-            el-dropdown-item.column-label {{ column.label }}
+            el-dropdown-item(:command="column.value").column-label {{ column.label }}
             el-switch.mx-200(v-model="column.visible")
           hr.my-100
           .field-item
@@ -98,6 +98,9 @@ export default {
         visible: true
       }
       this.$emit('addField', emptyField)
+    },
+    handleCommand(command) {
+      this.$message('click on item ' + command)
     }
   }
 }
