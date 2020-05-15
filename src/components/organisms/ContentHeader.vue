@@ -29,7 +29,7 @@
           el-input(v-model="selectedField.width")
         .field-item.py-100
           .column-label フィールドタイプ
-          el-input
+          el-input(v-model="selectedField.type", disabled)
 </template>
 
 <script>
@@ -109,6 +109,7 @@ export default {
         id: emptyFieldId,
         label: '未設定',
         value: 'field' + emptyFieldId,
+        type: '文字列',
         width: 100,
         visible: true
       }
