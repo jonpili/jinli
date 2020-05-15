@@ -19,9 +19,17 @@
             el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
     j-modal(v-if="visibleFieldModal", @closeModal="closeFieldModal")
       template(v-slot:header)
-        div へっだー
+        .fw-bold 「{{ selectedField.label }}」フィールドの編集
       template
-        div {{ selectedField }}
+        .field-item.py-100
+          .column-label フィールド名
+          el-input(v-model="selectedField.label")
+        .field-item.py-100
+          .column-label フィールドの幅(px)
+          el-input(v-model="selectedField.width")
+        .field-item.py-100
+          .column-label フィールドタイプ
+          el-input
 </template>
 
 <script>
