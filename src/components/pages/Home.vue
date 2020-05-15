@@ -71,11 +71,11 @@ export default {
   data () {
     return {
       columnList: [
-        { id: 1, label: 'タスク名', value: 'name', type: '文字列', width: 240, visible: true },
-        { id: 2, label: '担当者', value: 'person', type: '文字列', width: 100, visible: true },
-        { id: 3, label: '期日', value: 'deadline', type: '文字列', width: 100, visible: true },
-        { id: 4, label: 'タグ', value: 'tag', type: '文字列', width: 100, visible: true },
-        { id: 5, label: 'その他', value: 'other', type: '文字列', width: 100, visible: false }
+        { id: 1, label: 'タスク名', value: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
+        { id: 2, label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
+        { id: 3, label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
+        { id: 4, label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
+        { id: 5, label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 100, visible: false }
       ],
       sectionList: [
         { id: 1, deletedAt: '', label: '', value: 'notSectioned' },
