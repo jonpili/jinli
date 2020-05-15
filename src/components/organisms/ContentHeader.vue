@@ -17,6 +17,8 @@
           hr.my-100
           .field-item
             el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
+    j-modal
+      .edit-field-modal モーダルだよ
 </template>
 
 <script>
