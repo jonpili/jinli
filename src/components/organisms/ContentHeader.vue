@@ -92,7 +92,7 @@ export default {
       const emptyFieldId = this.columns.length + 1
       const emptyField = {
         id: emptyFieldId,
-        label: '',
+        label: '未設定',
         value: 'field' + emptyFieldId,
         width: 100,
         visible: true
