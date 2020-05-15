@@ -7,18 +7,18 @@
         el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
       el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
     span.edit-action-space
-      el-dropdown(trigger="click", @command="handleCommand")
+      el-dropdown(trigger="click", @command="openFieldModal")
         span(class="el-dropdown-link")
           el-button(icon="el-icon-notebook-2", size="mini") フィールドを編集
         el-dropdown-menu(slot="dropdown")
           .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
-            el-dropdown-item(:command="column.value").column-label {{ column.label }}
+            el-dropdown-item(:command="column").column-label {{ column.label }}
             el-switch.mx-200(v-model="column.visible")
           hr.my-100
           .field-item
             el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
     j-modal(v-if="visibleFieldModal", @closeModal="closeModal")
-      .edit-field-modal モーダルだよ
+      .edit-field-modal {{ selectedField }}
 </template>
 
 <script>
@@ -50,7 +50,8 @@ export default {
   data () {
     return {
       selectedSectionValue: '',
-      visibleFieldModal: true
+      visibleFieldModal: false,
+      selectedField: {}
     }
   },
   computed: {
@@ -102,11 +103,13 @@ export default {
       }
       this.$emit('addField', emptyField)
     },
-    handleCommand (command) {
-      this.$message('click on item ' + command)
+    openFieldModal (field) {
+      this.selectedField = field
+      this.visibleFieldModal = true
     },
     closeModal () {
       this.visibleFieldModal = false
+      this.selectedField = {}
     }
   }
 }
