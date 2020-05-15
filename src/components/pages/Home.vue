@@ -311,7 +311,25 @@ export default {
       const targetField = this.columnList.find((column) =>{
         return column.value === fieldValue
       })
-      targetField.deletedAt = Date()
+      this.$confirm(
+        '紐付いた値を含む「' + targetField.label + '」のすべてが削除されます。',
+        'フィールドを削除してもよろしいですか？',
+        {
+          confirmButtonText: 'フィールドを削除',
+          cancelButtonText: 'キャンセル',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: targetField.label + 'は削除されました'
+          })
+          targetField.deletedAt = Date()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '削除はキャンセルされました'
+          })
+        })
     },
     switchLiked (task) {
       if (task.liked) {
