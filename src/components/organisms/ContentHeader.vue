@@ -119,7 +119,8 @@ export default {
       this.$emit('addField', emptyField)
     },
     deleteField () {
-      this.$emit('deleteField', this.selectedField)
+      this.$emit('deleteField', this.selectedField.value)
+      this.closeFieldModal()
     },
     openFieldModal (field) {
       this.selectedField = field

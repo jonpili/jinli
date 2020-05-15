@@ -300,9 +300,11 @@ export default {
       task.deletedAt = Date()
       this.showTaskDetailModal = false
     },
-    deleteField (field) {
-      this.closeTaskDetailModal()
-      field.deletedAt = Date()
+    deleteField (fieldValue) {
+      const targetField = this.columnList.find((column) =>{
+        return column.value === fieldValue
+      })
+      targetField.deletedAt = Date()
     },
     switchLiked (task) {
       if (task.liked) {
