@@ -11,7 +11,8 @@
                          :taskTotalNumber="taskTotalNumber",
                          :columns="columnList",
                          @addTask="addTask",
-                         @addSection="addSection")
+                         @addSection="addSection",
+                         @addField="addField")
         el-main
           el-collapse(v-model="activeSections")
             draggable
@@ -224,6 +225,9 @@ export default {
     },
     addSubtask (task, subtask) {
       task.subtasks.push(subtask)
+    },
+    addField (field) {
+      this.columnList.push(field)
     },
     editSectionTitle (id) {
       this.editingSectionId = id

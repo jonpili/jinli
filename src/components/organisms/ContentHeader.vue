@@ -89,7 +89,15 @@ export default {
       this.$emit('addSection')
     },
     addField () {
-
+      const emptyFieldId = this.columns.length + 1
+      const emptyField = {
+        id: emptyFieldId,
+        label: '',
+        value: 'field' + emptyFieldId,
+        width: 100,
+        visible: true
+      }
+      this.$emit('addField', emptyField)
     }
   }
 }
