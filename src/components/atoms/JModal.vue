@@ -1,9 +1,19 @@
-<template functional lang="pug">
-  .overlay
+<template lang="pug">
+  .overlay(@click.self="closeModal")
     .window
       .contents
         slot
 </template>
+
+<script>
+export default {
+  methods: {
+    closeModal () {
+      this.$emit('closeModal')
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   .overlay {

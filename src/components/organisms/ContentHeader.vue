@@ -17,7 +17,7 @@
           hr.my-100
           .field-item
             el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
-    j-modal
+    j-modal(v-if="visibleFieldModal", @closeModal="closeModal")
       .edit-field-modal モーダルだよ
 </template>
 
@@ -49,7 +49,8 @@ export default {
   },
   data () {
     return {
-      selectedSectionValue: ''
+      selectedSectionValue: '',
+      visibleFieldModal: true
     }
   },
   computed: {
@@ -101,8 +102,11 @@ export default {
       }
       this.$emit('addField', emptyField)
     },
-    handleCommand(command) {
+    handleCommand (command) {
       this.$message('click on item ' + command)
+    },
+    closeModal () {
+      this.visibleFieldModal = false
     }
   }
 }
