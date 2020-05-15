@@ -20,6 +20,7 @@
     j-modal(v-if="visibleFieldModal", @closeModal="closeFieldModal")
       template(v-slot:header)
         .fw-bold 「{{ selectedField.label }}」フィールドの編集
+        j-icon-button.ml-a(genre="far", value="trash-alt", @click="deleteField")
       template
         .field-item.py-100
           .column-label フィールド名
@@ -107,6 +108,7 @@ export default {
       const emptyFieldId = this.columns.length + 1
       const emptyField = {
         id: emptyFieldId,
+        deletedAt: '',
         label: '未設定',
         value: 'field' + emptyFieldId,
         typeLabel: '文字列',
@@ -115,6 +117,9 @@ export default {
         visible: true
       }
       this.$emit('addField', emptyField)
+    },
+    deleteField () {
+      this.$emit('deleteField', this.selectedField)
     },
     openFieldModal (field) {
       this.selectedField = field

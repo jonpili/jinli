@@ -37,6 +37,8 @@ export default {
     overflow: hidden;
   }
   .header {
+    display: flex;
+    align-items: center;
     padding: $basespace-200 $basespace-400;
   }
   .contents {

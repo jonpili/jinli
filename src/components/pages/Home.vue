@@ -12,7 +12,8 @@
                          :columns="columnList",
                          @addTask="addTask",
                          @addSection="addSection",
-                         @addField="addField")
+                         @addField="addField",
+                         @deleteField="deleteField")
         el-main
           el-collapse(v-model="activeSections")
             draggable
@@ -71,11 +72,11 @@ export default {
   data () {
     return {
       columnList: [
-        { id: 1, label: 'タスク名', value: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
-        { id: 2, label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 3, label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 4, label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 5, label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 100, visible: false }
+        { id: 1, deletedAt: '', label: 'タスク名', value: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
+        { id: 2, deletedAt: '', label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
+        { id: 3, deletedAt: '', label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
+        { id: 4, deletedAt: '', label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
+        { id: 5, deletedAt: '', label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 100, visible: false }
       ],
       sectionList: [
         { id: 1, deletedAt: '', label: '', value: 'notSectioned' },
@@ -298,6 +299,10 @@ export default {
     deleteTask (task) {
       task.deletedAt = Date()
       this.showTaskDetailModal = false
+    },
+    deleteField (field) {
+      this.closeTaskDetailModal()
+      field.deletedAt = Date()
     },
     switchLiked (task) {
       if (task.liked) {
