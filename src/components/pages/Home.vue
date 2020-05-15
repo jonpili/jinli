@@ -29,7 +29,6 @@
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
                                   :columns="columnList",
-                                  :sectionValue="section.value",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
