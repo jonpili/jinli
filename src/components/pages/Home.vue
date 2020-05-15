@@ -71,10 +71,11 @@ export default {
         { id: 5, label: 'その他', value: 'other', width: 100, visible: false }
       ],
       sectionList: [
-        { id: 1, deletedAt: '', label: '4/15~29のタスク', value: 'section1' },
-        { id: 2, deletedAt: '', label: '5/04~20のタスク', value: 'section2' }
+        { id: 1, deletedAt: '', label: '', value: 'notSectioned' },
+        { id: 2, deletedAt: '', label: '4/15~29のタスク', value: 'section1' },
+        { id: 3, deletedAt: '', label: '5/04~20のタスク', value: 'section2' }
       ],
-      activeSections: [1, 2],
+      activeSections: [2, 3],
       editingSectionId: '',
       taskTotalNumber: 6,
       tableData: {
@@ -242,7 +243,7 @@ export default {
     },
     filterSections (sections) {
       return sections.filter((section) => {
-        return section.deletedAt === ''
+        return section.value !== 'notSectioned' && section.deletedAt === ''
       })
     },
     filterTasks (tasks) {
