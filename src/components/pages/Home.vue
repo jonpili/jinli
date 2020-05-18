@@ -20,11 +20,19 @@
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in filterSections(sectionList)", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
+              el-collapse-item(v-for="section in filterSections(sectionList)",
+                               :key="section.id",
+                               :title="section.label",
+                               :name="section.id",
+                               :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   j-icon-button(genre="fas", value="grip-vertical", type="grab")
                   .section-title-area.ml-200
-                    el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
+                    el-input(v-model="section.label",
+                             @click.native="editSectionTitle(section.id)",
+                             @blur="editingSectionId = ''",
+                             size="medium",
+                             :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
                                   :columns="columnList",
@@ -36,6 +44,7 @@
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
                             :columnList="columnList",
+                            :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
                             @deleteTask="deleteTask",
@@ -76,6 +85,7 @@ export default {
       activeSections: [1, 2],
       editingSectionId: '',
       taskTotalNumber: 6,
+      subtaskTotalNumber: 3,
       tableData: {
         notSectioned: [{
             id: 1,
@@ -129,7 +139,7 @@ export default {
             other: ''
           },
           subtasks: [{
-              id: 1,
+              id: 3,
               completedAt: '',
               deletedAt: '',
               liked: false,
@@ -224,6 +234,7 @@ export default {
     },
     addSubtask (task, subtask) {
       task.subtasks.push(subtask)
+      this.subtaskTotalNumber += 1
     },
     editSectionTitle (id) {
       this.editingSectionId = id
