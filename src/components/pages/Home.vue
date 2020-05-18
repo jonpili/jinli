@@ -1,13 +1,16 @@
 <template lang="pug">
   el-container
-    el-header(height="84px")
+    el-header(height="75px")
       img(src="@/assets/logo.png")
-      hr
+    hr
     el-main
       el-container
-        el-header.mb-600
-          content-header(:sectionList="filterSections(sectionList)", :tableData="tableData", :taskTotalNumber="taskTotalNumber", @addTask="addTask", @addSection="addSection")
-          hr
+        el-header(height="28px")
+          content-header(:sectionList="filterSections(sectionList)",
+                         :tableData="tableData",
+                         :taskTotalNumber="taskTotalNumber",
+                         @addTask="addTask",
+                         @addSection="addSection")
         el-main
           el-collapse(v-model="activeSections")
             draggable
@@ -16,12 +19,20 @@
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in filterSections(sectionList)", :key="section.id", :title="section.label", :name="section.id", :disabled="judgeToEdit(section.id)")
+              el-collapse-item(v-for="section in filterSections(sectionList)",
+                               :key="section.id",
+                               :title="section.label",
+                               :name="section.id",
+                               :disabled="judgeToEdit(section.id)")
                 template(slot="title")
-                  j-move-icon
-                  .section-title-area
-                    el-input(v-model="section.label", @click.native="editSectionTitle(section.id)", @blur="editingSectionId = ''", size="medium", :class="{ 'is-editing': judgeToEdit(section.id) }")
-                  j-icon-button(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
+                  j-icon-button(genre="fas", value="grip-vertical", type="grab")
+                  .section-title-area.ml-200
+                    el-input(v-model="section.label",
+                             @click.native="editSectionTitle(section.id)",
+                             @blur="editingSectionId = ''",
+                             size="medium",
+                             :class="{ 'is-editing': judgeToEdit(section.id) }")
+                  j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
                                   :columns="columnList",
                                   :sectionValue="section.value",
@@ -30,14 +41,25 @@
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
-          task-detail-modal(:task="taskDetailModalContent", :sectionValue="taskDetailModalSectionValue", :columnList="columnList", @completeTask="completeTask", @deleteTask="deleteTask", @switchLiked="switchLiked", @closeTaskDetailModal="closeTaskDetailModal")
+          task-detail-modal(:task="taskDetailModalContent",
+                            :columnList="columnList",
+                            :subtaskTotalNumber="subtaskTotalNumber",
+                            @completeTask="completeTask",
+                            @uncompleteTask="uncompleteTask",
+                            @deleteTask="deleteTask",
+                            @switchLiked="switchLiked",
+                            @closeTaskDetailModal="closeTaskDetailModal",
+                            @completeSubtask="completeSubtask",
+                            @uncompleteSubtask="uncompleteSubtask",
+                            @openTaskDetailModal="openTaskDetailModal"
+                            @addSubtask="addSubtask")
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import ContentHeader from '@/components/organisms/ContentHeader'
 import TaskDetailModal from '@/components/organisms/TaskDetailModal'
-import TaskTable from '@/components/molecules/TaskTable'
+import TaskTable from '@/components/organisms/TaskTable'
 
 export default {
   components: {
@@ -62,19 +84,46 @@ export default {
       activeSections: [1, 2],
       editingSectionId: '',
       taskTotalNumber: 6,
+      subtaskTotalNumber: 3,
       tableData: {
         notSectioned: [{
             id: 1,
             completedAt: '',
             deletedAt: '',
-            liked: false,
+            liked: true,
             data: {
               name: 'JavaScriptの勉強',
               person: 'ジョニー',
               deadline: '5/24',
               tag: '個人学習',
               other: ''
-            }
+            },
+            subtasks: [{
+                id: 1,
+                completedAt: '',
+                deletedAt: '',
+                liked: false,
+                data: {
+                  name: '本を読む',
+                  person: 'ジョニー',
+                  deadline: '5/24',
+                  tag: '個人学習',
+                  other: ''
+                }
+              }, {
+                id: 2,
+                completedAt: '',
+                deletedAt: '',
+                liked: true,
+                data: {
+                  name: 'JSのみでアプリを作ってみる',
+                  person: 'ジョニー',
+                  deadline: '5/24',
+                  tag: '個人学習',
+                  other: ''
+                }
+            }],
+            visibleSubtasks: false
         }],
         section1: [{
           id: 2,
@@ -87,7 +136,21 @@ export default {
             deadline: '4/16',
             tag: 'MVP',
             other: ''
-          }
+          },
+          subtasks: [{
+              id: 3,
+              completedAt: '',
+              deletedAt: '',
+              liked: false,
+              data: {
+                name: '新規ページの作成',
+                person: 'ジョニー',
+                deadline: '5/24',
+                tag: 'MVP',
+                other: ''
+              }
+          }],
+          visibleSubtasks: false
         }, {
           id: 3,
           completedAt: '',
@@ -99,7 +162,9 @@ export default {
             deadline: '4/17',
             tag: 'MVP',
             other: ''
-          }
+          },
+          subtasks: [],
+          visibleSubtasks: false
         }, {
           id: 4,
           completedAt: '',
@@ -111,20 +176,24 @@ export default {
             deadline: '4/20',
             tag: 'MVP',
             other: ''
-          }
+          },
+          subtasks: [],
+          visibleSubtasks: false
         }],
         section2: [{
           id: 5,
           completedAt: '',
           deletedAt: '',
-          liked: false,
+          liked: true,
           data: {
             name: 'タスクへのいいね機能',
             person: 'ジョニー',
             deadline: '5/04',
             tag: '開発目標',
             other: ''
-          }
+          },
+          subtasks: [],
+          visibleSubtasks: false
         }, {
           id: 6,
           completedAt: '',
@@ -136,10 +205,11 @@ export default {
             deadline: '5/05',
             tag: '開発目標',
             other: ''
-          }
+          },
+          subtasks: [],
+          visibleSubtasks: false
         }]
       },
-      taskDetailModalSectionValue: '',
       taskDetailModalContent: {},
       showTaskDetailModal: false
     }
@@ -161,6 +231,10 @@ export default {
       this.tableData[sectionValue].push(task)
       this.taskTotalNumber += 1
     },
+    addSubtask (task, subtask) {
+      task.subtasks.push(subtask)
+      this.subtaskTotalNumber += 1
+    },
     editSectionTitle (id) {
       this.editingSectionId = id
     },
@@ -174,18 +248,23 @@ export default {
     },
     filterTasks (tasks) {
       return tasks.filter((task) => {
-        return task.completedAt === '' && task.deletedAt === ''
+        return task.deletedAt === '' && task.completedAt === ''
       })
     },
-    completeTask (taskId, sectionValue) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      targetTask.completedAt = Date()
-      this.taskTotalNumber -= 1
-      if (taskId === this.taskDetailModalContent.id) {
+    completeTask (task, isMainTask) {
+      task.completedAt = Date()
+      if (isMainTask && task.id === this.taskDetailModalContent.id) {
         this.showTaskDetailModal = false
       }
+    },
+    uncompleteTask (task) {
+      task.completedAt = ''
+    },
+    completeSubtask (subtask) {
+      subtask.completedAt = Date()
+    },
+    uncompleteSubtask (subtask) {
+      subtask.completedAt = ''
     },
     deleteSection (section) {
       this.$confirm(
@@ -209,34 +288,23 @@ export default {
           })
         })
     },
-    deleteTask (taskId, sectionValue) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      targetTask.deletedAt = Date()
-      this.taskTotalNumber -= 1
+    deleteTask (task) {
+      task.deletedAt = Date()
       this.showTaskDetailModal = false
     },
-    switchLiked (taskId, sectionValue) {
-      const targetTask = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
-      if (targetTask.liked) {
-        targetTask.liked = false
+    switchLiked (task) {
+      if (task.liked) {
+        task.liked = false
       } else {
-        targetTask.liked = true
+        task.liked = true
       }
     },
-    openTaskDetailModal (taskId, sectionValue) {
-      this.taskDetailModalSectionValue = sectionValue
-      this.taskDetailModalContent = this.tableData[sectionValue].find((task) => {
-        return task.id === taskId
-      })
+    openTaskDetailModal (task) {
+      this.taskDetailModalContent = task
       this.showTaskDetailModal = true
     },
     closeTaskDetailModal () {
       this.showTaskDetailModal = false
-      this.taskDetailModalSectionValue = ''
       this.taskDetailModalContent = {}
     }
   }
@@ -248,22 +316,18 @@ export default {
     height: $basespace-500 * 2;
     font-size: $basespace-300;
   }
-
   ::v-deep .el-collapse-item__content {
     font-size: $basespace-300;
   }
-
   .section-title-area ::v-deep .el-input__inner {
     border-color: transparent;
   }
-
   .is-editing ::v-deep .el-input__inner {
-    border-color: #409EFF;
+    border-color: $basecolor-secondary;
   }
-
   .task-detail-modal-area {
     position: fixed;
-    top: 58px;
+    top: 84px;
     right: 0;
     width: 50%;
     height: 100%;

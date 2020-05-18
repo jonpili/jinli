@@ -54,6 +54,7 @@ export default {
   hr {
     border: none;
     height: 1px;
+    margin: 0;
     background-color: $bdcolor-base;
   }
 
