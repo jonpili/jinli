@@ -13,7 +13,7 @@
         el-dropdown-menu(slot="dropdown")
           .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
             el-dropdown-item(:command="column").column-label {{ column.label }}
-            el-switch.mx-200(v-model="column.visible")
+            j-switch.mx-200(v-model="column.visible")
           hr.my-100
           .field-item
             el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
@@ -31,8 +31,6 @@
         .field-item.py-100
           .column-label フィールドタイプ
           el-input(v-model="selectedField.typeLabel", disabled)
-            el-dropdown-item.column-label {{ column.label }}
-            j-switch.mx-200(v-model="column.visible")
 </template>
 
 <script>
