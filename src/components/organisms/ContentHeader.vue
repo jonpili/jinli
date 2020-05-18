@@ -13,7 +13,7 @@
         el-dropdown-menu(slot="dropdown")
           .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
             el-dropdown-item.column-label {{ column.label }}
-            el-switch.mx-200(v-model="column.visible")
+            j-switch.mx-200(v-model="column.visible")
 </template>
 
 <script>
