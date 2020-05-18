@@ -31,6 +31,8 @@
         .field-item.py-100
           .column-label フィールドタイプ
           el-input(v-model="selectedField.typeLabel", disabled)
+            el-dropdown-item.column-label {{ column.label }}
+            j-switch.mx-200(v-model="column.visible")
 </template>
 
 <script>

@@ -1,8 +1,8 @@
 <template lang="pug">
   div
-    .task-action-space-double(v-if="type === 'subtask'")
     .task-action-space(v-if="type === 'task'")
       j-icon-button(genre="fas", value="grip-vertical", type="grab")
+    .task-action-space-double(v-else-if="type === 'subtask'")
     .task-action-space
       j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask")
     template(v-for="(column, index) in columns")

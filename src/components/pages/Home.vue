@@ -45,6 +45,7 @@
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
                             :columnList="filteredColumns",
+                            :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
                             @deleteTask="deleteTask",
@@ -86,6 +87,7 @@ export default {
       activeSections: [2, 3],
       editingSectionId: '',
       taskTotalNumber: 6,
+      subtaskTotalNumber: 3,
       tableData: {
         notSectioned: [{
             id: 1,
@@ -139,7 +141,7 @@ export default {
             other: ''
           },
           subtasks: [{
-              id: 1,
+              id: 3,
               completedAt: '',
               deletedAt: '',
               liked: false,
@@ -241,6 +243,7 @@ export default {
     },
     addSubtask (task, subtask) {
       task.subtasks.push(subtask)
+      this.subtaskTotalNumber += 1
     },
     addField (field) {
       this.columnList.push(field)

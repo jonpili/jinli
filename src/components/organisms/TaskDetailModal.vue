@@ -48,11 +48,15 @@ export default {
       default: function () {
         return []
       }
+    },
+    subtaskTotalNumber: {
+      type: Number,
+      default: 0
     }
   },
   methods: {
     completeTask () {
-      const isMainTask = 'subtasks' in this.task
+      const isMainTask = Object.prototype.hasOwnProperty.call(this.task, 'subtasks')
       this.$emit('completeTask', this.task, isMainTask)
     },
     uncompleteTask () {
@@ -74,7 +78,7 @@ export default {
     },
     addSubtask () {
       const emptySubtask = {
-        id: this.task.subtasks.length + 1,
+        id: this.subtaskTotalNumber + 1,
         completedAt: '',
         deletedAt: '',
         liked: false,
