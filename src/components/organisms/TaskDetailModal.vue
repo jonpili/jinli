@@ -48,6 +48,10 @@ export default {
       default: function () {
         return []
       }
+    },
+    subtaskTotalNumber: {
+      type: Number,
+      default: 0
     }
   },
   methods: {
@@ -74,7 +78,7 @@ export default {
     },
     addSubtask () {
       const emptySubtask = {
-        id: this.task.subtasks.length + 1,
+        id: this.subtaskTotalNumber + 1,
         completedAt: '',
         deletedAt: '',
         liked: false,
