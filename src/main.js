@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import App from './App.vue'
 import JIconButton from '@/components/atoms/JIconButton'
+import JSwitch from '@/components/atoms/JSwitch'
 import JTaskLine from '@/components/molecules/JTaskLine'
 
 library.add(fas, far, fab)
@@ -19,6 +20,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI, { locale })
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('j-icon-button', JIconButton)
+Vue.component('j-switch', JSwitch)
 Vue.component('j-task-line', JTaskLine)
 
 new Vue({

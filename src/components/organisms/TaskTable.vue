@@ -1,6 +1,6 @@
 <template lang="pug">
   div.pl-600
-    template(v-for="(column, index) in columns")
+    template(v-for="(column, index) in filterdColumns")
       el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
       span(v-if="index === 0")
         .task-action-space-all
@@ -8,7 +8,7 @@
       transition-group(name="task-table", tag="div")
         .task-table-item(v-for="task in tasks", :key="task.id")
           j-task-line(:task="task",
-                      :columns="columns",
+                      :columns="filterdColumns",
                       @completeTask="completeTask",
                       @switchVisibleSubtasks="switchVisibleSubtasks",
                       @switchLiked="switchLiked",
@@ -16,7 +16,7 @@
           transition-group(name="subtask-table", tag="div")
             .subtask-table-item(v-if="task.visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
               j-task-line(:task="subtask",
-                          :columns="columns",
+                          :columns="filterdColumns",
                           type="subtask",
                           @completeTask="completeTask",
                           @switchLiked="switchLiked",
@@ -40,6 +40,13 @@ export default {
     columns: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    filterdColumns () {
+      return this.columns.filter((column) => {
+        return column.visible
+      })
     }
   },
   methods: {
