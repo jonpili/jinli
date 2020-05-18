@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     completeTask () {
-      const isMainTask = 'subtasks' in this.task
+      const isMainTask = Object.prototype.hasOwnProperty.call(this.task, 'subtasks')
       this.$emit('completeTask', this.task, isMainTask)
     },
     uncompleteTask () {
