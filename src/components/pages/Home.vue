@@ -16,13 +16,16 @@
                          @deleteField="deleteField")
         el-main
           el-collapse(v-model="activeSections")
+            j-table-header.ml-600(:columns="visibleColumns")
             draggable
-              task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
+              .not-sectioned-item
+                task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
                                 :columns="visibleColumns",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in filterSections(sections)",
+                hr
+              el-collapse-item.mb-500(v-for="section in filterSections(sections)",
                                :key="section.id",
                                :title="section.label",
                                :name="section.id",

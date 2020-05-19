@@ -1,6 +1,5 @@
 <template lang="pug">
   div.pl-600
-    j-table-header(:columns="columns")
     draggable(group="tasks")
       transition-group(name="task-table", tag="div")
         .task-table-item(v-for="task in tasks", :key="task.id")
