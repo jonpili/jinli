@@ -67,7 +67,6 @@ export default {
 
 <style lang="scss" scoped>
   ::v-deep .el-input__inner {
-    height: $basespace-600;
     border-radius: 0px;
   }
   .task-table-item {

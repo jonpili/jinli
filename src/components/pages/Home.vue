@@ -78,7 +78,7 @@ export default {
       columns: [
         { id: 1, deletedAt: '', label: 'タスク名', value: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
         { id: 2, deletedAt: '', label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
-        { id: 3, deletedAt: '', label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 3, deletedAt: '', label: '期日', value: 'deadline', typeLabel: '日付', typeValue: 'date', width: 120, visible: true },
         { id: 4, deletedAt: '', label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
         { id: 5, deletedAt: '', label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
       ],
@@ -100,7 +100,7 @@ export default {
             data: {
               name: 'JavaScriptの勉強',
               person: 'ジョニー',
-              deadline: '5/24',
+              deadline: new Date(2020, 4, 24),
               tag: '個人学習',
               other: ''
             },
@@ -112,7 +112,7 @@ export default {
                 data: {
                   name: '本を読む',
                   person: 'ジョニー',
-                  deadline: '5/24',
+                  deadline: new Date(2020, 4, 24),
                   tag: '個人学習',
                   other: ''
                 }
@@ -124,7 +124,7 @@ export default {
                 data: {
                   name: 'JSのみでアプリを作ってみる',
                   person: 'ジョニー',
-                  deadline: '5/24',
+                  deadline: new Date(2020, 4, 24),
                   tag: '個人学習',
                   other: ''
                 }
@@ -139,7 +139,7 @@ export default {
           data: {
             name: 'タスクの表示/追加/名前変更機能',
             person: 'ジョニー',
-            deadline: '4/16',
+            deadline: new Date(2020, 3, 16),
             tag: 'MVP',
             other: ''
           },
@@ -151,7 +151,7 @@ export default {
               data: {
                 name: '新規ページの作成',
                 person: 'ジョニー',
-                deadline: '5/24',
+                deadline: new Date(2020, 4, 24),
                 tag: 'MVP',
                 other: ''
               }
@@ -165,7 +165,7 @@ export default {
           data: {
             name: 'セクションの表示/追加/名前変更機能',
             person: 'ジョニー',
-            deadline: '4/17',
+            deadline: new Date(2020, 3, 17),
             tag: 'MVP',
             other: ''
           },
@@ -179,7 +179,7 @@ export default {
           data: {
             name: 'セクションとタスクの紐付け',
             person: 'ジョニー',
-            deadline: '4/20',
+            deadline: new Date(2020, 3, 20),
             tag: 'MVP',
             other: ''
           },
@@ -194,7 +194,7 @@ export default {
           data: {
             name: 'タスクへのいいね機能',
             person: 'ジョニー',
-            deadline: '5/04',
+            deadline: new Date(2020, 4, 4),
             tag: '開発目標',
             other: ''
           },
@@ -208,7 +208,7 @@ export default {
           data: {
             name: 'タスクの削除',
             person: 'ジョニー',
-            deadline: '5/05',
+            deadline: new Date(2020, 4, 5),
             tag: '開発目標',
             other: ''
           },
@@ -363,7 +363,6 @@ export default {
 
 <style lang="scss" scoped>
   ::v-deep .el-collapse-item__header {
-    height: $basespace-500 * 2;
     font-size: $basespace-300;
   }
   ::v-deep .el-collapse-item__content {
