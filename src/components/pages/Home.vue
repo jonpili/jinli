@@ -20,16 +20,16 @@
             draggable
               .not-sectioned-item
                 task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                :columns="visibleColumns",
-                                @completeTask="completeTask",
-                                @switchLiked="switchLiked",
-                                @openTaskDetailModal="openTaskDetailModal")
+                                  :columns="visibleColumns",
+                                  @completeTask="completeTask",
+                                  @switchLiked="switchLiked",
+                                  @openTaskDetailModal="openTaskDetailModal")
                 hr
               el-collapse-item.mb-500(v-for="section in filterSections(sections)",
-                               :key="section.id",
-                               :title="section.label",
-                               :name="section.id",
-                               :disabled="judgeToEdit(section.id)")
+                                     :key="section.id",
+                                     :title="section.label",
+                                     :name="section.id",
+                                     :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   j-icon-button(genre="fas", value="grip-vertical", type="grab")
                   .section-title-area.ml-200
