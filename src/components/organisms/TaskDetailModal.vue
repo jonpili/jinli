@@ -16,7 +16,8 @@
         el-col.pt-100(:span="6")
           span {{ column.label }}
         el-col(:span="18")
-          el-input(v-model="task.data[column.value]")
+          el-input.col-item(v-if="column.typeValue === 'string'", v-model="task.data[column.value]")
+          el-date-picker.col-item(v-else-if="column.typeValue === 'date'", v-model="task.data[column.value]", format="M/d")
       .mt-200(v-if="'subtasks' in task")
         .mt-500(v-if="filterSubtasks(task.subtasks).length > 0")
           .mb-100 サブタスク
@@ -119,6 +120,9 @@ export default {
     display: inline-block;
     width: 10%;
     text-align: center;
+  }
+  .col-item {
+    width: 100%;
   }
   .subtask-name {
     width: 80%;
