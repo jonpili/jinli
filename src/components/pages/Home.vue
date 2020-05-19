@@ -9,7 +9,7 @@
           content-header(:sectionList="filterSections(sectionList)",
                          :tableData="tableData",
                          :taskTotalNumber="taskTotalNumber",
-                         :columns="filteredColumns",
+                         :columns="visibleColumns",
                          @addTask="addTask",
                          @addSection="addSection",
                          @addField="addField",
@@ -18,7 +18,7 @@
           el-collapse(v-model="activeSections")
             draggable
               task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                :columns="filteredColumns",
+                                :columns="visibleColumns",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
@@ -37,14 +37,14 @@
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
-                                  :columns="filteredColumns",
+                                  :columns="visibleColumns",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :columnList="filteredColumns",
+                            :columns="notDeletedColumns",
                             :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
@@ -72,7 +72,7 @@ export default {
   },
   data () {
     return {
-      columnList: [
+      columns: [
         { id: 1, deletedAt: '', label: 'タスク名', value: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
         { id: 2, deletedAt: '', label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
         { id: 3, deletedAt: '', label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
@@ -218,8 +218,13 @@ export default {
     }
   },
   computed: {
-    filteredColumns () {
-      return this.columnList.filter((column) => {
+    visibleColumns () {
+      return this.columns.filter((column) => {
+        return column.deletedAt === '' && column.visible
+      })
+    },
+    notDeletedColumns () {
+      return this.columns.filter((column) => {
         return column.deletedAt === ''
       })
     }
@@ -246,7 +251,7 @@ export default {
       this.subtaskTotalNumber += 1
     },
     addField (field) {
-      this.columnList.push(field)
+      this.columns.push(field)
       this.sectionList.forEach((section) => {
         this.tableData[section.value].forEach((task) => {
           this.$set(task.data, field.value, '')
@@ -311,7 +316,7 @@ export default {
       this.showTaskDetailModal = false
     },
     deleteField (fieldValue) {
-      const targetField = this.columnList.find((column) =>{
+      const targetField = this.columns.find((column) =>{
         return column.value === fieldValue
       })
       this.$confirm(

@@ -1,11 +1,11 @@
 <template lang="pug">
   div.pl-600
-    j-table-header(:columns="filterdColumns")
+    j-table-header(:columns="columns")
     draggable(group="tasks")
       transition-group(name="task-table", tag="div")
         .task-table-item(v-for="task in tasks", :key="task.id")
           j-table-line(:task="task",
-                      :columns="filterdColumns",
+                      :columns="columns",
                       @completeTask="completeTask",
                       @switchVisibleSubtasks="switchVisibleSubtasks",
                       @switchLiked="switchLiked",
@@ -13,7 +13,7 @@
           transition-group(name="subtask-table", tag="div")
             .subtask-table-item(v-if="task.visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
               j-table-line(:task="subtask",
-                          :columns="filterdColumns",
+                          :columns="columns",
                           type="subtask",
                           @completeTask="completeTask",
                           @switchLiked="switchLiked",
@@ -37,13 +37,6 @@ export default {
     columns: {
       type: Array,
       required: true
-    }
-  },
-  computed: {
-    filterdColumns () {
-      return this.columns.filter((column) => {
-        return column.visible
-      })
     }
   },
   methods: {
