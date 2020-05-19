@@ -6,7 +6,7 @@
     el-main
       el-container
         el-header(height="28px")
-          content-header(:sectionList="filterSections(sectionList)",
+          content-header(:sections="filterSections(sections)",
                          :tableData="tableData",
                          :taskTotalNumber="taskTotalNumber",
                          :columns="visibleColumns",
@@ -22,7 +22,7 @@
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in filterSections(sectionList)",
+              el-collapse-item(v-for="section in filterSections(sections)",
                                :key="section.id",
                                :title="section.label",
                                :name="section.id",
@@ -79,7 +79,7 @@ export default {
         { id: 4, deletedAt: '', label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
         { id: 5, deletedAt: '', label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
       ],
-      sectionList: [
+      sections: [
         { id: 1, deletedAt: '', label: '', value: 'notSectioned' },
         { id: 2, deletedAt: '', label: '4/15~29のタスク', value: 'section1' },
         { id: 3, deletedAt: '', label: '5/04~20のタスク', value: 'section2' }
@@ -231,9 +231,9 @@ export default {
   },
   methods: {
     addSection () {
-      const newSectionId = this.sectionList.length + 1
+      const newSectionId = this.sections.length + 1
       const newSectionValue = 'section' + newSectionId
-      this.sectionList.push({
+      this.sections.push({
         id: newSectionId,
         deletedAt: '',
         label: 'セクション' + newSectionId,
@@ -252,7 +252,7 @@ export default {
     },
     addField (field) {
       this.columns.push(field)
-      this.sectionList.forEach((section) => {
+      this.sections.forEach((section) => {
         this.tableData[section.value].forEach((task) => {
           this.$set(task.data, field.value, '')
         })
