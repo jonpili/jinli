@@ -13,6 +13,7 @@ import App from './App.vue'
 import JIconButton from '@/components/atoms/JIconButton'
 import JModal from '@/components/atoms/JModal'
 import JSwitch from '@/components/atoms/JSwitch'
+import JTableHeader from '@/components/molecules/JTableHeader'
 import JTaskLine from '@/components/molecules/JTaskLine'
 
 library.add(fas, far, fab)
@@ -23,6 +24,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('j-icon-button', JIconButton)
 Vue.component('j-modal', JModal)
 Vue.component('j-switch', JSwitch)
+Vue.component('j-table-header', JTableHeader)
 Vue.component('j-task-line', JTaskLine)
 
 new Vue({

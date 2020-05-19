@@ -1,11 +1,6 @@
 <template lang="pug">
   div.pl-600
-    template(v-for="(column, index) in filterdColumns")
-      .action-space-double(v-if="index === 0")
-      .action-space-quadruple(v-else-if="index === 1")
-      el-input.header(v-model="column.label", :style="{ width: (column.width - 32) + 'px' }", readonly)
-      .action-space
-        j-icon-button(genre="fas", value="sort", @click="sortField")
+    j-table-header(:columns="filterdColumns")
     draggable(group="tasks")
       transition-group(name="task-table", tag="div")
         .task-table-item(v-for="task in tasks", :key="task.id")
@@ -52,9 +47,6 @@ export default {
     }
   },
   methods: {
-    sortField () {
-
-    },
     completeTask (task) {
       const isMainTask = 'subtasks' in task
       this.$emit('completeTask', task, isMainTask)
@@ -82,9 +74,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .header ::v-deep .el-input__inner {
-    border: none;
-  }
   ::v-deep .el-input__inner {
     height: $basespace-600;
     border-radius: 0px;
@@ -108,18 +97,5 @@ export default {
   }
   .subtask-table-leave-to {
     opacity: 0;
-  }
-  .action-space {
-    display: inline-block;
-    width: $basespace-600;
-    text-align: center;
-  }
-  .action-space-double {
-    display: inline-block;
-    width: $basespace-600 * 2;
-  }
-  .action-space-quadruple {
-    display: inline-block;
-    width: $basespace-600 * 4;
   }
 </style>
