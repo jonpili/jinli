@@ -14,7 +14,7 @@ import JIconButton from '@/components/atoms/JIconButton'
 import JModal from '@/components/atoms/JModal'
 import JSwitch from '@/components/atoms/JSwitch'
 import JTableHeader from '@/components/molecules/JTableHeader'
-import JTaskLine from '@/components/molecules/JTaskLine'
+import JTableLine from '@/components/molecules/JTableLine'
 
 library.add(fas, far, fab)
 
@@ -25,7 +25,7 @@ Vue.component('j-icon-button', JIconButton)
 Vue.component('j-modal', JModal)
 Vue.component('j-switch', JSwitch)
 Vue.component('j-table-header', JTableHeader)
-Vue.component('j-task-line', JTaskLine)
+Vue.component('j-table-line', JTableLine)
 
 new Vue({
   render: h => h(App),

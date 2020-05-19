@@ -4,7 +4,7 @@
     draggable(group="tasks")
       transition-group(name="task-table", tag="div")
         .task-table-item(v-for="task in tasks", :key="task.id")
-          j-task-line(:task="task",
+          j-table-line(:task="task",
                       :columns="filterdColumns",
                       @completeTask="completeTask",
                       @switchVisibleSubtasks="switchVisibleSubtasks",
@@ -12,7 +12,7 @@
                       @openTaskDetailModal="openTaskDetailModal")
           transition-group(name="subtask-table", tag="div")
             .subtask-table-item(v-if="task.visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
-              j-task-line(:task="subtask",
+              j-table-line(:task="subtask",
                           :columns="filterdColumns",
                           type="subtask",
                           @completeTask="completeTask",
