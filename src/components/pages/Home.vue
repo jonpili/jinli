@@ -231,7 +231,7 @@ export default {
   },
   methods: {
     addSection () {
-      const newSectionId = this.sections.length + 1
+      const newSectionId = this.sections.length
       const newSectionValue = 'section' + newSectionId
       this.sections.push({
         id: newSectionId,
