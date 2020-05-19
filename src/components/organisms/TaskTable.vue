@@ -2,7 +2,7 @@
   div.pl-600
     draggable(group="tasks")
       transition-group(name="task-table", tag="div")
-        .task-table-item(v-for="task in tasks", :key="task.id")
+        .task-table-item(v-for="task in sortedTasks", :key="task.id")
           j-table-line(:task="task",
                       :columns="columns",
                       @completeTask="completeTask",
@@ -36,12 +36,37 @@ export default {
     columns: {
       type: Array,
       required: true
+    },
+    sortRule: {
+      type: String,
+      default: ''
+    },
+    sortOrder: {
+      type: String,
+      default:''
+    }
+  },
+  computed: {
+    sortedTasks () {
+      console.log(this.sortRule);
+      if (this.sortRule === 'person') {
+        return this.sortByName(this.tasks)
+      } else {
+        return this.tasks
+      }
     }
   },
   methods: {
     completeTask (task) {
       const isMainTask = 'subtasks' in task
       this.$emit('completeTask', task, isMainTask)
+    },
+    sortByName (tasks) {
+      return tasks.slice().sort((a, b) => {
+        const valueA = a.data.person.toUpperCase()
+        const valueB = b.data.person.toUpperCase()
+        return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
+      })
     },
     filterSubtasks (subtasks) {
       return subtasks.filter((subtask) => {

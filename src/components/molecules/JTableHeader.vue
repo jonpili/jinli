@@ -5,7 +5,7 @@
       .action-space-quadruple(v-else-if="index === 1")
       el-input(v-model="column.label", :style="{ width: (column.width - 32) + 'px' }", readonly)
       .action-space
-        j-icon-button(genre="fas", value="sort", @click="sortField")
+        j-icon-button(genre="fas", value="sort", @click="sortTasks")
 </template>
 
 <script>
@@ -17,8 +17,8 @@ export default {
     }
   },
   methods: {
-    sortField () {
-      console.log('わーい');
+    sortTasks () {
+      this.$emit('sortTasks')
     }
   }
 }

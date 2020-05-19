@@ -16,11 +16,13 @@
                          @deleteField="deleteField")
         el-main
           el-collapse(v-model="activeSections")
-            j-table-header.ml-600(:columns="visibleColumns")
+            j-table-header.ml-600(:columns="visibleColumns", @sortTasks="sortTasks")
             draggable
               .not-sectioned-item
                 task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
                                   :columns="visibleColumns",
+                                  :sortRule="sortRule",
+                                  :sortOrder="sortOrder",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
@@ -41,6 +43,8 @@
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
                                   :columns="visibleColumns",
+                                  :sortRule="sortRule",
+                                  :sortOrder="sortOrder",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
@@ -99,7 +103,7 @@ export default {
             liked: true,
             data: {
               name: 'JavaScriptの勉強',
-              person: 'ジョニー',
+              person: 'ジョニーb',
               deadline: new Date(2020, 4, 24),
               tag: '個人学習',
               other: ''
@@ -111,7 +115,7 @@ export default {
                 liked: false,
                 data: {
                   name: '本を読む',
-                  person: 'ジョニー',
+                  person: 'ジョニーc',
                   deadline: new Date(2020, 4, 24),
                   tag: '個人学習',
                   other: ''
@@ -123,7 +127,7 @@ export default {
                 liked: true,
                 data: {
                   name: 'JSのみでアプリを作ってみる',
-                  person: 'ジョニー',
+                  person: 'ジョニーd',
                   deadline: new Date(2020, 4, 24),
                   tag: '個人学習',
                   other: ''
@@ -138,7 +142,7 @@ export default {
           liked: false,
           data: {
             name: 'タスクの表示/追加/名前変更機能',
-            person: 'ジョニー',
+            person: 'ジョニーa',
             deadline: new Date(2020, 3, 16),
             tag: 'MVP',
             other: ''
@@ -150,7 +154,7 @@ export default {
               liked: false,
               data: {
                 name: '新規ページの作成',
-                person: 'ジョニー',
+                person: 'ジョニーb',
                 deadline: new Date(2020, 4, 24),
                 tag: 'MVP',
                 other: ''
@@ -164,7 +168,7 @@ export default {
           liked: false,
           data: {
             name: 'セクションの表示/追加/名前変更機能',
-            person: 'ジョニー',
+            person: 'ジョニーc',
             deadline: new Date(2020, 3, 17),
             tag: 'MVP',
             other: ''
@@ -178,7 +182,7 @@ export default {
           liked: false,
           data: {
             name: 'セクションとタスクの紐付け',
-            person: 'ジョニー',
+            person: 'ジョニーa',
             deadline: new Date(2020, 3, 20),
             tag: 'MVP',
             other: ''
@@ -193,7 +197,7 @@ export default {
           liked: true,
           data: {
             name: 'タスクへのいいね機能',
-            person: 'ジョニー',
+            person: 'ジョニーa',
             deadline: new Date(2020, 4, 4),
             tag: '開発目標',
             other: ''
@@ -207,7 +211,7 @@ export default {
           liked: false,
           data: {
             name: 'タスクの削除',
-            person: 'ジョニー',
+            person: 'ジョニーb',
             deadline: new Date(2020, 4, 5),
             tag: '開発目標',
             other: ''
@@ -216,6 +220,8 @@ export default {
           visibleSubtasks: false
         }]
       },
+      sortRule: '',
+      sortOrder: '',
       taskDetailModalContent: {},
       showTaskDetailModal: false
     }
@@ -291,6 +297,10 @@ export default {
     },
     uncompleteSubtask (subtask) {
       subtask.completedAt = ''
+    },
+    sortTasks () {
+      this.sortRule = 'person'
+      this.sortOrder = 'asc'
     },
     deleteSection (section) {
       this.$confirm(
