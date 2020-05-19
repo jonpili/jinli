@@ -48,11 +48,14 @@ export default {
   },
   computed: {
     sortedTasks () {
-      console.log(this.sortRule);
-      if (this.sortRule === 'person') {
-        return this.sortByName(this.tasks)
-      } else {
+      if (this.sortRule === '') {
         return this.tasks
+      } else {
+        if (this.sortOrder === 'asc') {
+          return this.sortAscByString(this.tasks)
+        } else {
+          return this.sortDescByString(this.tasks)
+        }
       }
     }
   },
@@ -61,11 +64,18 @@ export default {
       const isMainTask = 'subtasks' in task
       this.$emit('completeTask', task, isMainTask)
     },
-    sortByName (tasks) {
+    sortAscByString (tasks) {
       return tasks.slice().sort((a, b) => {
-        const valueA = a.data.person.toUpperCase()
-        const valueB = b.data.person.toUpperCase()
+        const valueA = a.data[this.sortRule].toUpperCase()
+        const valueB = b.data[this.sortRule].toUpperCase()
         return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
+      })
+    },
+    sortDescByString (tasks) {
+      return tasks.slice().sort((a, b) => {
+        const valueA = a.data[this.sortRule].toUpperCase()
+        const valueB = b.data[this.sortRule].toUpperCase()
+        return (valueA < valueB) ? 1 : (valueA > valueB) ? -1 : 0
       })
     },
     filterSubtasks (subtasks) {

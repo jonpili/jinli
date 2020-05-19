@@ -16,7 +16,7 @@
                          @deleteField="deleteField")
         el-main
           el-collapse(v-model="activeSections")
-            j-table-header.ml-600(:columns="visibleColumns", @sortTasks="sortTasks")
+            j-table-header.ml-600(:columns="visibleColumns", :sortRule="sortRule", :sortOrder="sortOrder", @sortTasks="sortTasks")
             draggable
               .not-sectioned-item
                 task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
@@ -142,7 +142,7 @@ export default {
           liked: false,
           data: {
             name: 'タスクの表示/追加/名前変更機能',
-            person: 'ジョニーa',
+            person: 'ジョニーa1',
             deadline: new Date(2020, 3, 16),
             tag: 'MVP',
             other: ''
@@ -182,7 +182,7 @@ export default {
           liked: false,
           data: {
             name: 'セクションとタスクの紐付け',
-            person: 'ジョニーa',
+            person: 'ジョニーa2',
             deadline: new Date(2020, 3, 20),
             tag: 'MVP',
             other: ''
@@ -298,9 +298,18 @@ export default {
     uncompleteSubtask (subtask) {
       subtask.completedAt = ''
     },
-    sortTasks () {
-      this.sortRule = 'person'
-      this.sortOrder = 'asc'
+    sortTasks (columnValue) {
+      if (this.sortRule === columnValue) {
+        if (this.sortOrder === 'asc') {
+          this.sortRule = ''
+          this.sortOrder = ''
+        } else {
+          this.sortOrder = 'asc'
+        }
+      } else {
+        this.sortRule = columnValue
+        this.sortOrder = 'desc'
+      }
     },
     deleteSection (section) {
       this.$confirm(

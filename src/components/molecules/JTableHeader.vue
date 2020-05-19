@@ -5,7 +5,9 @@
       .action-space-quadruple(v-else-if="index === 1")
       el-input(v-model="column.label", :style="{ width: (column.width - 32) + 'px' }", readonly)
       .action-space
-        j-icon-button(genre="fas", value="sort", @click="sortTasks")
+        j-icon-button(v-if="column.value === sortRule && sortOrder === 'desc'", genre="fas", value="sort-down", color="dark", @click="sortTasks(column.value)")
+        j-icon-button(v-else-if="column.value === sortRule && sortOrder === 'asc'", genre="fas", value="sort-up", color="dark", @click="sortTasks(column.value)")
+        j-icon-button(v-else, genre="fas", value="sort", @click="sortTasks(column.value)")
 </template>
 
 <script>
@@ -14,11 +16,19 @@ export default {
     columns: {
       type: Array,
       required: true
+    },
+    sortRule: {
+      type: String,
+      default: ''
+    },
+    sortOrder: {
+      type: String,
+      default:''
     }
   },
   methods: {
-    sortTasks () {
-      this.$emit('sortTasks')
+    sortTasks (columnValue) {
+      this.$emit('sortTasks', columnValue)
     }
   }
 }
