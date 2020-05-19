@@ -1,9 +1,12 @@
 <template lang="pug">
   div.pl-600
     template(v-for="(column, index) in filterdColumns")
-      el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
-      span(v-if="index === 0")
-        .task-action-space-all
+      .action-space-double(v-if="index === 0")
+      .action-space-quadruple(v-else-if="index === 1")
+      .column-name-space
+        el-input.header(v-model="column.label", :style="{ width: (column.width - 32) + 'px' }", readonly)
+      .action-space
+        j-icon-button(genre="fas", value="sort", @click="sortField")
     draggable(group="tasks")
       transition-group(name="task-table", tag="div")
         .task-table-item(v-for="task in tasks", :key="task.id")
@@ -50,6 +53,9 @@ export default {
     }
   },
   methods: {
+    sortField () {
+
+    },
     completeTask (task) {
       const isMainTask = 'subtasks' in task
       this.$emit('completeTask', task, isMainTask)
@@ -77,8 +83,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .column-name-space {
+    display: inline-block;
+  }
   .header ::v-deep .el-input__inner {
-    margin-left: $basespace-600 * 2;
     border: none;
   }
   ::v-deep .el-input__inner {
@@ -105,7 +113,16 @@ export default {
   .subtask-table-leave-to {
     opacity: 0;
   }
-  .task-action-space-all {
+  .action-space {
+    display: inline-block;
+    width: $basespace-600;
+    text-align: center;
+  }
+  .action-space-double {
+    display: inline-block;
+    width: $basespace-600 * 2;
+  }
+  .action-space-quadruple {
     display: inline-block;
     width: $basespace-600 * 4;
   }

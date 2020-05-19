@@ -74,10 +74,10 @@ export default {
     return {
       columnList: [
         { id: 1, deletedAt: '', label: 'タスク名', value: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
-        { id: 2, deletedAt: '', label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 3, deletedAt: '', label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 4, deletedAt: '', label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 5, deletedAt: '', label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 100, visible: false }
+        { id: 2, deletedAt: '', label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 3, deletedAt: '', label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 4, deletedAt: '', label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 5, deletedAt: '', label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
       ],
       sectionList: [
         { id: 1, deletedAt: '', label: '', value: 'notSectioned' },
