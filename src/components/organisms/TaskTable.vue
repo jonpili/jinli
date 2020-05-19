@@ -3,8 +3,7 @@
     template(v-for="(column, index) in filterdColumns")
       .action-space-double(v-if="index === 0")
       .action-space-quadruple(v-else-if="index === 1")
-      .column-name-space
-        el-input.header(v-model="column.label", :style="{ width: (column.width - 32) + 'px' }", readonly)
+      el-input.header(v-model="column.label", :style="{ width: (column.width - 32) + 'px' }", readonly)
       .action-space
         j-icon-button(genre="fas", value="sort", @click="sortField")
     draggable(group="tasks")
@@ -83,9 +82,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .column-name-space {
-    display: inline-block;
-  }
   .header ::v-deep .el-input__inner {
     border: none;
   }
