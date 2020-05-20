@@ -20,7 +20,7 @@
           el-collapse(v-model="activeSections")
             draggable
               task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                :columns="orderedColumns",
+                                :columns="filteredColumns",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
@@ -39,14 +39,14 @@
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.keyName])",
-                                  :columns="orderedColumns",
+                                  :columns="filteredColumns",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :columnList="orderedColumns",
+                            :columnList="filteredColumns",
                             :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
@@ -223,11 +223,6 @@ export default {
       return this.columnList.filter((column) => {
         return column.deletedAt === ''
       })
-    },
-    orderedColumns () {
-      return this.filteredColumns.slice().sort((columnA, columnB) => {
-        return columnA.order - columnB.order
-      })
     }
   },
   methods: {
@@ -275,24 +270,8 @@ export default {
         return task.deletedAt === '' && task.completedAt === ''
       })
     },
-    changeFieldOrder (oldFieldOrder, newFieldOrder) {
-      if (oldFieldOrder < newFieldOrder) {
-        this.columnList.forEach((column) => {
-          if (column.order === oldFieldOrder) {
-            column.order = newFieldOrder
-          } else if (column.order > oldFieldOrder && column.order <= newFieldOrder) {
-            column.order -= 1
-          }
-        })
-      } else if (oldFieldOrder > newFieldOrder) {
-        this.columnList.forEach((column) => {
-          if (column.order === oldFieldOrder) {
-            column.order = newFieldOrder
-          } else if (column.order < oldFieldOrder && column.order >= newFieldOrder) {
-            column.order += 1
-          }
-        })
-      }
+    changeFieldOrder (newOrderColumns) {
+      this.columnList = newOrderColumns
     },
     completeTask (task, isMainTask) {
       task.completedAt = Date()

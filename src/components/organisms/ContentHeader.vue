@@ -11,7 +11,7 @@
         span(class="el-dropdown-link")
           el-button(icon="el-icon-notebook-2", size="mini") フィールドを編集
         el-dropdown-menu(slot="dropdown")
-          draggable(group="columns", @end="onDragEnd")
+          draggable(v-model="rearrangedColumnns")
             .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
               j-icon-button.mx-200(genre="fas", value="grip-vertical", type="grab")
               el-dropdown-item(:command="column").column-label {{ column.label | truncate }}
@@ -83,6 +83,14 @@ export default {
         return task.data.name === ''
       })
       return emptyTasks.length > 0
+    },
+    rearrangedColumnns: {
+      get () {
+        return this.columns
+      },
+      set (newOrderColumns) {
+        this.$emit('changeFieldOrder', newOrderColumns)
+      }
     }
   },
   methods: {
