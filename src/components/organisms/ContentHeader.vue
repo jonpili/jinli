@@ -27,7 +27,7 @@
           el-input(v-model="selectedField.label")
         .field-item.py-100
           .column-label フィールドの幅(px)
-          el-input(v-model="selectedField.width")
+          el-input(v-model.number="selectedField.width")
         .field-item.py-100
           .column-label フィールドタイプ
           el-input(v-model="selectedField.typeLabel", disabled)
