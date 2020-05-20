@@ -94,8 +94,8 @@ export default {
       ],
       activeSections: [1, 2],
       editingSectionId: '',
-      taskTotalNumber: 6,
-      subtaskTotalNumber: 3,
+      taskTotalNumber: 7,
+      subtaskTotalNumber: 4,
       tableData: {
         notSectioned: [{
             id: 1,
@@ -104,7 +104,7 @@ export default {
             liked: true,
             data: {
               name: 'JavaScriptの勉強',
-              person: 'ジョニーb',
+              person: 'ジョニー',
               deadline: new Date(2020, 4, 24),
               tag: '個人学習',
               other: ''
@@ -116,7 +116,7 @@ export default {
                 liked: false,
                 data: {
                   name: '本を読む',
-                  person: 'ジョニーc',
+                  person: 'ジョニー',
                   deadline: new Date(2020, 4, 24),
                   tag: '個人学習',
                   other: ''
@@ -128,7 +128,7 @@ export default {
                 liked: true,
                 data: {
                   name: 'JSのみでアプリを作ってみる',
-                  person: 'ジョニーd',
+                  person: 'ジョニー',
                   deadline: new Date(2020, 4, 24),
                   tag: '個人学習',
                   other: ''
@@ -142,8 +142,8 @@ export default {
           deletedAt: '',
           liked: false,
           data: {
-            name: 'タスクの表示/追加/名前変更機能',
-            person: 'ジョニーa1',
+            name: 'タスクの表示/追加/変更',
+            person: 'Charly',
             deadline: new Date(2020, 3, 16),
             tag: 'MVP',
             other: ''
@@ -154,9 +154,21 @@ export default {
               deletedAt: '',
               liked: false,
               data: {
-                name: '新規ページの作成',
-                person: 'ジョニーb',
-                deadline: new Date(2020, 4, 24),
+                name: '新規ページの作成/タスクの表示',
+                person: 'Charly',
+                deadline: new Date(2020, 3, 15),
+                tag: 'MVP',
+                other: ''
+              },
+            }, {
+              id: 4,
+              completedAt: '',
+              deletedAt: '',
+              liked: false,
+              data: {
+                name: 'タスクの追加/変更',
+                person: 'Charly',
+                deadline: new Date(2020, 3, 16),
                 tag: 'MVP',
                 other: ''
               }
@@ -168,8 +180,8 @@ export default {
           deletedAt: '',
           liked: false,
           data: {
-            name: 'セクションの表示/追加/名前変更機能',
-            person: 'ジョニーc',
+            name: 'セクションの表示/追加/変更',
+            person: 'Adam',
             deadline: new Date(2020, 3, 17),
             tag: 'MVP',
             other: ''
@@ -183,7 +195,7 @@ export default {
           liked: false,
           data: {
             name: 'セクションとタスクの紐付け',
-            person: 'ジョニーa2',
+            person: 'Bob',
             deadline: new Date(2020, 3, 20),
             tag: 'MVP',
             other: ''
@@ -197,10 +209,10 @@ export default {
           deletedAt: '',
           liked: true,
           data: {
-            name: 'タスクへのいいね機能',
-            person: 'ジョニーa',
+            name: 'タスクへのいいね',
+            person: 'いいだ',
             deadline: new Date(2020, 4, 4),
-            tag: '開発目標',
+            tag: '最終目標',
             other: ''
           },
           subtasks: [],
@@ -211,10 +223,24 @@ export default {
           deletedAt: '',
           liked: false,
           data: {
-            name: 'タスクの削除',
-            person: 'ジョニーb',
+            name: 'タスク/セクションの削除',
+            person: 'あかさか',
             deadline: new Date(2020, 4, 5),
-            tag: '開発目標',
+            tag: '最終目標',
+            other: ''
+          },
+          subtasks: [],
+          visibleSubtasks: false
+        }, {
+          id: 7,
+          completedAt: '',
+          deletedAt: '',
+          liked: false,
+          data: {
+            name: 'フィールドの表示/追加/変更/削除',
+            person: 'うちやま',
+            deadline: new Date(2020, 4, 20),
+            tag: 'ストレッチ目標',
             other: ''
           },
           subtasks: [],
