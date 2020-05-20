@@ -3,11 +3,11 @@
     template(v-for="(column, index) in columns")
       .action-space-double(v-if="index === 0")
       .action-space-quadruple(v-else-if="index === 1")
-      el-input(v-model="column.label", :style="{ width: (column.width - 32) + 'px' }", readonly)
-      .action-space
-        j-icon-button(v-if="column.value === sortRule && sortOrder === 'desc'", genre="fas", value="sort-down", color="dark", @click="sortTasks(column.value)")
-        j-icon-button(v-else-if="column.value === sortRule && sortOrder === 'asc'", genre="fas", value="sort-up", color="dark", @click="sortTasks(column.value)")
-        j-icon-button(v-else, genre="fas", value="sort", @click="sortTasks(column.value)")
+      el-input(:value="column.label | truncate", :style="{ width: (column.width - 16) + 'px' }", readonly)
+      .action-space-half
+        j-icon-button(v-if="column.keyName === sortRule && sortOrder === 'desc'", genre="fas", value="sort-down", color="dark", @click="sortTasks(column.keyName)")
+        j-icon-button(v-else-if="column.keyName === sortRule && sortOrder === 'asc'", genre="fas", value="sort-up", color="dark", @click="sortTasks(column.keyName)")
+        j-icon-button(v-else, genre="fas", value="sort", @click="sortTasks(column.keyName)")
 </template>
 
 <script>
@@ -27,8 +27,8 @@ export default {
     }
   },
   methods: {
-    sortTasks (columnValue) {
-      this.$emit('sortTasks', columnValue)
+    sortTasks (columnKeyName) {
+      this.$emit('sortTasks', columnKeyName)
     }
   }
 }
@@ -38,9 +38,9 @@ export default {
   ::v-deep .el-input__inner {
     border: none;
   }
-  .action-space {
+  .action-space-half {
     display: inline-block;
-    width: $basespace-600;
+    width: $basespace-300;
     text-align: center;
   }
   .action-space-double {

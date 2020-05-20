@@ -27,6 +27,13 @@ Vue.component('j-switch', JSwitch)
 Vue.component('j-table-header', JTableHeader)
 Vue.component('j-table-line', JTableLine)
 
+Vue.filter('truncate', (value, length, omission) => {
+  const filterLength = length ? parseInt(length, 10) : 5
+  const filterOmission = omission ? omission.toString() : '...'
+  if (value.length <= filterLength) return value
+  return value.substring(0, filterLength) + filterOmission
+})
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')
