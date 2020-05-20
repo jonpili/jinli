@@ -18,12 +18,12 @@
         //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
           el-collapse(v-model="activeSections")
-            j-table-header.ml-600(:columns="visibleColumns", :sortRule="sortRule", :sortOrder="sortOrder", @sortTasks="sortTasks")
+            j-table-header.ml-600(:columns="visibleColumns", :sortKeyname="sortKeyname", :sortOrder="sortOrder", @sortTasks="sortTasks")
             draggable
               .not-sectioned-item
                 task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
                                   :columns="visibleColumns",
-                                  :sortRule="sortRule",
+                                  :sortKeyname="sortKeyname",
                                   :sortOrder="sortOrder",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
@@ -44,7 +44,7 @@
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.keyName])",
                                   :columns="visibleColumns",
-                                  :sortRule="sortRule",
+                                  :sortKeyname="sortKeyname",
                                   :sortOrder="sortOrder",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
@@ -246,7 +246,7 @@ export default {
           visibleSubtasks: false
         }]
       },
-      sortRule: '',
+      sortKeyname: '',
       sortOrder: '',
       taskDetailModalContent: {},
       showTaskDetailModal: false
@@ -328,15 +328,15 @@ export default {
       subtask.completedAt = ''
     },
     sortTasks (columnKeyName) {
-      if (this.sortRule === columnKeyName) {
+      if (this.sortKeyname === columnKeyName) {
         if (this.sortOrder === 'asc') {
-          this.sortRule = ''
+          this.sortKeyname = ''
           this.sortOrder = ''
         } else {
           this.sortOrder = 'asc'
         }
       } else {
-        this.sortRule = columnKeyName
+        this.sortKeyname = columnKeyName
         this.sortOrder = 'desc'
       }
     },

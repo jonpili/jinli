@@ -5,8 +5,8 @@
       .action-space-quadruple(v-else-if="index === 1")
       el-input(:value="column.label | truncate", :style="{ width: (column.width - 16) + 'px' }", readonly)
       .action-space-half
-        j-icon-button(v-if="column.keyName === sortRule && sortOrder === 'desc'", genre="fas", value="sort-down", color="dark", @click="sortTasks(column.keyName)")
-        j-icon-button(v-else-if="column.keyName === sortRule && sortOrder === 'asc'", genre="fas", value="sort-up", color="dark", @click="sortTasks(column.keyName)")
+        j-icon-button(v-if="column.keyName === sortKeyname && sortOrder === 'desc'", genre="fas", value="sort-down", color="dark", @click="sortTasks(column.keyName)")
+        j-icon-button(v-else-if="column.keyName === sortKeyname && sortOrder === 'asc'", genre="fas", value="sort-up", color="dark", @click="sortTasks(column.keyName)")
         j-icon-button(v-else, genre="fas", value="sort", @click="sortTasks(column.keyName)")
 </template>
 
@@ -17,7 +17,7 @@ export default {
       type: Array,
       required: true
     },
-    sortRule: {
+    sortKeyname: {
       type: String,
       default: ''
     },

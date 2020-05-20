@@ -37,7 +37,7 @@ export default {
       type: Array,
       required: true
     },
-    sortRule: {
+    sortKeyname: {
       type: String,
       default: ''
     },
@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     sortedTasks () {
-      if (this.sortRule === '') {
+      if (this.sortKeyname === '') {
         return this.tasks
       } else {
         return this.sortTask(this.tasks, this.sortOrder)
@@ -62,8 +62,8 @@ export default {
     },
     sortTask (tasks, order) {
       return tasks.slice().sort((taskA, taskB) => {
-        const valueA = taskA.data[this.sortRule]
-        const valueB = taskB.data[this.sortRule]
+        const valueA = taskA.data[this.sortKeyname]
+        const valueB = taskB.data[this.sortKeyname]
         if (order === 'asc') {
           return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
         } else {
