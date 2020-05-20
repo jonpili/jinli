@@ -14,6 +14,7 @@
                          @addSection="addSection",
                          @addField="addField",
                          @deleteField="deleteField")
+        //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
           el-collapse(v-model="activeSections")
             draggable
