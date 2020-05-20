@@ -48,11 +48,15 @@ export default {
   },
   computed: {
     sortedTasks () {
-      if (this.sortKeyName === '') {
-        return this.tasks
-      } else {
-        return this.sortTask(this.tasks, this.sortOrder)
-      }
+      return this.tasks.slice().sort((taskA, taskB) => {
+        const valueA = taskA[this.sortKeyName]
+        const valueB = taskB[this.sortKeyName]
+        if (this.sortOrder === 'asc') {
+          return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
+        } else {
+          return (valueA < valueB) ? 1 : (valueA > valueB) ? -1 : 0
+        }
+      })
     }
   },
   methods: {
@@ -60,17 +64,7 @@ export default {
       const isMainTask = 'subtasks' in task
       this.$emit('completeTask', task, isMainTask)
     },
-    sortTask (tasks, order) {
-      return tasks.slice().sort((taskA, taskB) => {
-        const valueA = taskA[this.sortKeyName]
-        const valueB = taskB[this.sortKeyName]
-        if (order === 'asc') {
-          return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
-        } else {
-          return (valueA < valueB) ? 1 : (valueA > valueB) ? -1 : 0
-        }
-      })
-    },
+
     filterSubtasks (subtasks) {
       return subtasks.filter((subtask) => {
         return subtask.deletedAt === '' && subtask.completedAt === ''

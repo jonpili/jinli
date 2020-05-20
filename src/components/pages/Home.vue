@@ -318,8 +318,8 @@ export default {
     },
     sortTasks (columnKeyName) {
       if (this.sortKeyName === columnKeyName && this.sortOrder === 'asc') {
-        this.sortKeyName = ''
-        this.sortOrder = ''
+        this.sortKeyName = 'createdAt'
+        this.sortOrder = 'desc'
       } else if (this.sortKeyName === columnKeyName && this.sortOrder === 'desc') {
         this.sortOrder = 'asc'
       } else {
