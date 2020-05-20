@@ -328,13 +328,11 @@ export default {
       subtask.completedAt = ''
     },
     sortTasks (columnKeyName) {
-      if (this.sortKeyName === columnKeyName) {
-        if (this.sortOrder === 'asc') {
-          this.sortKeyName = ''
-          this.sortOrder = ''
-        } else {
-          this.sortOrder = 'asc'
-        }
+      if (this.sortKeyName === columnKeyName && this.sortOrder === 'asc') {
+        this.sortKeyName = ''
+        this.sortOrder = ''
+      } else if (this.sortKeyName === columnKeyName && this.sortOrder === 'desc') {
+        this.sortOrder = 'asc'
       } else {
         this.sortKeyName = columnKeyName
         this.sortOrder = 'desc'
