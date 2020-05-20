@@ -80,11 +80,10 @@ export default {
         { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
       ],
       sectionList: [
-        { id: 1, deletedAt: '', label: '', keyName: 'notSectioned' },
-        { id: 2, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
-        { id: 3, deletedAt: '', label: '5/04~20のタスク', keyName: 'section2' }
+        { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
+        { id: 2, deletedAt: '', label: '5/04~20のタスク', keyName: 'section2' }
       ],
-      activeSections: [2, 3],
+      activeSections: [1, 2],
       editingSectionId: '',
       taskTotalNumber: 6,
       subtaskTotalNumber: 3,
@@ -261,7 +260,7 @@ export default {
     },
     filterSections (sections) {
       return sections.filter((section) => {
-        return section.keyName !== 'notSectioned' && section.deletedAt === ''
+        return section.deletedAt === ''
       })
     },
     filterTasks (tasks) {
