@@ -12,7 +12,8 @@
                          :columns="filteredColumns",
                          @addTask="addTask",
                          @addSection="addSection",
-                         @addField="addField",
+                         @addField="addField",,
+                         @rearrangeColumns="rearrangeColumns"
                          @deleteField="deleteField")
         //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
@@ -268,6 +269,9 @@ export default {
       return tasks.filter((task) => {
         return task.deletedAt === '' && task.completedAt === ''
       })
+    },
+    rearrangeColumns (newOrderColumns) {
+      this.columnList = newOrderColumns
     },
     completeTask (task, isMainTask) {
       task.completedAt = Date()

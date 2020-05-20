@@ -11,12 +11,14 @@
         span(class="el-dropdown-link")
           el-button(icon="el-icon-notebook-2", size="mini") フィールドを編集
         el-dropdown-menu(slot="dropdown")
-          .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
-            el-dropdown-item(:command="column").column-label {{ column.label | truncate }}
-            j-switch.mx-200(v-model="column.visible")
-          hr.my-100
-          .field-item
-            el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
+          draggable(v-model="rearrangedColumnns")
+            .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
+              j-icon-button.mx-200(genre="fas", value="grip-vertical", type="grab")
+              el-dropdown-item(:command="column").column-label {{ column.label | truncate }}
+              j-switch.mx-200(v-model="column.visible")
+            hr.my-100
+            .field-item
+              el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
     j-modal(v-if="visibleFieldModal", @closeModal="closeFieldModal")
       template(v-slot:header)
         .fw-bold 「{{ selectedField.label | truncate }}」フィールドの編集
@@ -34,7 +36,12 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+
 export default {
+  components: {
+    draggable
+  },
   props: {
     sectionList: {
       type: Array,
@@ -76,6 +83,14 @@ export default {
         return task.data.name === ''
       })
       return emptyTasks.length > 0
+    },
+    rearrangedColumnns: {
+      get () {
+        return this.columns
+      },
+      set (newOrderColumns) {
+        this.$emit('rearrangeColumns', newOrderColumns)
+      }
     }
   },
   methods: {
