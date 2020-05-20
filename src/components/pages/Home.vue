@@ -89,8 +89,8 @@ export default {
         { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 128, visible: false, order: 5 }
       ],
       sections: [
-      { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
-      { id: 2, deletedAt: '', label: '5/04~20のタスク', keyName: 'section2' }
+        { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
+        { id: 2, deletedAt: '', label: '5/04~20のタスク', keyName: 'section2' }
       ],
       activeSections: [1, 2],
       editingSectionId: '',
@@ -267,7 +267,7 @@ export default {
   },
   methods: {
     addSection () {
-      const newSectionId = this.sections.length
+      const newSectionId = this.sections.length + 1
       const newSectionValue = 'section' + newSectionId
       this.sections.push({
         id: newSectionId,
