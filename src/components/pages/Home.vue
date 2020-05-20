@@ -267,7 +267,7 @@ export default {
       this.columns.push(field)
       this.sections.forEach((section) => {
         this.tableData[section.keyName].forEach((task) => {
-          this.$set(task.data, field.keyName, '')
+          this.$set(task, field.keyName, '')
         })
       })
     },
