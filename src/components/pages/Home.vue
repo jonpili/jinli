@@ -103,7 +103,7 @@ export default {
             deletedAt: '',
             liked: true,
             data: {
-              name: 'JavaScriptの勉強',
+              name: 'JavaScriptで個人開発',
               person: 'ジョニー',
               deadline: new Date(2020, 4, 24),
               tag: '個人学習',
@@ -117,7 +117,7 @@ export default {
                 data: {
                   name: '本を読む',
                   person: 'ジョニー',
-                  deadline: new Date(2020, 4, 24),
+                  deadline: new Date(2020, 4, 3),
                   tag: '個人学習',
                   other: ''
                 }
@@ -127,7 +127,7 @@ export default {
                 deletedAt: '',
                 liked: true,
                 data: {
-                  name: 'JSのみでアプリを作ってみる',
+                  name: 'アプリを作ってみる',
                   person: 'ジョニー',
                   deadline: new Date(2020, 4, 24),
                   tag: '個人学習',
