@@ -19,7 +19,7 @@
             el-button(@click="addField", icon="el-icon-plus", size="mini", type="text") フィールドを追加
     j-modal(v-if="visibleFieldModal", @closeModal="closeFieldModal")
       template(v-slot:header)
-        .fw-bold 「{{ selectedField.label }}」フィールドの編集
+        .fw-bold 「{{ selectedField.label | truncate }}」フィールドの編集
         j-icon-button.ml-a(genre="far", value="trash-alt", @click="deleteField")
       template
         .field-item.py-100
