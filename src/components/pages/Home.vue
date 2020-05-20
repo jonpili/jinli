@@ -9,19 +9,20 @@
           content-header(:sections="filterSections(sections)",
                          :tableData="tableData",
                          :taskTotalNumber="taskTotalNumber",
-                         :columns="visibleColumns",
+                         :columns="notDeletedColumns",
                          @addTask="addTask",
                          @addSection="addSection",
-                         @addField="addField",
+                         @addField="addField",,
+                         @changeFieldOrder="changeFieldOrder"
                          @deleteField="deleteField")
         //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
           el-collapse(v-model="activeSections")
-            j-table-header.ml-600(:columns="visibleColumns", :sortRule="sortRule", :sortOrder="sortOrder", @sortTasks="sortTasks")
+            j-table-header.ml-600(:columns="arrangeAsOrder(visibleColumns)", :sortRule="sortRule", :sortOrder="sortOrder", @sortTasks="sortTasks")
             draggable
               .not-sectioned-item
                 task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                  :columns="visibleColumns",
+                                  :columns="arrangeAsOrder(visibleColumns)",
                                   :sortRule="sortRule",
                                   :sortOrder="sortOrder",
                                   @completeTask="completeTask",
@@ -43,7 +44,7 @@
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.keyName])",
-                                  :columns="visibleColumns",
+                                  :columns="arrangeAsOrder(visibleColumns)",
                                   :sortRule="sortRule",
                                   :sortOrder="sortOrder",
                                   @completeTask="completeTask",
@@ -52,7 +53,7 @@
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :columns="notDeletedColumns",
+                            :columns="arrangeAsOrder(notDeletedColumns)",
                             :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
@@ -81,11 +82,11 @@ export default {
   data () {
     return {
       columns: [
-        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 256, visible: true },
-        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 128, visible: true },
-        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '日付', typeValue: 'date', width: 128, visible: true },
-        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 128, visible: true },
-        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 128, visible: false }
+        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 256, visible: true, order: 1 },
+        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 128, visible: true, order: 2 },
+        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '日付', typeValue: 'date', width: 128, visible: true, order: 3 },
+        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 128, visible: true, order: 4 },
+        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 128, visible: false, order: 5 }
       ],
       sections: [
       { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
@@ -227,14 +228,14 @@ export default {
     }
   },
   computed: {
-    visibleColumns () {
-      return this.columns.filter((column) => {
-        return column.deletedAt === '' && column.visible
-      })
-    },
     notDeletedColumns () {
       return this.columns.filter((column) => {
         return column.deletedAt === ''
+      })
+    },
+    visibleColumns () {
+      return this.columns.filter((column) => {
+        return column.deletedAt === '' && column.visible
       })
     }
   },
@@ -282,6 +283,30 @@ export default {
       return tasks.filter((task) => {
         return task.deletedAt === '' && task.completedAt === ''
       })
+    },
+    arrangeAsOrder (values) {
+      return values.slice().sort((valueA, valueB) => {
+        return valueA.order - valueB.order
+      })
+    },
+    changeFieldOrder (oldFieldOrder, newFieldOrder) {
+      if (oldFieldOrder < newFieldOrder) {
+        this.columns.forEach((column) => {
+          if (column.order === oldFieldOrder) {
+            column.order = newFieldOrder
+          } else if (column.order > oldFieldOrder && column.order <= newFieldOrder) {
+            column.order -= 1
+          }
+        })
+      } else if (oldFieldOrder > newFieldOrder) {
+        this.columns.forEach((column) => {
+          if (column.order === oldFieldOrder) {
+            column.order = newFieldOrder
+          } else if (column.order < oldFieldOrder && column.order >= newFieldOrder) {
+            column.order += 1
+          }
+        })
+      }
     },
     completeTask (task, isMainTask) {
       task.completedAt = Date()
