@@ -95,19 +95,20 @@ export default {
   },
   methods: {
     addTask () {
+      //- TODO: フィールドを追加しても正しい空のタスクが追加されるように
       const emptyTask = {
         id: this.taskTotalNumber+ 1,
+        createdAt: new Date(),
         completedAt: '',
         deletedAt: '',
         liked: false,
-        data: {
-          name: '',
-          person: '',
-          deadline: '',
-          tag: '',
-          other: ''
-        },
-        subtasks: []
+        name: '',
+        person: '',
+        deadline: '',
+        tag: '',
+        other: '',
+        subtasks: [],
+        visibleSubtasks: false
       }
       if (this.selectedSectionValue === '') {
         this.$emit('addTask', 'notSectioned', emptyTask)
