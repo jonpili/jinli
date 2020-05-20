@@ -6,7 +6,7 @@
     .task-action-space
       j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask")
     template(v-for="(column, index) in columns")
-      el-input(v-model="task.data[column.value]", :style="{ width: column.width + 'px' }")
+      el-input(v-model="task.data[column.keyName]", :style="{ width: column.width + 'px' }")
       span(v-if="index === 0")
         .task-action-space(v-if="type === 'task'")
           div(v-if="filterSubtasks(task.subtasks).length > 0")

@@ -11,12 +11,12 @@
         j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
     hr
     el-main
-      .fs-600.fw-bold.mb-400 {{ task.data[columnList[0].value] }}
+      .fs-600.fw-bold.mb-400 {{ task.data[columnList[0].keyName] }}
       el-row.mb-200(v-for="column in columnList.slice(1)", :key="column.id")
         el-col.pt-100(:span="6")
           span {{ column.label | truncate }}
         el-col(:span="18")
-          el-input(v-model="task.data[column.value]")
+          el-input(v-model="task.data[column.keyName]")
       .mt-200(v-if="'subtasks' in task")
         .mt-500(v-if="filterSubtasks(task.subtasks).length > 0")
           .mb-100 サブタスク
