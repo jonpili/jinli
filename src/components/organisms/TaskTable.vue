@@ -62,8 +62,8 @@ export default {
     },
     sortTask (tasks, order) {
       return tasks.slice().sort((taskA, taskB) => {
-        const valueA = taskA.data[this.sortKeyName]
-        const valueB = taskB.data[this.sortKeyName]
+        const valueA = taskA[this.sortKeyName]
+        const valueB = taskB[this.sortKeyName]
         if (order === 'asc') {
           return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
         } else {

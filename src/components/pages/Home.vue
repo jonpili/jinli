@@ -101,37 +101,31 @@ export default {
             completedAt: '',
             deletedAt: '',
             liked: true,
-            data: {
-              name: 'JavaScriptで個人開発',
-              person: 'ジョニー',
-              deadline: new Date(2020, 4, 24),
-              tag: '個人学習',
-              other: ''
-            },
+            name: 'JavaScriptで個人開発',
+            person: 'ジョニー',
+            deadline: new Date(2020, 4, 24),
+            tag: '個人学習',
+            other: '',
             subtasks: [{
                 id: 1,
                 completedAt: '',
                 deletedAt: '',
                 liked: false,
-                data: {
-                  name: '本を読む',
-                  person: 'ジョニー',
-                  deadline: new Date(2020, 4, 3),
-                  tag: '個人学習',
-                  other: ''
-                }
+                name: '本を読む',
+                person: 'ジョニー',
+                deadline: new Date(2020, 4, 3),
+                tag: '個人学習',
+                other: ''
               }, {
                 id: 2,
                 completedAt: '',
                 deletedAt: '',
                 liked: true,
-                data: {
-                  name: 'アプリを作ってみる',
-                  person: 'ジョニー',
-                  deadline: new Date(2020, 4, 24),
-                  tag: '個人学習',
-                  other: ''
-                }
+                name: 'アプリを作ってみる',
+                person: 'ジョニー',
+                deadline: new Date(2020, 4, 24),
+                tag: '個人学習',
+                other: ''
             }],
             visibleSubtasks: false
         }],
@@ -140,37 +134,31 @@ export default {
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'タスクの表示/追加/変更',
-            person: 'Charly',
-            deadline: new Date(2020, 3, 16),
-            tag: 'MVP',
-            other: ''
-          },
+          name: 'タスクの表示/追加/変更',
+          person: 'Charly',
+          deadline: new Date(2020, 3, 16),
+          tag: 'MVP',
+          other: '',
           subtasks: [{
               id: 3,
               completedAt: '',
               deletedAt: '',
               liked: false,
-              data: {
-                name: '新規ページの作成/タスクの表示',
-                person: 'Charly',
-                deadline: new Date(2020, 3, 15),
-                tag: 'MVP',
-                other: ''
-              },
+              name: '新規ページの作成/タスクの表示',
+              person: 'Charly',
+              deadline: new Date(2020, 3, 15),
+              tag: 'MVP',
+              other: ''
             }, {
               id: 4,
               completedAt: '',
               deletedAt: '',
               liked: false,
-              data: {
-                name: 'タスクの追加/変更',
-                person: 'Charly',
-                deadline: new Date(2020, 3, 16),
-                tag: 'MVP',
-                other: ''
-              }
+              name: 'タスクの追加/変更',
+              person: 'Charly',
+              deadline: new Date(2020, 3, 16),
+              tag: 'MVP',
+              other: ''
           }],
           visibleSubtasks: false
         }, {
@@ -178,13 +166,11 @@ export default {
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'セクションの表示/追加/変更',
-            person: 'Adam',
-            deadline: new Date(2020, 3, 17),
-            tag: 'MVP',
-            other: ''
-          },
+          name: 'セクションの表示/追加/変更',
+          person: 'Adam',
+          deadline: new Date(2020, 3, 17),
+          tag: 'MVP',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }, {
@@ -192,13 +178,11 @@ export default {
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'セクションとタスクの紐付け',
-            person: 'Bob',
-            deadline: new Date(2020, 3, 20),
-            tag: 'MVP',
-            other: ''
-          },
+          name: 'セクションとタスクの紐付け',
+          person: 'Bob',
+          deadline: new Date(2020, 3, 20),
+          tag: 'MVP',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }],
@@ -207,13 +191,11 @@ export default {
           completedAt: '',
           deletedAt: '',
           liked: true,
-          data: {
-            name: 'タスクへのいいね',
-            person: 'いいだ',
-            deadline: new Date(2020, 4, 4),
-            tag: '最終目標',
-            other: ''
-          },
+          name: 'タスクへのいいね',
+          person: 'いいだ',
+          deadline: new Date(2020, 4, 4),
+          tag: '最終目標',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }, {
@@ -221,13 +203,11 @@ export default {
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'タスク/セクションの削除',
-            person: 'あかさか',
-            deadline: new Date(2020, 4, 5),
-            tag: '最終目標',
-            other: ''
-          },
+          name: 'タスク/セクションの削除',
+          person: 'あかさか',
+          deadline: new Date(2020, 4, 5),
+          tag: '最終目標',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }, {
@@ -235,13 +215,11 @@ export default {
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'フィールドの表示/追加/変更/削除',
-            person: 'うちやま',
-            deadline: new Date(2020, 4, 20),
-            tag: 'ストレッチ目標',
-            other: ''
-          },
+          name: 'フィールドの表示/追加/変更/削除',
+          person: 'うちやま',
+          deadline: new Date(2020, 4, 20),
+          tag: 'ストレッチ目標',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }]

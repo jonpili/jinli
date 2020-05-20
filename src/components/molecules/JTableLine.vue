@@ -6,8 +6,8 @@
     .task-action-space
       j-icon-button(genre="far", value="check-circle", hover-color="success", @click="completeTask")
     template(v-for="(column, index) in columns")
-      el-input(v-if="column.typeValue === 'string'", v-model="task.data[column.keyName]", :style="{ width: column.width + 'px' }")
-      el-date-picker(v-else-if="column.typeValue === 'date'", v-model="task.data[column.keyName]", format="M/d", :style="{ width: column.width + 'px' }")
+      el-input(v-if="column.typeValue === 'string'", v-model="task[column.keyName]", :style="{ width: column.width + 'px' }")
+      el-date-picker(v-else-if="column.typeValue === 'date'", v-model="task[column.keyName]", format="M/d", :style="{ width: column.width + 'px' }")
       span(v-if="index === 0")
         .task-action-space(v-if="type === 'task'")
           div(v-if="filterSubtasks(task.subtasks).length > 0")
