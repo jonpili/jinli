@@ -51,10 +51,10 @@ export default {
       return this.tasks.slice().sort((taskA, taskB) => {
         const valueA = taskA[this.sortKeyName]
         const valueB = taskB[this.sortKeyName]
-        if (this.sortOrder === 'asc') {
-          return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
-        } else {
+        if (this.sortOrder === 'desc') {
           return (valueA < valueB) ? 1 : (valueA > valueB) ? -1 : 0
+        } else {
+          return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
         }
       })
     }

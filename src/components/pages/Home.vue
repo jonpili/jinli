@@ -317,11 +317,11 @@ export default {
       subtask.completedAt = ''
     },
     sortTasks (columnKeyName) {
-      if (this.sortKeyName === columnKeyName && this.sortOrder === 'asc') {
+      if (this.sortKeyName === columnKeyName && this.sortOrder === 'desc') {
+        this.sortOrder = 'asc'
+      } else if (this.sortKeyName === columnKeyName && this.sortOrder === 'asc') {
         this.sortKeyName = 'createdAt'
         this.sortOrder = 'desc'
-      } else if (this.sortKeyName === columnKeyName && this.sortOrder === 'desc') {
-        this.sortOrder = 'asc'
       } else {
         this.sortKeyName = columnKeyName
         this.sortOrder = 'desc'
