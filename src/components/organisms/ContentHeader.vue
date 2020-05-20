@@ -109,13 +109,14 @@ export default {
       const emptyField = {
         id: emptyFieldId,
         deletedAt: '',
-        label: '未設定',
+        label: '（未設定）',
         keyName: 'field' + emptyFieldId,
         typeLabel: '文字列',
         typeValue: 'string',
         width: 120,
         visible: true
       }
+      this.openFieldModal(emptyField)
       this.$emit('addField', emptyField)
     },
     deleteField () {
