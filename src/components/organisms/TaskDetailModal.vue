@@ -20,8 +20,8 @@
           el-date-picker.col-item(v-else-if="column.typeValue === 'date'", v-model="task.data[column.keyName]", format="M/d")
       .mt-200(v-if="'subtasks' in task")
         .mt-500(v-if="filterSubtasks(task.subtasks).length > 0")
-          .mb-50 サブタスク
-          hr.mb-50
+          .mb-100 サブタスク
+          hr
         div(v-for="subtask in filterSubtasks(task.subtasks)")
           .task-action-space
             j-icon-button(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask)")
