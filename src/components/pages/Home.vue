@@ -9,14 +9,17 @@
           content-header(:sectionList="filterSections(sectionList)",
                          :tableData="tableData",
                          :taskTotalNumber="taskTotalNumber",
-                         :columns="columnList",
+                         :columns="filteredColumns",
                          @addTask="addTask",
-                         @addSection="addSection")
+                         @addSection="addSection",
+                         @addField="addField",
+                         @deleteField="deleteField")
+        //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
           el-collapse(v-model="activeSections")
             draggable
               task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                :columns="columnList",
+                                :columns="filteredColumns",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
@@ -34,16 +37,15 @@
                              size="medium",
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
-                task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
-                                  :columns="columnList",
-                                  :sectionValue="section.value",
+                task-table.mt-100(:tasks="filterTasks(tableData[section.keyName])",
+                                  :columns="filteredColumns",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :columnList="columnList",
+                            :columnList="filteredColumns",
                             :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
@@ -72,15 +74,15 @@ export default {
   data () {
     return {
       columnList: [
-        { id: 1, label: 'タスク名', value: 'name', width: 240, visible: true },
-        { id: 2, label: '担当者', value: 'person', width: 100, visible: true },
-        { id: 3, label: '期日', value: 'deadline', width: 100, visible: true },
-        { id: 4, label: 'タグ', value: 'tag', width: 100, visible: true },
-        { id: 5, label: 'その他', value: 'other', width: 100, visible: false }
+        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
+        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
       ],
       sectionList: [
-        { id: 1, deletedAt: '', label: '4/15~29のタスク', value: 'section1' },
-        { id: 2, deletedAt: '', label: '5/04~20のタスク', value: 'section2' }
+        { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
+        { id: 2, deletedAt: '', label: '5/04~20のタスク', keyName: 'section2' }
       ],
       activeSections: [1, 2],
       editingSectionId: '',
@@ -215,6 +217,13 @@ export default {
       showTaskDetailModal: false
     }
   },
+  computed: {
+    filteredColumns () {
+      return this.columnList.filter((column) => {
+        return column.deletedAt === ''
+      })
+    }
+  },
   methods: {
     addSection () {
       const newSectionId = this.sectionList.length + 1
@@ -223,7 +232,7 @@ export default {
         id: newSectionId,
         deletedAt: '',
         label: 'セクション' + newSectionId,
-        value: newSectionValue
+        keyName: newSectionValue
       })
       this.activeSections.push(newSectionId)
       this.$set(this.tableData, newSectionValue, [])
@@ -235,6 +244,14 @@ export default {
     addSubtask (task, subtask) {
       task.subtasks.push(subtask)
       this.subtaskTotalNumber += 1
+    },
+    addField (field) {
+      this.columnList.push(field)
+      this.sectionList.forEach((section) => {
+        this.tableData[section.keyName].forEach((task) => {
+          this.$set(task.data, field.keyName, '')
+        })
+      })
     },
     editSectionTitle (id) {
       this.editingSectionId = id
@@ -292,6 +309,30 @@ export default {
     deleteTask (task) {
       task.deletedAt = Date()
       this.showTaskDetailModal = false
+    },
+    deleteField (fieldValue) {
+      const targetField = this.columnList.find((column) =>{
+        return column.keyName === fieldValue
+      })
+      this.$confirm(
+        '紐付いた値を含む「' + targetField.label + '」のすべてが削除されます。',
+        'フィールドを削除してもよろしいですか？',
+        {
+          confirmButtonText: 'フィールドを削除',
+          cancelButtonText: 'キャンセル',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: targetField.label + 'は削除されました'
+          })
+          targetField.deletedAt = Date()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '削除はキャンセルされました'
+          })
+        })
     },
     switchLiked (task) {
       if (task.liked) {
