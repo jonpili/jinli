@@ -4,7 +4,7 @@
       el-button(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
       el-button.ml-100(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus", size="mini") タスクを追加
       el-select.ml-100(v-model="selectedSectionValue", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
-        el-option(v-for="section in sectionList", :key="section.id", :label="section.label", :value="section.value")
+        el-option(v-for="section in sectionList", :key="section.id", :label="section.label | truncate(15)", :value="section.value")
       el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
     span.edit-action-space
       el-dropdown(trigger="click", @command="openFieldModal")
@@ -12,7 +12,7 @@
           el-button(icon="el-icon-notebook-2", size="mini") フィールドを編集
         el-dropdown-menu(slot="dropdown")
           .field-item.px-100(v-for="column in columns", v-if="column.id !== 1")
-            el-dropdown-item(:command="column").column-label {{ column.label }}
+            el-dropdown-item(:command="column").column-label {{ column.label | truncate }}
             j-switch.mx-200(v-model="column.visible")
           hr.my-100
           .field-item
@@ -113,7 +113,7 @@ export default {
         value: 'field' + emptyFieldId,
         typeLabel: '文字列',
         typeValue: 'string',
-        width: 100,
+        width: 120,
         visible: true
       }
       this.$emit('addField', emptyField)
