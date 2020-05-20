@@ -20,7 +20,7 @@
           el-collapse(v-model="activeSections")
             draggable
               task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                :columns="filteredColumns",
+                                :columns="orderedColumns",
                                 @completeTask="completeTask",
                                 @switchLiked="switchLiked",
                                 @openTaskDetailModal="openTaskDetailModal")
@@ -39,14 +39,14 @@
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.keyName])",
-                                  :columns="filteredColumns",
+                                  :columns="orderedColumns",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :columnList="filteredColumns",
+                            :columnList="orderedColumns",
                             :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
@@ -222,6 +222,11 @@ export default {
     filteredColumns () {
       return this.columnList.filter((column) => {
         return column.deletedAt === ''
+      })
+    },
+    orderedColumns () {
+      return this.filteredColumns.slice().sort((columnA, columnB) => {
+        return columnA.order - columnB.order
       })
     }
   },
