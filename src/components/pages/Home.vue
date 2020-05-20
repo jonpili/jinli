@@ -12,7 +12,8 @@
                          :columns="filteredColumns",
                          @addTask="addTask",
                          @addSection="addSection",
-                         @addField="addField",
+                         @addField="addField",,
+                         @changeFieldOrder="changeFieldOrder"
                          @deleteField="deleteField")
         //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
@@ -74,11 +75,11 @@ export default {
   data () {
     return {
       columnList: [
-        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
-        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
-        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
-        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
-        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
+        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true, order: 1 },
+        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true, order: 2 },
+        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true, order: 3 },
+        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true, order: 4 },
+        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false, order: 5 }
       ],
       sectionList: [
         { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
@@ -268,6 +269,25 @@ export default {
       return tasks.filter((task) => {
         return task.deletedAt === '' && task.completedAt === ''
       })
+    },
+    changeFieldOrder (oldFieldOrder, newFieldOrder) {
+      if (oldFieldOrder < newFieldOrder) {
+        this.columnList.forEach((column) => {
+          if (column.order === oldFieldOrder) {
+            column.order = newFieldOrder
+          } else if (column.order > oldFieldOrder && column.order <= newFieldOrder) {
+            column.order -= 1
+          }
+        })
+      } else if (oldFieldOrder > newFieldOrder) {
+        this.columnList.forEach((column) => {
+          if (column.order === oldFieldOrder) {
+            column.order = newFieldOrder
+          } else if (column.order < oldFieldOrder && column.order >= newFieldOrder) {
+            column.order += 1
+          }
+        })
+      }
     },
     completeTask (task, isMainTask) {
       task.completedAt = Date()
