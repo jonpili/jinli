@@ -1,7 +1,7 @@
 <template lang="pug">
   div.pl-600
     template(v-for="(column, index) in filterdColumns")
-      el-input.header(v-model="column.label", :style="{ width: column.width + 'px' }", readonly)
+      el-input.header(:value="column.label | truncate", :style="{ width: column.width + 'px' }", readonly)
       span(v-if="index === 0")
         .task-action-space-all
     draggable(group="tasks")

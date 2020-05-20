@@ -14,6 +14,7 @@
                          @addSection="addSection",
                          @addField="addField",
                          @deleteField="deleteField")
+        //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
           el-collapse(v-model="activeSections")
             draggable
@@ -36,7 +37,7 @@
                              size="medium",
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
-                task-table.mt-100(:tasks="filterTasks(tableData[section.value])",
+                task-table.mt-100(:tasks="filterTasks(tableData[section.keyName])",
                                   :columns="filteredColumns",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
@@ -73,18 +74,17 @@ export default {
   data () {
     return {
       columnList: [
-        { id: 1, deletedAt: '', label: 'タスク名', value: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
-        { id: 2, deletedAt: '', label: '担当者', value: 'person', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 3, deletedAt: '', label: '期日', value: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 4, deletedAt: '', label: 'タグ', value: 'tag', typeLabel: '文字列', typeValue: 'string', width: 100, visible: true },
-        { id: 5, deletedAt: '', label: 'その他', value: 'other', typeLabel: '文字列', typeValue: 'string', width: 100, visible: false }
+        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
+        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
+        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
       ],
       sectionList: [
-        { id: 1, deletedAt: '', label: '', value: 'notSectioned' },
-        { id: 2, deletedAt: '', label: '4/15~29のタスク', value: 'section1' },
-        { id: 3, deletedAt: '', label: '5/04~20のタスク', value: 'section2' }
+        { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
+        { id: 2, deletedAt: '', label: '5/04~20のタスク', keyName: 'section2' }
       ],
-      activeSections: [2, 3],
+      activeSections: [1, 2],
       editingSectionId: '',
       taskTotalNumber: 6,
       subtaskTotalNumber: 3,
@@ -232,7 +232,7 @@ export default {
         id: newSectionId,
         deletedAt: '',
         label: 'セクション' + newSectionId,
-        value: newSectionValue
+        keyName: newSectionValue
       })
       this.activeSections.push(newSectionId)
       this.$set(this.tableData, newSectionValue, [])
@@ -248,8 +248,8 @@ export default {
     addField (field) {
       this.columnList.push(field)
       this.sectionList.forEach((section) => {
-        this.tableData[section.value].forEach((task) => {
-          this.$set(task.data, field.value, '')
+        this.tableData[section.keyName].forEach((task) => {
+          this.$set(task.data, field.keyName, '')
         })
       })
     },
@@ -261,7 +261,7 @@ export default {
     },
     filterSections (sections) {
       return sections.filter((section) => {
-        return section.value !== 'notSectioned' && section.deletedAt === ''
+        return section.deletedAt === ''
       })
     },
     filterTasks (tasks) {
@@ -312,7 +312,7 @@ export default {
     },
     deleteField (fieldValue) {
       const targetField = this.columnList.find((column) =>{
-        return column.value === fieldValue
+        return column.keyName === fieldValue
       })
       this.$confirm(
         '紐付いた値を含む「' + targetField.label + '」のすべてが削除されます。',

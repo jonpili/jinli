@@ -25,6 +25,13 @@ Vue.component('j-modal', JModal)
 Vue.component('j-switch', JSwitch)
 Vue.component('j-task-line', JTaskLine)
 
+Vue.filter('truncate', (value, length, omission) => {
+  const filterLength = length ? parseInt(length, 10) : 5
+  const filterOmission = omission ? omission.toString() : '...'
+  if (value.length <= filterLength) return value
+  return value.substring(0, filterLength) + filterOmission
+})
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')
