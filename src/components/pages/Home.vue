@@ -98,6 +98,7 @@ export default {
       tableData: {
         notSectioned: [{
             id: 1,
+            createdAt: new Date(2020, 3, 13),
             completedAt: '',
             deletedAt: '',
             liked: true,
@@ -108,6 +109,7 @@ export default {
             other: '',
             subtasks: [{
                 id: 1,
+                createdAt: new Date(2020, 3, 13),
                 completedAt: '',
                 deletedAt: '',
                 liked: false,
@@ -118,6 +120,7 @@ export default {
                 other: ''
               }, {
                 id: 2,
+                createdAt: new Date(2020, 3, 13),
                 completedAt: '',
                 deletedAt: '',
                 liked: true,
@@ -131,6 +134,7 @@ export default {
         }],
         section1: [{
           id: 2,
+          createdAt: new Date(2020, 3, 13),
           completedAt: '',
           deletedAt: '',
           liked: false,
@@ -141,6 +145,7 @@ export default {
           other: '',
           subtasks: [{
               id: 3,
+              createdAt: new Date(2020, 3, 13),
               completedAt: '',
               deletedAt: '',
               liked: false,
@@ -151,6 +156,7 @@ export default {
               other: ''
             }, {
               id: 4,
+              createdAt: new Date(2020, 3, 13),
               completedAt: '',
               deletedAt: '',
               liked: false,
@@ -163,6 +169,7 @@ export default {
           visibleSubtasks: false
         }, {
           id: 3,
+          createdAt: new Date(2020, 3, 14),
           completedAt: '',
           deletedAt: '',
           liked: false,
@@ -175,6 +182,7 @@ export default {
           visibleSubtasks: false
         }, {
           id: 4,
+          createdAt: new Date(2020, 3, 15),
           completedAt: '',
           deletedAt: '',
           liked: false,
@@ -188,6 +196,7 @@ export default {
         }],
         section2: [{
           id: 5,
+          createdAt: new Date(2020, 4, 1),
           completedAt: '',
           deletedAt: '',
           liked: true,
@@ -200,6 +209,7 @@ export default {
           visibleSubtasks: false
         }, {
           id: 6,
+          createdAt: new Date(2020, 4, 2),
           completedAt: '',
           deletedAt: '',
           liked: false,
@@ -212,6 +222,7 @@ export default {
           visibleSubtasks: false
         }, {
           id: 7,
+          createdAt: new Date(2020, 4, 3),
           completedAt: '',
           deletedAt: '',
           liked: false,
@@ -224,8 +235,8 @@ export default {
           visibleSubtasks: false
         }]
       },
-      sortKeyName: '',
-      sortOrder: '',
+      sortKeyName: 'createdAt',
+      sortOrder: 'desc',
       taskDetailModalContent: {},
       showTaskDetailModal: false
     }

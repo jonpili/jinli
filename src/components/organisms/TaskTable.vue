@@ -39,11 +39,11 @@ export default {
     },
     sortKeyName: {
       type: String,
-      default: ''
+      default: 'createdAt'
     },
     sortOrder: {
       type: String,
-      default:''
+      default:'desc'
     }
   },
   computed: {
