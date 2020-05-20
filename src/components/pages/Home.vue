@@ -13,7 +13,7 @@
                          @addTask="addTask",
                          @addSection="addSection",
                          @addField="addField",,
-                         @changeFieldOrder="changeFieldOrder"
+                         @rearrangeColumns="rearrangeColumns"
                          @deleteField="deleteField")
         //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
@@ -75,7 +75,7 @@ export default {
   data () {
     return {
       columnList: [
-        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true},
+        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
         { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
         { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
         { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
@@ -270,7 +270,7 @@ export default {
         return task.deletedAt === '' && task.completedAt === ''
       })
     },
-    changeFieldOrder (newOrderColumns) {
+    rearrangeColumns (newOrderColumns) {
       this.columnList = newOrderColumns
     },
     completeTask (task, isMainTask) {

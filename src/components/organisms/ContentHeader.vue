@@ -89,7 +89,7 @@ export default {
         return this.columns
       },
       set (newOrderColumns) {
-        this.$emit('changeFieldOrder', newOrderColumns)
+        this.$emit('rearrangeColumns', newOrderColumns)
       }
     }
   },
@@ -129,8 +129,7 @@ export default {
         typeLabel: '文字列',
         typeValue: 'string',
         width: 120,
-        visible: true,
-        order: emptyFieldId
+        visible: true
       }
       this.openFieldModal(emptyField)
       this.$emit('addField', emptyField)
