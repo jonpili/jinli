@@ -28,7 +28,6 @@
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
-                hr
               el-collapse-item.mb-500(v-for="section in filterSections(sections)",
                                      :key="section.id",
                                      :title="section.label",
