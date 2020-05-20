@@ -4,7 +4,7 @@
       el-button(@click="addSection", icon="el-icon-plus", size="mini") セクションを追加
       el-button.ml-100(@click="addTask", :disabled="existEmptyTask", icon="el-icon-plus", size="mini") タスクを追加
       el-select.ml-100(v-model="selectedSectionValue", :disabled="existEmptyTask", placeholder="セクションを選択", size="mini", clearable)
-        el-option(v-for="section in sectionList", :key="section.id", :label="section.label | truncate(15)", :value="section.keyName")
+        el-option(v-for="section in sections", :key="section.id", :label="section.label | truncate(15)", :value="section.keyName")
       el-tag.ml-100(v-if="existEmptyTask", size="small", type="danger", effect="plain") 空のタスクが存在します
     span.edit-action-space
       el-dropdown(trigger="click", @command="openFieldModal")
@@ -43,7 +43,7 @@ export default {
     draggable
   },
   props: {
-    sectionList: {
+    sections: {
       type: Array,
       default: function () {
         return []
@@ -80,7 +80,7 @@ export default {
         return acc.concat(this.tableData[key])
       }, [])
       const emptyTasks = allTasks.filter((task) => {
-        return task.data.name === ''
+        return task.name === ''
       })
       return emptyTasks.length > 0
     },
@@ -95,19 +95,20 @@ export default {
   },
   methods: {
     addTask () {
+      //- TODO: フィールドを追加しても正しい空のタスクが追加されるように
       const emptyTask = {
         id: this.taskTotalNumber+ 1,
+        createdAt: new Date(),
         completedAt: '',
         deletedAt: '',
         liked: false,
-        data: {
-          name: '',
-          person: '',
-          deadline: '',
-          tag: '',
-          other: ''
-        },
-        subtasks: []
+        name: '',
+        person: '',
+        deadline: '',
+        tag: '',
+        other: '',
+        subtasks: [],
+        visibleSubtasks: false
       }
       if (this.selectedSectionValue === '') {
         this.$emit('addTask', 'notSectioned', emptyTask)

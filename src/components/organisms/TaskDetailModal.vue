@@ -11,12 +11,13 @@
         j-icon-button.mr-200(genre="fas", value="chevron-right", @click="closeTaskDetailModal")
     hr
     el-main
-      .fs-600.fw-bold.mb-400 {{ task.data[columnList[0].keyName] }}
-      el-row.mb-200(v-for="column in columnList.slice(1)", :key="column.id")
+      .fs-600.fw-bold.mb-400 {{ task[columns[0].keyName] }}
+      el-row.mb-200(v-for="column in columns.slice(1)", :key="column.id")
         el-col.pt-100(:span="6")
           span {{ column.label | truncate }}
         el-col(:span="18")
-          el-input(v-model="task.data[column.keyName]")
+          el-input.col-item(v-if="column.typeValue === 'string'", v-model="task[column.keyName]")
+          el-date-picker.col-item(v-else-if="column.typeValue === 'date'", v-model="task[column.keyName]", format="M/d")
       .mt-200(v-if="'subtasks' in task")
         .mt-500(v-if="filterSubtasks(task.subtasks).length > 0")
           .mb-100 サブタスク
@@ -25,7 +26,7 @@
           .task-action-space
             j-icon-button(v-if="subtask.completedAt === ''", genre="far", value="check-circle", hover-color="default", @click="completeSubtask(subtask)")
             j-icon-button(v-else, genre="far", value="check-circle", color="success", hover-color="success", @click="uncompleteSubtask(subtask)")
-          el-input.subtask-name(v-model="subtask.data.name")
+          el-input.subtask-name(v-model="subtask.name")
           .task-action-space
             j-icon-button(v-if="subtask.liked", genre="far", value="thumbs-up", color="primary", hover-color="primary", @click="switchLiked(subtask)")
           .task-action-space-double
@@ -43,7 +44,7 @@ export default {
         return {}
       }
     },
-    columnList: {
+    columns: {
       type: Array,
       default: function () {
         return []
@@ -119,6 +120,9 @@ export default {
     display: inline-block;
     width: 10%;
     text-align: center;
+  }
+  .col-item {
+    width: 100%;
   }
   .subtask-name {
     width: 80%;

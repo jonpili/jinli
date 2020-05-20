@@ -1,22 +1,18 @@
 <template lang="pug">
   div.pl-600
-    template(v-for="(column, index) in filterdColumns")
-      el-input.header(:value="column.label | truncate", :style="{ width: column.width + 'px' }", readonly)
-      span(v-if="index === 0")
-        .task-action-space-all
     draggable(group="tasks")
       transition-group(name="task-table", tag="div")
-        .task-table-item(v-for="task in tasks", :key="task.id")
-          j-task-line(:task="task",
-                      :columns="filterdColumns",
+        .task-table-item(v-for="task in sortedTasks", :key="task.id")
+          j-table-line(:task="task",
+                      :columns="columns",
                       @completeTask="completeTask",
                       @switchVisibleSubtasks="switchVisibleSubtasks",
                       @switchLiked="switchLiked",
                       @openTaskDetailModal="openTaskDetailModal")
           transition-group(name="subtask-table", tag="div")
             .subtask-table-item(v-if="task.visibleSubtasks", v-for="subtask in filterSubtasks(task.subtasks)", :key="subtask.id")
-              j-task-line(:task="subtask",
-                          :columns="filterdColumns",
+              j-table-line(:task="subtask",
+                          :columns="columns",
                           type="subtask",
                           @completeTask="completeTask",
                           @switchLiked="switchLiked",
@@ -40,12 +36,26 @@ export default {
     columns: {
       type: Array,
       required: true
+    },
+    sortKeyName: {
+      type: String,
+      default: 'createdAt'
+    },
+    sortOrder: {
+      type: String,
+      default:'desc'
     }
   },
   computed: {
-    filterdColumns () {
-      return this.columns.filter((column) => {
-        return column.visible
+    sortedTasks () {
+      return this.tasks.slice().sort((taskA, taskB) => {
+        const valueA = taskA[this.sortKeyName]
+        const valueB = taskB[this.sortKeyName]
+        if (this.sortOrder === 'desc') {
+          return (valueA < valueB) ? 1 : (valueA > valueB) ? -1 : 0
+        } else {
+          return (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0
+        }
       })
     }
   },
@@ -54,6 +64,7 @@ export default {
       const isMainTask = 'subtasks' in task
       this.$emit('completeTask', task, isMainTask)
     },
+
     filterSubtasks (subtasks) {
       return subtasks.filter((subtask) => {
         return subtask.deletedAt === '' && subtask.completedAt === ''
@@ -77,12 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .header ::v-deep .el-input__inner {
-    margin-left: $basespace-600 * 2;
-    border: none;
-  }
   ::v-deep .el-input__inner {
-    height: $basespace-600;
     border-radius: 0px;
   }
   .task-table-item {
@@ -104,9 +110,5 @@ export default {
   }
   .subtask-table-leave-to {
     opacity: 0;
-  }
-  .task-action-space-all {
-    display: inline-block;
-    width: $basespace-600 * 4;
   }
 </style>

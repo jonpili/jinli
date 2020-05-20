@@ -13,7 +13,8 @@ import App from './App.vue'
 import JIconButton from '@/components/atoms/JIconButton'
 import JModal from '@/components/atoms/JModal'
 import JSwitch from '@/components/atoms/JSwitch'
-import JTaskLine from '@/components/molecules/JTaskLine'
+import JTableHeader from '@/components/molecules/JTableHeader'
+import JTableLine from '@/components/molecules/JTableLine'
 
 library.add(fas, far, fab)
 
@@ -23,7 +24,8 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('j-icon-button', JIconButton)
 Vue.component('j-modal', JModal)
 Vue.component('j-switch', JSwitch)
-Vue.component('j-task-line', JTaskLine)
+Vue.component('j-table-header', JTableHeader)
+Vue.component('j-table-line', JTableLine)
 
 Vue.filter('truncate', (value, length, omission) => {
   const filterLength = length ? parseInt(length, 10) : 5

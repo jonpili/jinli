@@ -6,10 +6,10 @@
     el-main
       el-container
         el-header(height="28px")
-          content-header(:sectionList="filterSections(sectionList)",
+          content-header(:sections="filterSections(sections)",
                          :tableData="tableData",
                          :taskTotalNumber="taskTotalNumber",
-                         :columns="filteredColumns",
+                         :columns="notDeletedColumns",
                          @addTask="addTask",
                          @addSection="addSection",
                          @addField="addField",,
@@ -18,17 +18,21 @@
         //- TODO: 横にはみ出た場合にスクロールできるように
         el-main
           el-collapse(v-model="activeSections")
+            j-table-header.ml-600(:columns="visibleColumns", :sortKeyName="sortKeyName", :sortOrder="sortOrder", @sortTasks="sortTasks")
             draggable
-              task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
-                                :columns="filteredColumns",
-                                @completeTask="completeTask",
-                                @switchLiked="switchLiked",
-                                @openTaskDetailModal="openTaskDetailModal")
-              el-collapse-item(v-for="section in filterSections(sectionList)",
-                               :key="section.id",
-                               :title="section.label",
-                               :name="section.id",
-                               :disabled="judgeToEdit(section.id)")
+              .not-sectioned-item
+                task-table.mb-500(:tasks="filterTasks(tableData.notSectioned)",
+                                  :columns="visibleColumns",
+                                  :sortKeyName="sortKeyName",
+                                  :sortOrder="sortOrder",
+                                  @completeTask="completeTask",
+                                  @switchLiked="switchLiked",
+                                  @openTaskDetailModal="openTaskDetailModal")
+              el-collapse-item.mb-500(v-for="section in filterSections(sections)",
+                                     :key="section.id",
+                                     :title="section.label",
+                                     :name="section.id",
+                                     :disabled="judgeToEdit(section.id)")
                 template(slot="title")
                   j-icon-button(genre="fas", value="grip-vertical", type="grab")
                   .section-title-area.ml-200
@@ -39,14 +43,16 @@
                              :class="{ 'is-editing': judgeToEdit(section.id) }")
                   j-icon-button.ml-200(genre="far", value="trash-alt", @click.stop="deleteSection(section)")
                 task-table.mt-100(:tasks="filterTasks(tableData[section.keyName])",
-                                  :columns="filteredColumns",
+                                  :columns="visibleColumns",
+                                  :sortKeyName="sortKeyName",
+                                  :sortOrder="sortOrder",
                                   @completeTask="completeTask",
                                   @switchLiked="switchLiked",
                                   @openTaskDetailModal="openTaskDetailModal")
       transition(name="task-detail-modal")
         .task-detail-modal-area(v-if="showTaskDetailModal")
           task-detail-modal(:task="taskDetailModalContent",
-                            :columnList="filteredColumns",
+                            :columns="notDeletedColumns",
                             :subtaskTotalNumber="subtaskTotalNumber",
                             @completeTask="completeTask",
                             @uncompleteTask="uncompleteTask",
@@ -74,162 +80,184 @@ export default {
   },
   data () {
     return {
-      columnList: [
-        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 240, visible: true },
-        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
-        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
-        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 120, visible: true },
-        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 120, visible: false }
+      columns: [
+        { id: 1, deletedAt: '', label: 'タスク名', keyName: 'name', typeLabel: '文字列', typeValue: 'string', width: 256, visible: true },
+        { id: 2, deletedAt: '', label: '担当者', keyName: 'person', typeLabel: '文字列', typeValue: 'string', width: 128, visible: true },
+        { id: 3, deletedAt: '', label: '期日', keyName: 'deadline', typeLabel: '日付', typeValue: 'date', width: 128, visible: true },
+        { id: 4, deletedAt: '', label: '機能の開発区分', keyName: 'tag', typeLabel: '文字列', typeValue: 'string', width: 128, visible: true },
+        { id: 5, deletedAt: '', label: 'その他', keyName: 'other', typeLabel: '文字列', typeValue: 'string', width: 128, visible: false }
       ],
-      sectionList: [
+      sections: [
         { id: 1, deletedAt: '', label: '4/15~29のタスク', keyName: 'section1' },
         { id: 2, deletedAt: '', label: '5/04~20のタスク', keyName: 'section2' }
       ],
       activeSections: [1, 2],
       editingSectionId: '',
-      taskTotalNumber: 6,
-      subtaskTotalNumber: 3,
+      taskTotalNumber: 7,
+      subtaskTotalNumber: 4,
       tableData: {
         notSectioned: [{
             id: 1,
+            createdAt: new Date(2020, 3, 13),
             completedAt: '',
             deletedAt: '',
             liked: true,
-            data: {
-              name: 'JavaScriptの勉強',
-              person: 'ジョニー',
-              deadline: '5/24',
-              tag: '個人学習',
-              other: ''
-            },
+            name: 'JavaScriptで個人開発',
+            person: 'ジョニー',
+            deadline: new Date(2020, 4, 24),
+            tag: '個人学習',
+            other: '',
             subtasks: [{
                 id: 1,
+                createdAt: new Date(2020, 3, 13),
                 completedAt: '',
                 deletedAt: '',
                 liked: false,
-                data: {
-                  name: '本を読む',
-                  person: 'ジョニー',
-                  deadline: '5/24',
-                  tag: '個人学習',
-                  other: ''
-                }
+                name: '本を読む',
+                person: 'ジョニー',
+                deadline: new Date(2020, 4, 3),
+                tag: '個人学習',
+                other: ''
               }, {
                 id: 2,
+                createdAt: new Date(2020, 3, 13),
                 completedAt: '',
                 deletedAt: '',
                 liked: true,
-                data: {
-                  name: 'JSのみでアプリを作ってみる',
-                  person: 'ジョニー',
-                  deadline: '5/24',
-                  tag: '個人学習',
-                  other: ''
-                }
+                name: 'アプリを作ってみる',
+                person: 'ジョニー',
+                deadline: new Date(2020, 4, 24),
+                tag: '個人学習',
+                other: ''
             }],
             visibleSubtasks: false
         }],
         section1: [{
           id: 2,
+          createdAt: new Date(2020, 3, 13),
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'タスクの表示/追加/名前変更機能',
-            person: 'ジョニー',
-            deadline: '4/16',
-            tag: 'MVP',
-            other: ''
-          },
+          name: 'タスクの表示/追加/変更',
+          person: 'Charly',
+          deadline: new Date(2020, 3, 16),
+          tag: 'MVP',
+          other: '',
           subtasks: [{
               id: 3,
+              createdAt: new Date(2020, 3, 13),
               completedAt: '',
               deletedAt: '',
               liked: false,
-              data: {
-                name: '新規ページの作成',
-                person: 'ジョニー',
-                deadline: '5/24',
-                tag: 'MVP',
-                other: ''
-              }
+              name: '新規ページの作成/タスクの表示',
+              person: 'Charly',
+              deadline: new Date(2020, 3, 15),
+              tag: 'MVP',
+              other: ''
+            }, {
+              id: 4,
+              createdAt: new Date(2020, 3, 13),
+              completedAt: '',
+              deletedAt: '',
+              liked: false,
+              name: 'タスクの追加/変更',
+              person: 'Charly',
+              deadline: new Date(2020, 3, 16),
+              tag: 'MVP',
+              other: ''
           }],
           visibleSubtasks: false
         }, {
           id: 3,
+          createdAt: new Date(2020, 3, 14),
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'セクションの表示/追加/名前変更機能',
-            person: 'ジョニー',
-            deadline: '4/17',
-            tag: 'MVP',
-            other: ''
-          },
+          name: 'セクションの表示/追加/変更',
+          person: 'Adam',
+          deadline: new Date(2020, 3, 17),
+          tag: 'MVP',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }, {
           id: 4,
+          createdAt: new Date(2020, 3, 15),
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'セクションとタスクの紐付け',
-            person: 'ジョニー',
-            deadline: '4/20',
-            tag: 'MVP',
-            other: ''
-          },
+          name: 'セクションとタスクの紐付け',
+          person: 'Bob',
+          deadline: new Date(2020, 3, 20),
+          tag: 'MVP',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }],
         section2: [{
           id: 5,
+          createdAt: new Date(2020, 4, 1),
           completedAt: '',
           deletedAt: '',
           liked: true,
-          data: {
-            name: 'タスクへのいいね機能',
-            person: 'ジョニー',
-            deadline: '5/04',
-            tag: '開発目標',
-            other: ''
-          },
+          name: 'タスクへのいいね',
+          person: 'いいだ',
+          deadline: new Date(2020, 4, 4),
+          tag: '最終目標',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }, {
           id: 6,
+          createdAt: new Date(2020, 4, 2),
           completedAt: '',
           deletedAt: '',
           liked: false,
-          data: {
-            name: 'タスクの削除',
-            person: 'ジョニー',
-            deadline: '5/05',
-            tag: '開発目標',
-            other: ''
-          },
+          name: 'タスク/セクションの削除',
+          person: 'あかさか',
+          deadline: new Date(2020, 4, 5),
+          tag: '最終目標',
+          other: '',
+          subtasks: [],
+          visibleSubtasks: false
+        }, {
+          id: 7,
+          createdAt: new Date(2020, 4, 3),
+          completedAt: '',
+          deletedAt: '',
+          liked: false,
+          name: 'フィールドの表示/追加/変更/削除',
+          person: 'うちやま',
+          deadline: new Date(2020, 4, 20),
+          tag: 'ストレッチ目標',
+          other: '',
           subtasks: [],
           visibleSubtasks: false
         }]
       },
+      sortKeyName: 'createdAt',
+      sortOrder: 'desc',
       taskDetailModalContent: {},
       showTaskDetailModal: false
     }
   },
   computed: {
-    filteredColumns () {
-      return this.columnList.filter((column) => {
+    notDeletedColumns () {
+      return this.columns.filter((column) => {
         return column.deletedAt === ''
+      })
+    },
+    visibleColumns () {
+      return this.columns.filter((column) => {
+        return column.deletedAt === '' && column.visible
       })
     }
   },
   methods: {
     addSection () {
-      const newSectionId = this.sectionList.length + 1
+      const newSectionId = this.sections.length + 1
       const newSectionValue = 'section' + newSectionId
-      this.sectionList.push({
+      this.sections.push({
         id: newSectionId,
         deletedAt: '',
         label: 'セクション' + newSectionId,
@@ -247,10 +275,10 @@ export default {
       this.subtaskTotalNumber += 1
     },
     addField (field) {
-      this.columnList.push(field)
-      this.sectionList.forEach((section) => {
+      this.columns.push(field)
+      this.sections.forEach((section) => {
         this.tableData[section.keyName].forEach((task) => {
-          this.$set(task.data, field.keyName, '')
+          this.$set(task, field.keyName, '')
         })
       })
     },
@@ -271,7 +299,7 @@ export default {
       })
     },
     rearrangeColumns (newOrderColumns) {
-      this.columnList = newOrderColumns
+      this.columns = newOrderColumns
     },
     completeTask (task, isMainTask) {
       task.completedAt = Date()
@@ -287,6 +315,17 @@ export default {
     },
     uncompleteSubtask (subtask) {
       subtask.completedAt = ''
+    },
+    sortTasks (columnKeyName) {
+      if (this.sortKeyName === columnKeyName && this.sortOrder === 'desc') {
+        this.sortOrder = 'asc'
+      } else if (this.sortKeyName === columnKeyName && this.sortOrder === 'asc') {
+        this.sortKeyName = 'createdAt'
+        this.sortOrder = 'desc'
+      } else {
+        this.sortKeyName = columnKeyName
+        this.sortOrder = 'desc'
+      }
     },
     deleteSection (section) {
       this.$confirm(
@@ -315,7 +354,7 @@ export default {
       this.showTaskDetailModal = false
     },
     deleteField (fieldValue) {
-      const targetField = this.columnList.find((column) =>{
+      const targetField = this.columns.find((column) => {
         return column.keyName === fieldValue
       })
       this.$confirm(
@@ -359,7 +398,6 @@ export default {
 
 <style lang="scss" scoped>
   ::v-deep .el-collapse-item__header {
-    height: $basespace-500 * 2;
     font-size: $basespace-300;
   }
   ::v-deep .el-collapse-item__content {

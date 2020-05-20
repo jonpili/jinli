@@ -32,6 +32,7 @@ export default {
       'j-icon-button-default': props.color === 'default',
       'j-icon-button-primary': props.color === 'primary',
       'j-icon-button-success': props.color === 'success',
+      'j-icon-button-dark': props.color === 'dark',
       'j-icon-button-hover-default': props.hoverColor === 'default',
       'j-icon-button-hover-primary': props.hoverColor === 'primary',
       'j-icon-button-hover-success': props.hoverColor === 'success',
@@ -53,6 +54,9 @@ export default {
   }
   .j-icon-button-success {
     color: $basecolor-success;
+  }
+  .j-icon-button-dark {
+    color: $bdcolor-dark;
   }
   .j-icon-button-hover-default {
     &:hover {
