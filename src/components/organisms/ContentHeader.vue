@@ -139,9 +139,6 @@ export default {
       this.$emit('deleteField', this.selectedField.keyName)
       this.closeFieldModal()
     },
-    onDragEnd (event) {
-      this.$emit('changeFieldOrder', event.oldIndex + 2, event.newIndex + 2)
-    },
     openFieldModal (field) {
       this.selectedField = field
       this.visibleFieldModal = true
